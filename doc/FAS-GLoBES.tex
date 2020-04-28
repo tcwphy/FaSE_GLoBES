@@ -103,6 +103,19 @@ where $N_{para}$ is the number of model parameters.
 
 FASE includes three \texttt{c++} files: \textbf{model-input\_diag.c}, \textbf{model-input.c}, and \textbf{FASE\_GLoBES.c}. As shown in the previous paragraph, these files are for different service. In \textbf{model-input\_diag.c} and \textbf{model-input.c}, the user can assign the relation between the oscillation and model parameter sets. The difference between these two code is that in \textbf{model-input.c}, the user give the relation between these two parameter sets directly (\textit{e.g.}~Table~\ref{tab:TD_parameters} for tri-direct littlest seesaw), while in \textbf{model-input.c}, the mass matrix (\textit{e.g.}~Eq.~\ref{eq:mnu} for tir-direct littlest seesaw), which is provided by the user, can be diagonalised to obtain the corresponding oscillation-parameter values. 
 
+For different methods to include the model, we use different \texttt{c++} file. Adopting the mass matrix expressed by model parameters, we assign this model in \textbf{model-input\_diag.c}. In function \texttt{MtoS}, we give
+the mass matrix in the $3\times3$ complex matrix \texttt{Mass\_Matrix[]}.
+%
+Passing the complex matrix \texttt{Mass\_Matrix[]} into the function \texttt{STAN\_OSC}, we will get the corresponding oscillation parameters in an array \texttt{OSC\_PARAMS}, components of which are the value for $\theta_{12}$, $\theta_{13}$, $\theta_{23}$, $\delta$, $\Delta m_{21}^2$, and $\Delta m_{31}^2$. The expression of \texttt{Mass\_Matrix[]} is given by the user. For the first four components, values are given in the unit of \textbf{rad}, while the other two are in eV$^2$.  We can also assign the relation between oscillation and model parameters in \textbf{model-input.c}. The relations are given in \texttt{MtoS} as well.
+
+
+\subsection{Prior setting}\label{sec:prior}
+The \texttt{c++} file \textbf{FASE\_GLoBES.c} then will call these oscillation-parameter values and pass these to simulate the event spectrum. The $\chi^2$ value from priors is also given in \textbf{FASE\_GLoBES.c}. And these functions are given by the user.
+
+\subsection{Summary of API}
+
+\section{Examples}
+\subsection{Setup for a model}
 We now take the littlest seesaw model in the tri-direct approach as an example. In this model, the atmospheric and solar flavon vacuum alignments are $\langle\phi_{\text{atm}}\rangle\propto\left(1, \omega^2, \omega\right)^T$ and $\langle\phi_{\text{sol}}\rangle\propto\left(1, x, x\right)^T$,
 where  stands for a cube root of unity and the parameter $x$ is real because of the imposed CP symmetry. Under this model, the light left-handed Majorana neutrino mass matrix is given by
 \begin{equation}
@@ -141,8 +154,7 @@ model parameters                                 & $x$, $\eta$, $r$, $m_a$      
 \end{table}
 
 
-For different methods to include the model, we use different \texttt{c++} file. Adopting the mass matrix Eq.~\ref{eq:mnu}, we assign this model in \textbf{model-input\_diag.c}. In function \texttt{MtoS}, we give
-the mass matrix Eq.~\ref{eq:mnu} in the $3\times3$ complex matrix \texttt{Mass\_Matrix[]}.\vspace{0.5cm}
+
 
 \texttt{int MtoS(double OSC\_PARAMS[6],~double M\_para[])}\\
 \texttt{\{}
@@ -160,10 +172,10 @@ the mass matrix Eq.~\ref{eq:mnu} in the $3\times3$ complex matrix \texttt{Mass\_
     \texttt{return 0;}\\
 \texttt{\} }
 
-Passing the complex matrix \texttt{Mass\_Matrix[]} into the function \texttt{STAN\_OSC}, we will get the corresponding oscillation parameters in an array \texttt{OSC\_PARAMS}, components of which are the value for $\theta_{12}$, $\theta_{13}$, $\theta_{23}$, $\delta$, $\Delta m_{21}^2$, and $\Delta m_{31}^2$. The expression of \texttt{Mass\_Matrix[]} is given by the user. For the first four components, values are given in the unit of \textbf{rad}, while the other two are in eV$^2$. 
 
 
-We can also assign the relation between oscillation and model parameters Table~\ref{tab:TD_parameters} in \textbf{model-input.c}. The relations are given in \texttt{MtoS} as well.\vspace{0.5cm}
+
+
 
 \texttt{double MtoS(double osc\_para[6], double M\_para[])}\\
 \texttt{\{}\\
@@ -186,13 +198,6 @@ We can also assign the relation between oscillation and model parameters Table~\
 
 The functions \texttt{TDth12}, \texttt{TDth13}, \texttt{TDth23}, \texttt{TDdCP}, \texttt{TDdm21}, and \texttt{TDdm31} are included for obtaining the value of $\theta_{12}$, $\theta_{13}$, $\theta_{23}$, $\delta$, $\Delta m_{21}^2$, and $\Delta m_{31}^2$ according to Table~\ref{tab:TD_parameters}, respectively. 
 
-
-\subsection{Prior setting}\label{sec:prior}
-The \texttt{c++} file \textbf{FASE\_GLoBES.c} then will call these oscillation-parameter values and pass these to simulate the event spectrum. The $\chi^2$ value from priors is also given in \textbf{FASE\_GLoBES.c}. And these functions are given by the user.
-
-\subsection{Summary of API}
-
-\section{Examples}
 \subsection{Constraint of model parameters}
 %\subsection{Projection on the PMNS parameters}
 \begin{figure}[!h]%
