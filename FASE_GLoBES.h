@@ -47,8 +47,8 @@
 #include <gsl/gsl_vector.h>
 //#include <globes/globes.h>   /* GLoBES library */
 
-//#include "model-input_diag.h"
 #include "model-input.h"
+//#include "model-input.h"
 /*#define GLB_NU_FLAVOURS 3*/
 #define GLB_SIGMA_E 6        /* Index of non-standard parameter sigma_E */
 #define GLB_ETA 0
@@ -131,4 +131,3 @@ double glbChiSpectrumTilt3(int exp, int rule, int n_params, double *x, double *e
                            void *user_data);
 double FASE_prior_OSC(const glb_params in, void* user_data);
 double FASE_prior_model(const glb_params in, void* user_data);
-
