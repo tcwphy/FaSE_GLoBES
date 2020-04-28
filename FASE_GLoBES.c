@@ -51,8 +51,8 @@
 
 #include <globes/globes.h>   /* GLoBES library */
 #include"FASE_GLoBES.h"
-//#include"model-input_diag.h"
 #include"model-input.h"
+//#include"model-input.h"
 
 extern char **glb_param_names;
 
@@ -543,7 +543,7 @@ int FASE_glb_set_oscillation_parameters(glb_params p, void *user_data)  /*Mark2*
         mq[0] = fabs(osc_para[5]);
         mq[1] = fabs(osc_para[5])+osc_para[4];
         mq[2] = fabs(osc_para[5])+osc_para[5];
-        /*printf("in CSDN %g %g %g %g %g %g\n",th12,th13,th23,delta*180/M_PI,mq[1]-mq[0],mq[2]-mq[0]);*/
+//        printf("in CSDN %g %g %g %g %g %g\n",th12*180/M_PI,th13*180/M_PI,th23*180/M_PI,delta*180/M_PI,mq[1]-mq[0],mq[2]-mq[0]);
         /*printf("in CSDN %g %g %g %g %g %g\n",th12*180/M_PI,th13*180/M_PI,th23*180/M_PI,delta*180/M_PI,mq[1]-mq[0],mq[2]-mq[0]);*/
         
     }
@@ -844,26 +844,40 @@ double FASE_prior_OSC(const glb_params in, void* user_data) /*the prior is alway
     double fitvalue,centralvalue,inputerror;
     double osc_para[6];
     double M_para[N_M];
-    
+//         FILE* File_in=fopen("data/for_prior.dat", "w");
     /* Add oscillation parameter priors */
     if(PARA==MODEL){
-
-        for(i=0;i<N_M;i++) M_para[i] = in->osc->osc_params[i];
+/*
+        x   = glbGetOscParams(in,0);
+        eta = glbGetOscParams(in,1);
+        r   = glbGetOscParams(in,2);
+        ma  = glbGetOscParams(in,3);*/
+        
+//        for(i=0;i<N_M;i++) M_para[i] = in->osc->osc_params[i];
+        for(i=0;i<N_M;i++) M_para[i] = glbGetOscParams(in,i);
+//        printf("in OSC %g %g %g %g\n",M_para[0],M_para[1],M_para[2],M_para[3]);
+ 
         MtoS(osc_para, M_para);
-        pv+=model_restriction(M_para);}
+//         printf("in OSC %g %g %g %g %g %g\n",osc_para[0],osc_para[1],osc_para[2],osc_para[3],osc_para[4],osc_para[5]);
+//        printf("")
+            if (model_restriction(M_para)==1) return 1e8;
+        
+       }
+    else{for(i=0;i<6;i++) osc_para[i] = glbGetOscParams(in,i);}
 
     for(i=0;i<6;i++){
-
+        fitvalue=osc_para[i]; centralvalue=Central_prior[i];
         if(i==3){
             if(fitvalue>2*M_PI){int run; run=fitvalue/2/M_PI; fitvalue=fitvalue-run*2*M_PI;}
             else if(fitvalue<0){int run; run=-fitvalue/2/M_PI; run=run+1; fitvalue=fitvalue+run*2*M_PI;}}
-        fitvalue=osc_para[i]; centralvalue=Central_prior[i];
-        if(inputerror>1e-12) { if(fitvalue>centralvalue) {inputerror=UPPER_prior[i];}
-                       else {inputerror=LOWER_prior[i];}
-            pv+=square((centralvalue-fitvalue)/inputerror);
+         if(fitvalue>centralvalue) {inputerror=UPPER_prior[i];} else {inputerror=LOWER_prior[i];}
+           if(inputerror>1e-12) { pv+=square((centralvalue-fitvalue)/inputerror);
+//        fprintf(File_in,"%i %g %g %g %g\n",i,fitvalue,centralvalue,inputerror,pv);
+//        printf("in\n");
         }
+    
     }
-
+//    printf("in M pv %g\n",pv);
     /* Add matter parameter priors */
     for(i=0;i<glb_num_of_exps;i++){
         if(glbGetDensityProjectionFlag(p,i)==GLB_FREE)
@@ -875,6 +889,7 @@ double FASE_prior_OSC(const glb_params in, void* user_data) /*the prior is alway
         }}
     glbFreeProjection(p);
     glbFreeParams(input_errors);
+//    printf("in M pv %g\n",pv);
     return pv;
 }
 
@@ -909,3 +924,4 @@ double FASE_prior_model(const glb_params in, void* user_data)
     glbFreeParams(input_errors);
     return pv;
 }
+
