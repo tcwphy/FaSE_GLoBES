@@ -9,6 +9,7 @@
 \usepackage{amsmath}
 \usepackage{leftidx}
 \usepackage{multirow}
+\usepackage{enumerate}
 \title{\boldmath  Flavour Symmetry Embedded - GLoBES}
 
 
@@ -74,15 +75,38 @@ In this work, we will present our simulation tool \textbf{F}l\textbf{a}vour \tex
 
 \section{Overview FASE-GloBES}
 
+The FlAvor Symmetry Embedded (FASE) is a supplemental tool for General Long Baseline Experiment Simulator (GLoBES) in order to analysis how a leptonic flavour symmetry model can be tested in neutrino oscillation experiments. FASE is written in the \texttt{c/c++} language, and consist with three codes \textbf{FASE\_GLoBES.c}, \textbf{model-input\_diag.c} and \textbf{model-input.c}. The user defines the model in to \textbf{model-input\_diag.c} or \textbf{model-input.c}, while \textbf{FASE\_GLoBES.c} does not need to be touched. 
+
 \begin{figure}[!h]%
 \centering
-\includegraphics[width=5in]{Figs/FASE-chart-1_v1.pdf}
+\includegraphics[width=4.5in]{Figs/FASE-chart_1_v1.pdf}
 \caption{A scheme to correlate the model parameters with standard neutrino oscillation parameters. The error propagation is implemented in the simulation code up to the spectra analysis.}%
 \label{fig:FASE}
 \end{figure}
 
-The FASE-GLoBES is based on GLoBES as shown in Fig.~\ref{fig:FASE}, in which three parts are shown: 1. \textbf{the parameter translation} (the blue box), 2. \textbf{giving oscillation-parameter values} (the green box), and 3. \textbf{the $\chi^2$-value calculation} (the orange box). 
-The idea behind this flow chart Fig.~\ref{fig:FASE} is that given a set of value for model parameter, the corresponding values for oscillation parameters are obtained by a translation, which is assigned by the user in \textbf{model-input\_diag.c} or \textbf{model-input.c}. And then, through \textbf{FASE\_GLoBES.c}, these oscillation-parameter values are passed in to \textbf{GLoBES} library to simulate the event spectrum for evaluating the $\chi^2$ value. Using prior needs 
+
+The FASE-GLoBES is FASE working with GLoBES as shown in Fig.~\ref{fig:FASE}, in which three parts are shown: 1.~\textbf{the parameter translation} (the blue box), 2.~\textbf{giving oscillation-parameter values} (the green box), and 3.~\textbf{the $\chi^2$-value calculation} (the orange box). 
+The idea behind this flow chart Fig.~\ref{fig:FASE} is that given a set of value for model parameter, the corresponding values for oscillation parameters are obtained by a translation, which is assigned by the user in \textbf{model-input\_diag.c} or \textbf{model-input.c}. And then, through \textbf{FASE\_GLoBES.c}, these oscillation-parameter values are passed in to \textbf{GLoBES} library to simulate the event spectrum for evaluating the $\chi^2$ value. 
+
+API functions to use FASE are listed:
+\begin{enumerate}
+\item \texttt{MODEL\_init($N_{para}$)},
+\item  \texttt{FASE\_glb\_probability\_matrix},
+\item  \texttt{FASE\_glb\_set\_oscillation\_parameters},
+\item  \texttt{FASE\_glb\_get\_oscillation\_parameters},
+\item \texttt{FASE\_prior\_OSC},
+\item \texttt{FASE\_prior\_model}.
+\end{enumerate}
+The first one is to initialise FASE with the parameter $N_{para}$ the number of input parameters. The next three functions need to be included to replace the default GLoBES probability engine by the one that can read the output from  \textbf{model-input\_diag.c} or \textbf{model-input.c}, as follows\vspace{0.2cm}\\
+\texttt{    glbRegisterProbabilityEngine(6,\\
+                                 \&FASE\_glb\_probability\_matrix,\\
+                                 \&FASE\_glb\_set\_oscillation\_parameters,\\
+                                 \&FASE\_glb\_get\_oscillation\_parameters,\\
+                                 NULL); }\vspace{0.2cm}\\ 
+The final two functions are prior functions. Once the user gives the prior in oscillation (model) parameters, the user needs to call \texttt{FASE\_prior\_OSC} (\texttt{FASE\_prior\_model}) as follows.\vspace{0.2cm}\\
+\texttt{glbRegisterPriorFunction(FASE\_prior\_OSC,NULL,NULL,NULL); }  \\
+or\\
+\texttt{glbRegisterPriorFunction(FASE\_prior\_model,NULL,NULL,NULL); } \vspace{0.2cm}\\
 
 In the following, we give more details about using FASE-GLoBES. In Sec.~\ref{sec:download}, we will give the instruction to download and install GLoBES and FASE-GLoBES. Then, in Sec.~\ref{sec:compile}, we will introduce how to compile and run the code. More complicated is setting the model, and the way to do this will be described in Sec.~\ref{sec:model_set}. Finally, we will discuss how to set up the prior in Sec.~\ref{sec:prior}.
 
@@ -101,18 +125,19 @@ where $N_{para}$ is the number of model parameters.
 
 \subsection{Model setting}\label{sec:model_set}
 
-FASE includes three \texttt{c++} files: \textbf{model-input\_diag.c}, \textbf{model-input.c}, and \textbf{FASE\_GLoBES.c}. As shown in the previous paragraph, these files are for different service. In \textbf{model-input\_diag.c} and \textbf{model-input.c}, the user can assign the relation between the oscillation and model parameter sets. The difference between these two code is that in \textbf{model-input.c}, the user give the relation between these two parameter sets directly (\textit{e.g.}~Table~\ref{tab:TD_parameters} for tri-direct littlest seesaw), while in \textbf{model-input.c}, the mass matrix (\textit{e.g.}~Eq.~\ref{eq:mnu} for tir-direct littlest seesaw), which is provided by the user, can be diagonalised to obtain the corresponding oscillation-parameter values. 
+FASE includes three \texttt{c++} files: \textbf{model-input\_diag.c}, \textbf{model-input.c}, and \textbf{FASE\_GLoBES.c}. As shown in the previous paragraph, these files are for different service. In \textbf{model-input\_diag.c} and \textbf{model-input.c}, the user can assign the relation between the oscillation and model parameter sets. The difference between these two code is that in \textbf{model-input.c}, the user give the relation between these two parameter sets directly, while in \textbf{model-input.c}, the mass matrix, which is provided by the user, can be diagonalised to obtain the corresponding oscillation-parameter values. 
 
 For different methods to include the model, we use different \texttt{c++} file. Adopting the mass matrix expressed by model parameters, we assign this model in \textbf{model-input\_diag.c}. In function \texttt{MtoS}, we give
 the mass matrix in the $3\times3$ complex matrix \texttt{Mass\_Matrix[]}.
 %
-Passing the complex matrix \texttt{Mass\_Matrix[]} into the function \texttt{STAN\_OSC}, we will get the corresponding oscillation parameters in an array \texttt{OSC\_PARAMS}, components of which are the value for $\theta_{12}$, $\theta_{13}$, $\theta_{23}$, $\delta$, $\Delta m_{21}^2$, and $\Delta m_{31}^2$. The expression of \texttt{Mass\_Matrix[]} is given by the user. For the first four components, values are given in the unit of \textbf{rad}, while the other two are in eV$^2$.  We can also assign the relation between oscillation and model parameters in \textbf{model-input.c}. The relations are given in \texttt{MtoS} as well.
+Passing the complex matrix \texttt{Mass\_Matrix[]} into the function \texttt{STAN\_OSC}, we will get the corresponding oscillation parameters in an array \texttt{OSC\_PARAMS}, components of which are the value for $\theta_{12}$, $\theta_{13}$, $\theta_{23}$, $\delta$, $\Delta m_{21}^2$, and $\Delta m_{31}^2$. The expression of \texttt{Mass\_Matrix[]} is given by the user. For the first four components, values are given in the unit of \textbf{rad}, while the other two are in \textbf{eV$^2$}.  We can also assign the relation between oscillation and model parameters in \textbf{model-input.c}. The relations are given in \texttt{MtoS} as well.
+
 
 
 \subsection{Prior setting}\label{sec:prior}
 The \texttt{c++} file \textbf{FASE\_GLoBES.c} then will call these oscillation-parameter values and pass these to simulate the event spectrum. The $\chi^2$ value from priors is also given in \textbf{FASE\_GLoBES.c}. And these functions are given by the user.
 
-\subsection{Summary of API}
+
 
 \section{Examples}
 \subsection{Setup for a model}
