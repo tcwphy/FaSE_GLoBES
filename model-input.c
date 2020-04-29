@@ -187,8 +187,10 @@ double TDdm31(double x, double eta, double r, double Ma){
 } //checked!
 
 
+
 double MODEL_init(int N) /*initialise the model-input*/
 {
+    if (N>6){printf("the number of parameters cannot be larger than 6.\n");}
     N_M=N;
     return 0;
 }
@@ -223,8 +225,8 @@ double model_restriction(double model [])
     double r=model[2];
     double ma=model[3];
     
-    if(ma<0) {return 1e8;}
-    if(r<0) {return 1e8;}
+    if(ma<0) {return 1;}
+    if(r<0) {return 1;}
     
     return 0;
 }
