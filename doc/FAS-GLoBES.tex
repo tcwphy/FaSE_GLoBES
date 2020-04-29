@@ -75,7 +75,7 @@ In this work, we will present our simulation tool \textbf{F}l\textbf{a}vour \tex
 
 \section{Overview FASE-GloBES}
 
-The FlAvor Symmetry Embedded (FASE) is a supplemental tool for General Long Baseline Experiment Simulator (GLoBES) in order to analysis how a leptonic flavour symmetry model can be tested in neutrino oscillation experiments. FASE is written in the \texttt{c/c++} language, and consist with three codes \textbf{FASE\_GLoBES.c}, \textbf{model-input\_diag.c} and \textbf{model-input.c}. The user defines the model in to \textbf{model-input\_diag.c} or \textbf{model-input.c}, while \textbf{FASE\_GLoBES.c} does not need to be touched. 
+\textbf{F}l\textbf{A}vor \textbf{S}ymmetry \textbf{E}mbedded (\textbf{FASE}) is a supplemental tool for General Long Baseline Experiment Simulator (\textbf{GLoBES}) in order to analysis how a leptonic flavour symmetry model can be tested in neutrino oscillation experiments. \textbf{FASE} is written in the \texttt{c/c++} language, and consist with three codes \textbf{FASE\_GLoBES.c}, \textbf{model-input\_diag.c} and \textbf{model-input.c}. The user defines the model in to \textbf{model-input\_diag.c} or \textbf{model-input.c}, while \textbf{FASE\_GLoBES.c} does not need to be touched. 
 
 \begin{figure}[!h]%
 \centering
@@ -85,10 +85,11 @@ The FlAvor Symmetry Embedded (FASE) is a supplemental tool for General Long Base
 \end{figure}
 
 
-The FASE-GLoBES is FASE working with GLoBES as shown in Fig.~\ref{fig:FASE}, in which three parts are shown: 1.~\textbf{the parameter translation} (the blue box), 2.~\textbf{giving oscillation-parameter values} (the green box), and 3.~\textbf{the $\chi^2$-value calculation} (the orange box). 
+The \textbf{FASE-GLoBES} is \textbf{FASE} working with \textbf{GLoBES} as shown in Fig.~\ref{fig:FASE}, in which three parts are shown: 1.~\textbf{the parameter translation} (the blue box), 2.~\textbf{giving oscillation-parameter values} (the green box), and 3.~\textbf{the $\chi^2$-value calculation} (the orange box). 
 The idea behind this flow chart Fig.~\ref{fig:FASE} is that given a set of value for model parameter, the corresponding values for oscillation parameters are obtained by a translation, which is assigned by the user in \textbf{model-input\_diag.c} or \textbf{model-input.c}. And then, through \textbf{FASE\_GLoBES.c}, these oscillation-parameter values are passed in to \textbf{GLoBES} library to simulate the event spectrum for evaluating the $\chi^2$ value. 
 
-API functions to use FASE are listed:
+
+API functions to use \textbf{FASE} are listed:
 \begin{enumerate}
 \item \texttt{MODEL\_init($N_{para}$)},
 \item  \texttt{FASE\_glb\_probability\_matrix},
@@ -103,13 +104,12 @@ The first one is to initialise FASE with the parameter $N_{para}$ the number of 
                                  \&FASE\_glb\_set\_oscillation\_parameters,\\
                                  \&FASE\_glb\_get\_oscillation\_parameters,\\
                                  NULL); }\vspace{0.2cm}\\ 
-The final two functions are prior functions. Once the user gives the prior in oscillation (model) parameters, the user needs to call \texttt{FASE\_prior\_OSC} (\texttt{FASE\_prior\_model}) as follows.\vspace{0.2cm}\\
+This probability engine can work with the oscillation or model parameter. It can be set by the user with the parameter \texttt{PARA}. If \texttt{PARA=STAN} (\texttt{PARA=MODEL}) the probability engine works with oscillation (model) parameters. The final two functions are prior functions. Once the user gives the prior in oscillation (model) parameters, the user needs to call \texttt{FASE\_prior\_OSC} (\texttt{FASE\_prior\_model}) as follows.\vspace{0.2cm}\\
 \texttt{glbRegisterPriorFunction(FASE\_prior\_OSC,NULL,NULL,NULL); }  \\
 or\\
 \texttt{glbRegisterPriorFunction(FASE\_prior\_model,NULL,NULL,NULL); } \vspace{0.2cm}\\
 
-In the following, we give more details about using FASE-GLoBES. In Sec.~\ref{sec:download}, we will give the instruction to download and install GLoBES and FASE-GLoBES. Then, in Sec.~\ref{sec:compile}, we will introduce how to compile and run the code. More complicated is setting the model, and the way to do this will be described in Sec.~\ref{sec:model_set}. Finally, we will discuss how to set up the prior in Sec.~\ref{sec:prior}.
-
+In the following, we give more details about using \textbf{FASE-GLoBES}. In Sec.~\ref{sec:download}, we will give the instruction to download and install \textbf{GLoBES} and \textbf{FASE}. Then, in Sec.~\ref{sec:compile}, we will introduce how to compile and run the code. More complicated is setting the model, and the way to do this will be described in Sec.~\ref{sec:model_set}. Finally, we will discuss how to set up the prior in Sec.~\ref{sec:prior}.
 
 
 \subsection{Download and Installation}\label{sec:download}
@@ -135,9 +135,16 @@ Passing the complex matrix \texttt{Mass\_Matrix[]} into the function \texttt{STA
 
 
 \subsection{Prior setting}\label{sec:prior}
-The \texttt{c++} file \textbf{FASE\_GLoBES.c} then will call these oscillation-parameter values and pass these to simulate the event spectrum. The $\chi^2$ value from priors is also given in \textbf{FASE\_GLoBES.c}. And these functions are given by the user.
+Given a set of values for model parameters, \textbf{FASE\_GLoBES.c} will obtain the corresponding oscillation-parameter values from \textbf{model-input\_diga.c} or \textbf{model-input.c}, and will pass these values to simulate the event spectrum and to give the prior value. Two gaussian prior functions are provided in \textbf{FASE} -- \texttt{FASE\_prior\_OSC} and \texttt{FASE\_prior\_model}. These two functions are for different purposes. If the user give the prior in oscillation (model) parameters, the user should register \texttt{FASE\_prior\_OSC} (\texttt{FASE\_prior\_model}) for the prior with the \textbf{GLoBES} function \texttt{glbRegisterPriorFunction}, as we introduced in the beginning of this section. The Gaussian prior is 
+\begin{equation}
+\chi^2_{prior}=\sum_{i} \frac{(\theta_i-\theta^c_i)^2}{\sigma_i^2},
+\end{equation}
+ where $\theta_i$ is one of parameters constrained by prior, $\theta^c_i$ ($\sigma_c$) is the central value (Gaussian width) of the prior for $\theta_i$. We note that $\theta_i$ can be either model or oscillation parameter.
+ But, oscillation and model parameters can be mixed up together in the using of prior. 
 
+The values of $\theta^c_i$ and $\sigma_i$ need to be given by the user through three arrays: \texttt{Central\_prior}, \texttt{UPPER\_prior}, and \texttt{LOWER\_prior}, in which there are six components. To treat asymmetry of width for the upper and lower Gaussian widths, we give values in two arrays \texttt{UPPER\_prior}, and \texttt{LOWER\_prior}, respectively. If the user gives the prior in model parameters, the order of each component follow with the setup of input of the probability engine. While the user gives the prior in oscillation parameters, the six components in order are $\theta_{12}$, $\theta_{13}$, $\theta_{23}$, $\delta$, $\Delta m_{21}^2$, and  $\Delta m_{31}^2$. The first four parameter are in \textbf{rad}, and the final two are in \textbf{eV$^2$}.
 
+Finally, some restrictions are imposed by the studied flavour symmetry model. We set up these restrictions in the function \texttt{model\_restriction}, which is in \texttt{model-input\_diga.c} and \texttt{model-input.c}. In the function \texttt{model\_restriction}, the user needs to \textit{return $0$} once the restriction is broken. For example, if the normal ordering is imposed, we give ``\texttt{ if (DMS31<0) \{ return 1;\} } '' in \texttt{model\_restriction}, where \texttt{DMS31} is for $\Delta m_{31}^2$. Then, when the restriction is broken, \texttt{model\_restriction} returns the value $1$ to the prior function \texttt{FASE\_prior\_OSC} or \texttt{FASE\_prior\_model}. In the following, the prior function will give $10^6$ for the $\chi^2$ value, and it will be selected out when we study the statistically reasonable region in the parameter space.  
 
 \section{Examples}
 \subsection{Setup for a model}
@@ -155,7 +162,7 @@ where  stands for a cube root of unity and the parameter $x$ is real because of 
  x &~ x^2 &~ x^2 \\
 \end{pmatrix}\,,
 \end{equation}
-where $x$, $\eta$, $m_a$, and the ratio $r\equiv m_s/m_a$ are four parameters and will be constrained by experimental data. We note that from Eq.~(\ref{eq:mnu}), $m_1=0$ and the normal mass ordering are imposed, and will need to be imposed in \textbf{FASE-GLoBES}. We will introduce the way to do it in Sec.~\ref{sec:prior}.
+where $x$, $\eta$, $m_a$, and the ratio $r\equiv m_s/m_a$ are four parameters and will be constrained by experimental data. We note that from Eq.~(\ref{eq:mnu}), $m_1=0$ and the normal mass ordering are imposed, and will need to be imposed in \textbf{FASE-GLoBES}. Therefore, the restrictions in this model are $m_a>0$ and $r>0$.
 
 \begin{table}[h!]
 \caption{\label{tab:TD_parameters}A summary of the relation between oscillation parameters and TDLS model parameters~\cite{Ding:2018fyz}. Two requirements are imposed by TDLS: the smallest mass state $m_1=0$ and the normal mass ordering. The sign of $\sin\delta$ depends on the sign of $x\cos\psi$: ``$+$'' (``$-$'') is for $x\cos\psi>0$ ($<0$).}
@@ -223,17 +230,124 @@ model parameters                                 & $x$, $\eta$, $r$, $m_a$      
 
 The functions \texttt{TDth12}, \texttt{TDth13}, \texttt{TDth23}, \texttt{TDdCP}, \texttt{TDdm21}, and \texttt{TDdm31} are included for obtaining the value of $\theta_{12}$, $\theta_{13}$, $\theta_{23}$, $\delta$, $\Delta m_{21}^2$, and $\Delta m_{31}^2$ according to Table~\ref{tab:TD_parameters}, respectively. 
 
+The restrictions $m_a>0$ and $r>0$ need to be setup in \texttt{model\_restriction} as follows.\vspace{0.2cm}\\
+\texttt{double model\_restriction(double model [])}\\
+\texttt{\{}\\
+\texttt{    double x=model[0];}\\
+\texttt{    double eta=model[1];}\\
+\texttt{    double r=model[2];}\\
+\texttt{    double ma=model[3];}\\
+    \\
+\texttt{    if(ma<0) \{return 1;\}}\\
+\texttt{    if(r<0) \{return 1;\}}\\
+\\ 
+\texttt{    return 0;}\\
+\}\vspace{0.2cm}\\
+If there is no any restrictions, we simply \textit{return $0$} in \texttt{model\_restriction} as follows.\vspace{0.2cm}\\
+\texttt{double model\_restriction(double model [])\{ return 0;\} }\vspace{0.2cm}\\
+
+\subsection{Initialise the code}
+In the beginning of main code, we need to initialise GLoBES and FASE, and include the considered experiment (here we consider MOMENT experiment) as follows.\vspace{0.2cm}\\ 
+\texttt{glbInit(argv[0]);}\\
+\texttt{glbInitExperiment("expMOMENT\_FIX\_FLUX\_150KM\_addATM\_NC.glb",\&glb\_experiment\_list[0],}\\
+\texttt{\&glb\_num\_of\_exps);}\\
+\texttt{MODEL\_init(4);}\vspace{0.2cm}\\
+Then we register the probability engine.\vspace{0.2cm}\\
+\texttt{glb\_init\_probability\_engine();}\\
+\texttt{glbRegisterProbabilityEngine(6,\\
+                                 \&FASE\_glb\_probability\_matrix,\\
+                                 \&FASE\_glb\_set\_oscillation\_parameters,\\
+                                 \&FASE\_glb\_get\_oscillation\_parameters,\\
+                                 NULL); }\vspace{0.2cm}\\                                 
+In the following we define the model-parameter values, and set the true value in model parameters.\vspace{0.2cm}\\
+\texttt{     float degree   = M\_PI/180;}\\
+\texttt{     float x\_true,eta\_true,r\_true,ma\_true;}\\
+\texttt{    x\_true=-3.65029; eta\_true=1.13067*M\_PI; r\_true=0.511325; ma\_true=3.71199e-3;}\\
+%
+\texttt{glb\_params true\_values = glbAllocParams();}\\
+\texttt{glb\_params test\_values = glbAllocParams();}\\
+\texttt{glb\_params input\_errors  = glbAllocParams();}\\
+\texttt{glb\_params centers         = glbAllocParams();}\\
+\texttt{glbDefineParams(true\_values,x\_true,eta\_true,r\_true,ma\_true,0,0);}\\
+\texttt{    glbSetDensityParams(true\_values,1.0,GLB\_ALL);}\\
+\texttt{glbCopyParams(true\_values,test\_values);}\\
+\texttt{PARA=MODEL;\\
+    glbSetOscillationParameters(true\_values);\\
+    glbSetRates();}\vspace{0.2cm}\\
+We then finally set up the projection. The projection \texttt{free} is to set all four parameters free to find the minimal value of $\chi^2$, which \texttt{project} is used for studying the constraint on $x$ and $\eta$.\vspace{0.2cm}\\  
+\texttt{glb\_projection projection = glbAllocProjection();\\
+    glb\_projection free = glbAllocProjection();  \\
+     glbDefineProjection(free,GLB\_FREE,GLB\_FREE,GLB\_FREE,GLB\_FREE,GLB\_FIXED,GLB\_FIXED);\\
+    glbSetDensityProjectionFlag(free, GLB\_FREE, GLB\_ALL);\\
+glbDefineProjection(projection,GLB\_FIXED,GLB\_FIXED,GLB\_FREE,GLB\_FREE,GLB\_FIXED,GLB\_FIXED);\\    
+glbSetDensityProjectionFlag(projection, GLB\_FREE, GLB\_ALL);\\
+    }
+    
+\subsection{Prior setup} 
+
+To set up the prior, we need to register the prior function. As mentioned, when we use the prior in oscillation and model parameters, we register \texttt{FASE\_prior\_OSC} and \texttt{FASE\_prior\_model}, respectively. Here we present an example setting up priors in oscillation parameters according to NUFIT4.0 Table~\ref{tab:nufit4.0}.
+
+\begin{table}[!h]
+\caption{The best fit and $3\sigma$ uncertainty, in the results of NuFit4.0 \cite{Esteban:2018azc}.}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+Parameter & $\theta_{12}/^\circ$ & $\theta_{13}/^\circ$ & $\theta_{23}/^\circ$ & $\delta/^\circ$  & $\Delta m_{21}^2/10^{-5}\text{eV}^2$ & $\Delta m_{31}^2/10^{-3}\text{eV}^2$\\ \hline\hline
+best fit & $33.82$ & $8.61$ & $49.6$ & $215$ & $7.39$ & $2.525$ \\\hline
+$3\sigma$ Range & $31.61-36.27$ & $8.22-8.99$ & $40.3-52.4$ & $125-392$ & $6.79-8.01$ & $2.47-2.625$ \\\hline
+\end{tabular}
+\label{tab:nufit4.0}
+\end{table}
+
+We therefore register \texttt{FASE\_prior\_OSC} for the prior function as follows.\vspace{0.2cm}\\
+\texttt{glbRegisterPriorFunction(FASE\_prior\_OSC,NULL,NULL,NULL); }  \vspace{0.2cm}\\
+And, then we give the value for the central values, and upper and lower Gaussian widths as follows.\vspace{0.2cm}\\
+\texttt{    UPPER\_prior[0]=36.27*degree;  LOWER\_prior[0]=31.61*degree;   Central\_prior[0]=33.82*degree;}\\
+\texttt{    UPPER\_prior[1]=8.99*degree; LOWER\_prior[1]=8.22*degree;  Central\_prior[1]=8.61*degree;}\\
+\texttt{    UPPER\_prior[2]=52.4*degree;  LOWER\_prior[2]=40.3*degree;   Central\_prior[2]=49.6*degree;}\\
+\texttt{    UPPER\_prior[3]=392*degree;  LOWER\_prior[3]=125*degree;   Central\_prior[3]=215*degree;}\\
+\texttt{    UPPER\_prior[4]=8.01e-5;     LOWER\_prior[4]=6.79e-5;      Central\_prior[4]=7.39e-5; }\\
+\texttt{    UPPER\_prior[5]=2.625e-3;     LOWER\_prior[5]=2.427e-3;      Central\_prior[5]=2.525e-3;}\\
+   \\ 
+\texttt{int i;}\\
+\texttt{    for (i=0;i<6;i++) \{UPPER\_prior[i]=fabs(UPPER\_prior[i]-Central\_prior[i])/3; }\\
+\texttt{                       LOWER\_prior[i]=fabs(LOWER\_prior[i]-Central\_prior[i])/3;\} }\\
+\texttt{for (i=0; i<6; i++) glbSetOscParams(centers,0,i);}\\
+\texttt{glbSetDensityParams(centers,1.0,GLB\_ALL);}
+\texttt{glbCopyParams(centers,input\_errors);}\\
+\texttt{    glbSetCentralValues(centers);   glbSetInputErrors(input\_errors);}\vspace{0.2cm}\\
+The parameter \texttt{degree} is defined as $\pi/180$.
+
 \subsection{Constraint of model parameters}
-%\subsection{Projection on the PMNS parameters}
-\begin{figure}[!h]%
-\centering
-\includegraphics[width=2in]{figs/x.pdf}
-\includegraphics[width=2in]{figs/eta.pdf}\\
-\includegraphics[width=2in]{figs/r.pdf}
-\includegraphics[width=2in]{figs/ma.pdf}
-\caption{The $\Delta\chi^2$ value against each model parameters for MOMENT. True values for the model parameters are used $(x,~\eta,~r,~M_a)=(-3.65,~1.13\pi,~0.511,~3.71~\text{meV})$. The range shown here is according to the $3\sigma$ uncertainty with NuFit4.0 results:  $-5.475<x<-3.37$ (red band),~$0.455<\eta/\pi<1.545$ (dark grey band), ~$0.204<r<0.606$ (blue band),~$3.343<m_a/\text{meV}<4.597$ (yellow band).}%
-\label{fig:model_1D}
-\end{figure}
+
+To get the constraint of $x$ and $\eta$, we obtain the minimum of $\chi^2$ value,\vspace{0.2cm}\\
+\texttt{
+    glbSetProjection(free);\\
+    float res0=glbChiNP(true\_values,NULL,GLB\_ALL);\\ } \vspace{0.2cm}\\
+%
+Then, we set two loops to get the $\Delta \chi^2$ value for different $x$ and $\eta$\vspace{0.2cm}\\
+%
+\texttt{     float x,eta,r,ma,dx,deta;\\
+     float lower\_x,upper\_x,lower\_eta,upper\_eta;\\
+     FILE* File=fopen("data/constraint\_x\_eta.dat", "w");\\
+    lower\_x=-5; upper\_x=-3; lower\_eta=0.8*M\_PI; upper\_eta=1.5*M\_PI;\\
+    dx=(upper\_x-lower\_x)/100; deta=(upper\_eta-lower\_eta)/100;\\
+        glbSetProjection(projection);\\
+   for (x=lower\_x;x<=upper\_x;x=x+dx)\{ \\
+    for (eta=lower\_eta;eta<=upper\_eta;eta=eta+deta)\{\\
+     glbSetOscParams(test\_values,x,0); glbSetOscParams(test\_values,eta,1);\\
+        float res=glbChiNP(test\_values,NULL,GLB\_ALL);\\
+            fprintf(File,"\%f \%f  \%f $\backslash$n",x,eta/M\_PI,res-res0);\\
+                     \} fprintf(File,"$\backslash$n");\}\\
+}
+
+%\texttt{
+%glbFreeParams(true\_values);\\
+%glbFreeParams(test\_values); \\
+%glbFreeParams(input\_errors); \\
+%glbFreeParams(centers);\\
+%glbFreeProjection(free);\\
+%glbFreeProjection(projection);\\
+%}
 
 \begin{figure}[!h]
  \flushleft
@@ -248,15 +362,6 @@ The functions \texttt{TDth12}, \texttt{TDth13}, \texttt{TDth23}, \texttt{TDdCP},
 
 
 \subsection{Model testing}
-\begin{figure}[!h]%
-\centering
-\includegraphics[width=2in]{figs/SR_th13.pdf}
-\includegraphics[width=2in]{figs/SR_th23.pdf}\\
-\includegraphics[width=2in]{figs/SR_dCP.pdf}
-\includegraphics[width=2in]{figs/SR_ldm.pdf}
-\caption{The $\chi^2_{ex.}$ value for tri-direct littlest seesaw model for $\theta_{13}$, $\theta_{23}$, $\delta$ and $\Delta m_{31}^2$. The range for each parameter is taken according to the $3\sigma$ uncertainty in NuFit4.0 results.}%
-\label{fig:SR_1D}
-\end{figure}
 
 \begin{figure}[!h]
  \flushleft
