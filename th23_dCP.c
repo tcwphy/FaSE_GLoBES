@@ -51,7 +51,9 @@ int main(int argc, char *argv[])
     float degree   = M_PI/180;
     float x_true,eta_true,r_true,ma_true;
     x_true=-3.65029; eta_true=1.13067*M_PI; r_true=0.511325; ma_true=3.71199e-3;
-    
+    double M_para[4],OSC_para[6];
+    M_para[0]=x_true; M_para[1]=eta_true; M_para[2]=r_true; M_para[3]=ma_true;
+    MtoS(OSC_para, M_para);
     /* Initialize parameter and projection vector(s) */
     glb_params true_values = glbAllocParams();
     glb_params test_values = glbAllocParams();
@@ -59,24 +61,23 @@ int main(int argc, char *argv[])
     glb_params centers = glbAllocParams();
     
     /*define model parameter: true_values( x, eta, r, ma)*/
-    glbDefineParams(true_values,x_true,eta_true,r_true,ma_true,0,0);
+    glbDefineParams(test_values,x_true,eta_true,r_true,ma_true,0,0);
+    glbSetDensityParams(test_values,1.0,GLB_ALL);
+    int i;
+    for(i=0;i<6;i++){glbSetOscParams(centers,OSC_para[i],i);}
     glbSetDensityParams(true_values,1.0,GLB_ALL);
-    glbCopyParams(true_values,test_values);
     
     /*assign the parameter set*/
-    PARA=STAN; /* if the user is interested in the sensitivity on Standard Oscillation parameters*/ /*Mark4*/
     PARA=MODEL; /* if the user is interested in the sensitivity on model parameters*/
+    PARA=STAN; /* if the user is interested in the sensitivity on Standard Oscillation parameters*/
     /*true value setup for GLoBES*/
     glbSetOscillationParameters(true_values);
     glbSetRates();
     
     /*projection setup*/
-    glb_projection projection = glbAllocProjection();
     glb_projection free = glbAllocProjection();
     glbDefineProjection(free,GLB_FREE,GLB_FREE,GLB_FREE,GLB_FREE,GLB_FIXED,GLB_FIXED);
-    glbSetDensityProjectionFlag(free, GLB_FIXED, GLB_ALL);
-    glbDefineProjection(projection,GLB_FIXED,GLB_FIXED,GLB_FREE,GLB_FREE,GLB_FIXED,GLB_FIXED);
-    glbSetDensityProjectionFlag(projection, GLB_FIXED, GLB_ALL);
+    glbSetDensityProjectionFlag(free, GLB_FREE, GLB_ALL);
 
     /*prior setup*/
     glbRegisterPriorFunction(FASE_prior_OSC,NULL,NULL,NULL);
@@ -88,7 +89,7 @@ int main(int argc, char *argv[])
     UPPER_prior[4]=8.01e-5;     LOWER_prior[4]=6.79e-5;      Central_prior[4]=7.39e-5;
     UPPER_prior[5]=2.625e-3;     LOWER_prior[5]=2.427e-3;      Central_prior[5]=2.525e-3;
     
-    int i;
+
     for (i=0;i<6;i++) {UPPER_prior[i]=fabs(UPPER_prior[i]-Central_prior[i])/3;
         LOWER_prior[i]=fabs(LOWER_prior[i]-Central_prior[i])/3;}
     /* centers and input_errors will not be used, but need to be given in for central values
@@ -96,21 +97,23 @@ int main(int argc, char *argv[])
     for (i=0; i<6; i++) glbSetOscParams(centers,0,i); glbSetDensityParams(centers,1.0,GLB_ALL); glbCopyParams(centers,input_errors);
     glbSetCentralValues(centers); glbSetInputErrors(input_errors);
     
-    /*for chi^2 minimum*/
-    glbSetProjection(free);
-    float res0=glbChiNP(true_values,NULL,GLB_ALL);
-
+    
     /*two loops for chi^2(x,eta)*/
-    float x,eta,r,ma,dx,deta,lower_x,upper_x,lower_eta,upper_eta;
-    FILE* File=fopen("data/constraint_x_eta_test.dat", "w");
-    lower_x=-9; upper_x=-3; lower_eta=0.8*M_PI; upper_eta=2*M_PI;
-    dx=(upper_x-lower_x)/100; deta=(upper_eta-lower_eta)/100;
-    glbSetProjection(projection);
-    for (x=lower_x;x<=upper_x;x=x+dx){
-    for (eta=lower_eta;eta<=upper_eta;eta=eta+deta){
-     glbSetOscParams(test_values,x,0); glbSetOscParams(test_values,eta,1);
+    float th23,dCP,dth23,ddCP,lower_th23,upper_th23,lower_dCP,upper_dCP;
+    FILE* File=fopen("data/ModelTest_th23_dCP_test.dat", "w");
+    lower_th23=40*degree; upper_th23=50*degree; lower_dCP=1.*M_PI; upper_dCP=2*M_PI;
+    dth23=(upper_th23-lower_th23)/100; ddCP=(upper_dCP-lower_dCP)/100;
+    glbSetProjection(free);
+    for (th23=lower_th23;th23<=upper_th23;th23=th23+dth23){
+    for (dCP=lower_dCP;dCP<=upper_dCP;dCP=dCP+ddCP){
+    glbSetOscParams(true_values,th23,GLB_THETA_23);
+    glbSetOscParams(true_values,dCP,GLB_DELTA_CP);
+    glbSetOscillationParameters(true_values);
+    PARA=STAN; /* if the user is interested in the sensitivity on Standard Oscillation parameters*/
+    glbSetRates();
+    PARA=MODEL; /* if the user is interested in the sensitivity on Standard Oscillation parameters*/
         float res=glbChiNP(test_values,NULL,GLB_ALL);
-            fprintf(File,"%f %f %f\n",x,eta/M_PI,res-res0);
+            fprintf(File,"%f %f %f\n",th23,dCP,res);
          } fprintf(File,"\n");
     }
  
@@ -120,7 +123,6 @@ int main(int argc, char *argv[])
     glbFreeParams(test_values); 
     glbFreeParams(input_errors); 
     glbFreeProjection(free);
-    glbFreeProjection(projection);
     exit(0);
 }
 
