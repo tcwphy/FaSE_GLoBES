@@ -151,7 +151,7 @@ Passing the complex matrix \texttt{Mass\_Matrix[]} into the function \texttt{STA
 
 \subsection{Prior setting}\label{sec:prior}
 Given a set of values for model parameters, \textbf{FASE\_GLoBES.c} will obtain the corresponding oscillation-parameter values from \textbf{model-input\_diga.c} or \textbf{model-input.c}, and will pass these values to simulate the event spectrum and to give the prior value. Two gaussian prior functions are provided in \textbf{FASE} -- \texttt{FASE\_prior\_OSC} and \texttt{FASE\_prior\_model}. These two functions are for different purposes. If the user give the prior in oscillation (model) parameters, the user should register \texttt{FASE\_prior\_OSC} (\texttt{FASE\_prior\_model}) for the prior with the \textbf{GLoBES} function \texttt{glbRegisterPriorFunction}, as we introduced in the beginning of this section. The Gaussian prior is 
-\begin{equation}
+\begin{equation}\label{eq:prior}
 \chi^2_{prior}=\sum_{i} \frac{(\theta_i-\theta^c_i)^2}{\sigma_i^2},
 \end{equation}
  where $\theta_i$ is one of parameters constrained by prior, $\theta^c_i$ ($\sigma_c$) is the central value (Gaussian width) of the prior for $\theta_i$. We note that $\theta_i$ can be either model or oscillation parameter.
@@ -334,6 +334,16 @@ The parameter \texttt{degree} is defined as $\pi/180$.
 
 \subsection{Constraint of model parameters}
 
+The user can use \textbf{FASE-GLoBES} to study the constraint of model parameters. Here we take tri-direct littlest seesaw as an example to present how we can adopt \textbf{FASE-GLoBES} to constrain two model parameters -- $x$ and $\eta$. 
+The $\chi^2$ function is construct based on a log -likelihood ratio,
+\begin{equation}\label{eq:chi-squared}
+\chi^2(\vec{\theta},\xi_s,\xi_b)=2\sum_i\left(\eta_i(\vec{\theta},\xi_s,\xi_b)-n_i+n_i\ln\frac{n_i}{\eta_i(\vec{\theta},\xi_s,\xi_b)} \right)+p(\xi_s,\sigma_s)+p(\xi_b,\sigma_b)+\chi^2_{prior},
+\end{equation}
+where $i$ runs over the number of bins, $\eta_i{\vec{\theta},\xi_s,\xi_b}$ is the hypothesis event rate for bin i and $E_i$ is the central bin energy. The vector $\vec{\theta}$ consist test model or oscillation parameters. Here, $\vec{\theta}=(x,\eta,r,m_a)$. The parameters $\xi_s$ and $\xi_b$ are introduced to account for the systematic uncertainty of normalisation for the signal (subscript $_s$) and background (subscript $_b$) components for the event rate, and are allowed to bary in the fit as nuisance parameters. For a given hypothesized set of parmaeters $\vec{\theta}$, the event rate for bin $i$ is calculated as\\
+\begin{equation}
+\eta_i(\vec{\theta},\xi_s,\xi_b)=(1+\xi_s)\times n_i+(1+\xi_b)\times b_i,
+\end{equation}
+where $n_i$ and $b_i$ are the expected number of signal and background events in bin $i$, respectively. The nuisance parameters are constrained by the Gaussian prior $p(\xi,\sigma)=\xi^2/\sigma^2$ with corresponding uncertainties $\sigma_s$ and $\sigma_b$ for the signal and background, respectively. Finally, $\chi^2_{prior}$ is a set of Gaussian priors for hypothesis, and is expressed as Eq.~\ref{eq:prior}. 
 To get the constraint of $x$ and $\eta$, we obtain the minimum of $\chi^2$ value,\vspace{0.2cm}\\
 \texttt{
     glbSetProjection(free);\\
@@ -344,7 +354,7 @@ Then, we set two loops to get the $\Delta \chi^2$ value for different $x$ and $\
 \texttt{     float x,eta,r,ma,dx,deta;\\
      float lower\_x,upper\_x,lower\_eta,upper\_eta;\\
      FILE* File=fopen("data/constraint\_x\_eta.dat", "w");\\
-    lower\_x=-5; upper\_x=-3; lower\_eta=0.8*M\_PI; upper\_eta=1.5*M\_PI;\\
+    lower\_x=-9; upper\_x=-3; lower\_eta=0.8*M\_PI; upper\_eta=2*M\_PI;\\
     dx=(upper\_x-lower\_x)/100; deta=(upper\_eta-lower\_eta)/100;\\
         glbSetProjection(projection);\\
    for (x=lower\_x;x<=upper\_x;x=x+dx)\{ \\
@@ -354,18 +364,6 @@ Then, we set two loops to get the $\Delta \chi^2$ value for different $x$ and $\
             fprintf(File,"\%f \%f  \%f $\backslash$n",x,eta/M\_PI,res-res0);\\
                      \} fprintf(File,"$\backslash$n");\}\\
 }
-
-We use the same code to obtain the constraint of any other combination of two parameters. Then, we can have the result as in Fig.~\ref{fig:model_2D}.
-
-
-%\texttt{
-%glbFreeParams(true\_values);\\
-%glbFreeParams(test\_values); \\
-%glbFreeParams(input\_errors); \\
-%glbFreeParams(centers);\\
-%glbFreeProjection(free);\\
-%glbFreeProjection(projection);\\
-%}
 
 \begin{figure}[!h]
  \flushleft
@@ -379,7 +377,54 @@ We use the same code to obtain the constraint of any other combination of two pa
 \end{figure}
 
 
+We use the same code to obtain the constraint of any other combination of two parameters. Then, we can have the result as in Fig.~\ref{fig:model_2D}.
+
+
+%\texttt{
+%glbFreeParams(true\_values);\\
+%glbFreeParams(test\_values); \\
+%glbFreeParams(input\_errors); \\
+%glbFreeParams(centers);\\
+%glbFreeProjection(free);\\
+%glbFreeProjection(projection);\\
+%}
+
+
+
 \subsection{Model testing}
+
+We can also study on excluding the model, assuming different true values for oscillation parameters. In this example, we present testing the tri-driect littlest seesaw model in various $\theta_{23}$ and $\delta$. To do so, we set the true value in oscillation parameters. We change values of $\theta_{23}$ and $\delta$ of the true theory, and compute the minimal $\chi^2$ value for the tested model with all four model parameters, free to be varied. And, the studied statistics function is exactly Eq.~\ref{eq:chi-squared}, but the true event rate $n_i$ is predicted by a set of oscillation parameters, which will be varied in the code. And all four model parameter can be varied with the prior given by Eq.~\ref{eq:prior}.
+
+
+The example code is given below.
+
+\texttt{ \{ ...  initalize the code ...\}\\
+\{ ...  register the probability engine ...\}    }
+
+\texttt{    
+    float degree   = M\_PI/180;\\
+    float x\_true,eta\_true,r\_true,ma\_true;\\
+    x\_true=-3.65029; eta\_true=1.13067*M\_PI; r\_true=0.511325; ma\_true=3.71199e-3;\\
+    double M\_para[4],OSC\_para[6];\\
+    M\_para[0]=x\_true; M\_para[1]=eta\_true; M\_para[2]=r\_true; M\_para[3]=ma\_true;\\
+    MtoS(OSC\_para, M\_para);\\
+    double th12\_true=OSC\_para[0];\\
+    double th13\_true=OSC\_para[1];\\
+    double th23\_true=OSC\_para[2];\\
+    double dCP\_true=OSC\_para[3];\\
+    double DM21\_true=OSC\_para[4];\\
+    double DM31\_true=OSC\_para[5];\\
+    glb\_params true\_values = glbAllocParams();\\
+    glb\_params test\_values = glbAllocParams();\\
+    glb\_params input\_errors = glbAllocParams();\\
+    glb\_params centers = glbAllocParams();\\
+    \\
+    glbDefineParams(test\_values,x\_true,eta\_true,r\_true,ma\_true,0,0);\\
+    glbSetDensityParams(test\_values,1.0,GLB\_ALL);\\
+    glbDefineParams(true\_values,th12\_true,th13\_true,th23\_true,dCP\_true,DM21\_true,DM31\_true);\\
+    glbSetDensityParams(true\_values,1.0,GLB\_ALL); }
+
+
 
 \begin{figure}[!h]
  \flushleft
