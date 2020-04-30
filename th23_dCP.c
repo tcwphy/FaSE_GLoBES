@@ -10,6 +10,7 @@
 #include <complex.h>
 #include <float.h>
 
+/*
 #include <gsl/gsl_complex.h>
 #include <gsl/gsl_complex_math.h>
 #include <gsl/gsl_matrix.h>
@@ -20,8 +21,8 @@
 #include <gsl/gsl_cblas.h>
 #include <gsl/gsl_eigen.h>
 #include <gsl/gsl_vector.h>
-
-
+*/
+#include <gsl/gsl_cdf.h>
 #include <globes/globes.h>   /* GLoBES library */
 #include "FASE_GLoBES.h"
 //#include "model-input_diag.h"
@@ -109,19 +110,20 @@ int main(int argc, char *argv[])
     /*two loops for chi^2(x,eta)*/
     float th23,dCP,dth23,ddCP,lower_th23,upper_th23,lower_dCP,upper_dCP;
     FILE* File=fopen("data/ModelTest_th23_dCP_test.dat", "w");
-    lower_th23=45*degree; upper_th23=50*degree; lower_dCP=1.3*M_PI; upper_dCP=1.8*M_PI;
-    dth23=(upper_th23-lower_th23)/50; ddCP=(upper_dCP-lower_dCP)/50;
+    lower_th23=40; upper_th23=52.5; lower_dCP=125; upper_dCP=395;
+    dth23=(upper_th23-lower_th23)/100; ddCP=(upper_dCP-lower_dCP)/100;
+    int dof=2;
     glbSetProjection(free);
     for (th23=lower_th23;th23<=upper_th23;th23=th23+dth23){
     for (dCP=lower_dCP;dCP<=upper_dCP;dCP=dCP+ddCP){
-    glbSetOscParams(true_values,th23,GLB_THETA_23);
-    glbSetOscParams(true_values,dCP,GLB_DELTA_CP);
+    glbSetOscParams(true_values,th23*degree,GLB_THETA_23);
+    glbSetOscParams(true_values,dCP*degree,GLB_DELTA_CP);
     PARA=STAN; /* if the user is interested in the sensitivity on Standard Oscillation parameters*/
     glbSetOscillationParameters(true_values);
     glbSetRates();
     PARA=MODEL; /* if the user is interested in the sensitivity on Standard Oscillation parameters*/
         float res=glbChiNP(test_values,NULL,GLB_ALL);
-            fprintf(File,"%f %f %f\n",th23,dCP,res);
+            fprintf(File,"%f %f %f\n",th23,dCP,gsl_cdf_chisq_Qinv(gsl_cdf_chisq_Q(fabs(res),dof),1));
 //            printf("%f %f %f\n",th23,dCP,res);
          } fprintf(File,"\n");
     }

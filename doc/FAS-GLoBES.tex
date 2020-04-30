@@ -335,7 +335,7 @@ The parameter \texttt{degree} is defined as $\pi/180$.
 \subsection{Constraint of model parameters}
 
 The user can use \textbf{FASE-GLoBES} to study the constraint of model parameters. Here we take tri-direct littlest seesaw as an example to present how we can adopt \textbf{FASE-GLoBES} to constrain two model parameters -- $x$ and $\eta$. 
-The $\chi^2$ function is construct based on a log -likelihood ratio,
+The $\chi^2$ function is constructed based on a log-likelihood ratio,
 \begin{equation}\label{eq:chi-squared}
 \chi^2(\vec{\theta},\xi_s,\xi_b)=2\sum_i\left(\eta_i(\vec{\theta},\xi_s,\xi_b)-n_i+n_i\ln\frac{n_i}{\eta_i(\vec{\theta},\xi_s,\xi_b)} \right)+p(\xi_s,\sigma_s)+p(\xi_b,\sigma_b)+\chi^2_{prior},
 \end{equation}
@@ -396,11 +396,9 @@ We use the same code to obtain the constraint of any other combination of two pa
 We can also study on excluding the model, assuming different true values for oscillation parameters. In this example, we present testing the tri-driect littlest seesaw model in various $\theta_{23}$ and $\delta$. To do so, we set the true value in oscillation parameters. We change values of $\theta_{23}$ and $\delta$ of the true theory, and compute the minimal $\chi^2$ value for the tested model with all four model parameters, free to be varied. And, the studied statistics function is exactly Eq.~\ref{eq:chi-squared}, but the true event rate $n_i$ is predicted by a set of oscillation parameters, which will be varied in the code. And all four model parameter can be varied with the prior given by Eq.~\ref{eq:prior}.
 
 
-The example code is given below.
-
+The example code is given below.\vspace{0.2cm}\\
 \texttt{ \{ ...  initalize the code ...\}\\
-\{ ...  register the probability engine ...\}    }
-
+\{ ...  register the probability engine ...\}    }\vspace{0.2cm}\\
 \texttt{    
     float degree   = M\_PI/180;\\
     float x\_true,eta\_true,r\_true,ma\_true;\\
@@ -422,9 +420,29 @@ The example code is given below.
     glbDefineParams(test\_values,x\_true,eta\_true,r\_true,ma\_true,0,0);\\
     glbSetDensityParams(test\_values,1.0,GLB\_ALL);\\
     glbDefineParams(true\_values,th12\_true,th13\_true,th23\_true,dCP\_true,DM21\_true,DM31\_true);\\
-    glbSetDensityParams(true\_values,1.0,GLB\_ALL); }
-
-
+    glbSetDensityParams(true\_values,1.0,GLB\_ALL); }\vspace{0.2cm}\\
+\texttt{ \{ ...  set up for prior ...\}}\vspace{0.2cm}\\
+\texttt{
+    float th23,dCP,dth23,ddCP,lower\_th23,upper\_th23,lower\_dCP,upper\_dCP;\\
+    FILE* File=fopen("data/ModelTest\_th23\_dCP\_test.dat", "w");\\
+    lower\_th23=40; upper\_th23=50; lower\_dCP=125; upper\_dCP=392;\\
+    dth23=(upper\_th23-lower\_th23)/100; ddCP=(upper\_dCP-lower\_dCP)/100;\\
+    glbSetProjection(free);\\
+    for (th23=lower\_th23;th23<=upper\_th23;th23=th23+dth23)\{\\
+    for (dCP=lower\_dCP;dCP<=upper\_dCP;dCP=dCP+ddCP)\{\\
+    glbSetOscParams(true\_values,th23*degree,GLB\_THETA\_23);\\
+    glbSetOscParams(true\_values,dCP*degree,GLB\_DELTA\_CP);\\
+    PARA=STAN; \\
+    glbSetOscillationParameters(true\_values);\\
+    glbSetRates();\\
+    PARA=MODEL;\\ 
+        float res=glbChiNP(test\_values,NULL,GLB\_ALL);\\
+            fprintf(File,"\%f \%f \%f $\backslash$n",th23,dCP,gsl\_cdf\_chisq\_Qinv(gsl\_cdf\_chisq\_Q(fabs(res),dof),1));\\
+         \} fprintf(File,"$\backslash$n");\\
+    \}
+}\vspace{0.2cm}\\
+\texttt{ \{ ...  destroy the pointer ...\}}\vspace{0.2cm}\\
+Finally, in the code we adopt Wilk's theorem \cite{Wilks:1938dza}. When comparing nested models, the $\Delta \chi^2$ test statistics is a random variable asymptotically distributed according to the $\chi^2$-distribution with the number of degrees of freedom, which is equal to the difference in the number of free model parameters \texttt{dof}. Here the number \texttt{dof} is $2$. And that is our output: \texttt{gsl\_cdf\_chisq\_Qinv(gsl\_cdf\_chisq\_Q(fabs(res),dof),1)}.
 
 \begin{figure}[!h]
  \flushleft
@@ -438,7 +456,7 @@ The example code is given below.
  \caption{\label{fig:SR_2D}The 2-D exclusion contour for tri-direct littlest seesaw model on the plane of any two true standard parameters, from $1\sigma$ to $5\sigma$. The range for each parameter is taken according to the $3\sigma$ uncertainty in NuFit4.0 results. The black dot denotes the best fit of NuFit4.0 results ($(\theta_{12},~\theta_{13},~\theta_{23},~\delta,~\Delta m_{21}^2,~\Delta m_{31}^2)=(33.82^\circ,~8.61^\circ,~49.6^\circ,~215^\circ,~7.39\times10^{-5}~\text{eV}^2,~2.525\times10^{-3}~\text{eV}^2)$), while the star is the prediction by the tri-direct littlest seesaw model with NuFit4.0 results ($(\theta_{12},~\theta_{13},~\theta_{23},~\delta,~\Delta m_{21}^2,~\Delta m_{31}^2)\sim(36.25^\circ,~8.63^\circ,~47^\circ,~279^\circ,~7.39\times10^{-5}~\text{eV}^2,~2.525\times10^{-3}~\text{eV}^2)$).}
 \end{figure}
 
-
+We use the same code to analysis the exclusion ability for other oscillation-parameter combinations. Then, we have the results shown in Fig.~\ref{fig:SR_2D}.
 
 \section{Conclusion}
 
