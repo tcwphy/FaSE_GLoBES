@@ -10,6 +10,8 @@
 \usepackage{leftidx}
 \usepackage{multirow}
 \usepackage{enumerate}
+%\usepackage{textcomp}
+%\usepackage{underscore}
 \title{\boldmath  Flavour Symmetry Embedded - GLoBES}
 
 
@@ -41,8 +43,6 @@
 \flushbottom
 
 \section{Introduction}\label{sec:intro}
-{\color{red}intro flavour symmetry, and summarise some phenon works}
-
 
 The discovery of neutrino oscillations points out the fact that neutrinos have mass, and provides evidence beyond the Standard Model (BSM). This phenomenon is successfully described by a theoretical framework with the help of three neutrino mixing angles ($\theta_{12}$, $\theta_{13}$, $\theta_{23}$), two mass-square splittings ($\Delta m_{21}^2$, $\Delta m_{31}^2$), and one Dirac CP phase ($\delta$) \cite{Pontecorvo:1967fh,Maki:1962mu,Pontecorvo:1957qd,Esteban:2018azc}. Thanks to the great efforts in the past two decades, we almost have a complete understanding of such a neutrino oscillation framework. More data in the neutrino oscillation experiments is needed to determine the sign of $\Delta m_{31}^2$, to measure the value of $\sin\theta_{23}$, to discover the potential CP violation in the leptonic sector and even to constrain the size of $\delta$ \cite{Esteban:2018azc}. For these purposes, the on-going long baseline experiments (LBLs), such as the NuMI Off-axis $\nu_e$ Appearance experiment (NO$\nu$A)~\cite{Ayres:2007tu} and the Tokai-to-Kamioka experiment (T2K)~\cite{Abe:2011ks}, can answer these questions with the statistical significance $\gtrsim 3\sigma$ in most of the parameter space. Based on the analysis with their data, the normal mass ordering ($\Delta m_{31}^2>0$), the higher $\theta_{23}$ octant ($\theta_{23}>45^\circ$), and $\delta\sim270^\circ$ are preferred so far~\cite{Esteban:2018azc}. The future LBLs, Deep Underground Neutrino Experiment (DUNE)~\cite{Acciarri:2015uup}, Tokai to Hyper-Kamiokande (T2HK)~\cite{Abe:2014oxa}, and the medium baseline reactor experiment, the Jiangmen Underground Neutrino Observatory (JUNO)~\cite{Djurcic:2015vqa,An:2015jdp} will further complete our knowledge of neutrino oscillations.
 
@@ -108,6 +108,7 @@ This probability engine can work with the oscillation or model parameter. It can
 \texttt{glbRegisterPriorFunction(FASE\_prior\_OSC,NULL,NULL,NULL); }  \\
 or\\
 \texttt{glbRegisterPriorFunction(FASE\_prior\_model,NULL,NULL,NULL); } \vspace{0.2cm}\\
+We note that except for setting the probability engine and the prior function, the other parts in the main code should follow with the GLoBES manual. 
 
 In the following, we give more details about using \textbf{FASE-GLoBES}. In Sec.~\ref{sec:download}, we will give the instruction to download and install \textbf{GLoBES} and \textbf{FASE}. Then, in Sec.~\ref{sec:compile}, we will introduce how to compile and run the code. More complicated is setting the model, and the way to do this will be described in Sec.~\ref{sec:model_set}. Finally, we will discuss how to set up the prior in Sec.~\ref{sec:prior}.
 
@@ -117,11 +118,25 @@ In the following, we give more details about using \textbf{FASE-GLoBES}. In Sec.
 {\color{red}[will fill in after the code ready on Github]}
 
 \subsection{Compile and Run}\label{sec:compile}
-{\color{red}[will fill in after the code ready on Github]}
+As FASE works based on GLoBES, the user should use the \textbf{GLoBES} \texttt{Makefile}, but include the binary file for FASE. To do so, we include the script in the \texttt{Makefile},\vspace{0.2cm}\\
+\texttt{\{makefile\_execution\}: my\_program.o  FASE\_GLoBES.o model-input\_diag.o\\
+	gcc my\_program.o  FASE\_GLoBES.o model-input\_diag.o -o my\_executable  \$(LDFLAGS) \$(local\_LDFLAGS)}\\
+or\\
+\texttt{\{makefile\_execution\}: my\_program.o  FASE\_GLoBES.o model-input.o\\
+	gcc my\_program.o  FASE\_GLoBES.o model-input.o -o my\_executable  \$(LDFLAGS) \$(local\_LDFLAGS)}\vspace{0.2cm}\\	
+where \texttt{\{compile\_execusion\}} is the makefile commend for the program \texttt{my\_program.o} and the execution \texttt{my\_executable} is the output. After giving this script in the \textbf{GLoBES} \texttt{Makefile}, the user needs to makefile the program \texttt{my\_program} on the terminal.\vspace{0.2cm}\\
+\texttt{makefile \{makefile\_execution\}}\vspace{0.2cm}\\
+And, the user can execute the program by typing the following commend on the terminal.\vspace{0.2cm}\\ 
+\texttt{./my\_executable}\vspace{0.2cm}\\
 
-To initial \textbf{FASE-GLoBES}, we need to include the following code\\
-\texttt{    MODEL\_init($N_{para}$); }\\
-where $N_{para}$ is the number of model parameters.
+The user can also compile the program without the \textbf{GLoBES} \texttt{Makefile} with the following script.\vspace{0.2cm}\\
+\texttt{gcc my\_program.o FASE\_GLoBES.o model-input\_diag.o -lglobes -LGLB\_DIR/lib/ -o my\_executable}\\
+or\\
+\texttt{gcc my\_program.o FASE\_GLoBES.o model-input.o -lglobes -LGLB\_DIR/lib/ -o my\_executable}\vspace{0.2cm}\\
+And, the execution is also in the same way: \texttt{./my\_executable}.\\
+
+Finally we need to initialize \textbf{FASE} by giving $N_{para}$ which is the number of model parameters. To do so, we need to include the following script in the main code.\\
+\texttt{    MODEL\_init($N_{para}$); }\vspace{0.2cm}\\ 
 
 \subsection{Model setting}\label{sec:model_set}
 
@@ -339,6 +354,9 @@ Then, we set two loops to get the $\Delta \chi^2$ value for different $x$ and $\
             fprintf(File,"\%f \%f  \%f $\backslash$n",x,eta/M\_PI,res-res0);\\
                      \} fprintf(File,"$\backslash$n");\}\\
 }
+
+We use the same code to obtain the constraint of any other combination of two parameters. Then, we can have the result as in Fig.~\ref{fig:model_2D}.
+
 
 %\texttt{
 %glbFreeParams(true\_values);\\
