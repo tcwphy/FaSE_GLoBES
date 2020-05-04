@@ -123,7 +123,7 @@ We note that except for setting the probability engine and the prior function, t
 
 \section{Model setting}\label{sec:model_set}
 
-In the function \texttt{MtoS} in \textbf{model-input.c}, the user can assign the relation between the oscillation and model parameter sets, or define the mass matrix in model parameters, which will be diagonalised by the function \texttt{ModelTO} to obtain the corresponding oscillation-parameter values.  The user needs give the input of \texttt{MtoS} -- a set of model parameters ($\vec{\theta}_{Model}$), and the output is the corresponding oscillation parameter $\vec{\theta}_{OSC.}$, of which components are $\theta_{12}$, $\theta_{13}$, $\theta_{23}$, $\delta$, $\Delta m_{21}^2$, and $\Delta m_{31}^2$. These values will be passed in to \textbf{FaSE\_GLoBES} to simulate 
+In the function \texttt{MtoS} in \textbf{model-input.c}, the user can assign the relation between the oscillation and model parameter sets, or define the mass matrix in model parameters, which will be diagonalised by the function \texttt{ModelTO} to obtain the corresponding oscillation-parameter values.  The user needs give the input of \texttt{MtoS} -- a set of model parameters ($\vec{\theta}_{Model}$), and the output is the corresponding oscillation parameter $\vec{\theta}_{OSC.}$, of which components are $\theta_{12}$, $\theta_{13}$, $\theta_{23}$, $\delta$, $\Delta m_{21}^2$, and $\Delta m_{31}^2$. For the first four components, values are given in the unit of \textbf{rad}, while the other two are in \textbf{eV$^2$}. These values will be passed in to \textbf{FaSE\_GLoBES} to simulate 
 the experimental spectra and compute the prior value.
 
 The relation between the oscillation and model parameter sets can be derived out by the user, 
@@ -136,8 +136,7 @@ The oscillation parameters are based on
 \begin{equation}\label{eq:MM}
 U^\dagger\mathcal{M}\mathcal{M}^\dagger U = \mathbf{M}^2,~\text{where}~\mathbf{M}^2_{\alpha\beta}=m_\alpha^2\delta_{\alpha\beta},
 \end{equation}
-where $\mathcal{M}$ ($\mathbf{M}$) is the mass matrix in the flavour (mass) state. The matrix $\mathcal{M}$ is given by user with model parameters ($\vec{\theta}_{Model}$). The matrix $U$ is the mixing matrix, and can be used for getting mixing angles, and the diagonal elements of $\textbf{M}$ are for the corresponding mass-squared differences. The diagnolisation will be done in the function \texttt{ModelTO}, which needs to be called in \texttt{MtoS}. The output is the vector of oscillation parameters, of which components are  $\theta_{12}$, $\theta_{13}$, $\theta_{23}$, $\delta$, $\Delta m_{21}^2$, and $\Delta m_{31}^2$. For the first four components, values are given in the unit of \textbf{rad}, while the other two are in \textbf{eV$^2$}.
-
+where $\mathcal{M}$ ($\mathbf{M}$) is the mass matrix in the flavour (mass) state. The matrix $\mathcal{M}$ is given by user with model parameters ($\vec{\theta}_{Model}$). The matrix $U$ is the mixing matrix, and can be used for getting mixing angles, and differences between any two diagonal elements of $\textbf{M}$ are the corresponding mass-squared differences. The diagnolisation will be done in the function \texttt{ModelTO}, which needs to be called in \texttt{MtoS} and outputs directly the vector $\vec{\theta}_{OSC.}$.
 
 
 \section{Prior setting}\label{sec:prior}
@@ -152,8 +151,7 @@ The values of $\theta^c_i$ and $\sigma_i$ need to be given by the user through t
 
 Finally, some restrictions are imposed by the studied flavour symmetry model. We set up these restrictions in the function \texttt{model\_restriction}, which is in \texttt{model-input\_diga.c} and \texttt{model-input.c}. In the function \texttt{model\_restriction}, the user needs to \textit{return $0$} once the restriction is broken. For example, if the normal ordering is imposed, we give ``\texttt{ if (DMS31<0) \{ return 1;\} } '' in \texttt{model\_restriction}, where \texttt{DMS31} is the variable for $\Delta m_{31}^2$. Then, when the restriction is broken, \texttt{model\_restriction} returns the value $1$ to the prior function \texttt{FASE\_prior\_OSC} or \texttt{FASE\_prior\_model}. In the following, the prior function will give $10^6$ for the $\chi^2$ value, and it will be selected out when the user studies the statistically reasonable region in the parameter space.  
 
-
-\section{Constraint of model parameters}
+\section{The $\chi^2$ value}
 
 The user can use \textbf{FaSE-GLoBES} to study the constraint of model parameters. Here we take tri-direct littlest seesaw as an example to present how we can adopt \textbf{FaSE-GLoBES} to constrain two model parameters -- $x$ and $\eta$. 
 The $\chi^2$ function is constructed based on a log-likelihood ratio,
@@ -165,26 +163,11 @@ where $i$ runs over the number of bins, $\eta_i{\vec{\theta},\xi_s,\xi_b}$ is th
 \eta_i(\vec{\theta},\xi_s,\xi_b)=(1+\xi_s)\times n_i+(1+\xi_b)\times b_i,
 \end{equation}
 where $n_i$ and $b_i$ are the expected number of signal and background events in bin $i$, respectively. The nuisance parameters are constrained by the Gaussian prior $p(\xi,\sigma)=\xi^2/\sigma^2$ with corresponding uncertainties $\sigma_s$ and $\sigma_b$ for the signal and background, respectively. Finally, $\chi^2_{prior}$ is a set of Gaussian priors for hypothesis, and is expressed as Eq.~\ref{eq:prior}. 
-To get the constraint of $x$ and $\eta$, we obtain the minimum of $\chi^2$ value,\vspace{0.2cm}\\
-\texttt{
-    glbSetProjection(free);\\
-    float res0=glbChiNP(true\_values,NULL,GLB\_ALL);\\ } \vspace{0.2cm}\\
-%
-Then, we set two loops to get the $\Delta \chi^2$ value for different $x$ and $\eta$\vspace{0.2cm}\\
-%
-\texttt{     float x,eta,r,ma,dx,deta;\\
-     float lower\_x,upper\_x,lower\_eta,upper\_eta;\\
-     FILE* File=fopen("data/constraint\_x\_eta.dat", "w");\\
-    lower\_x=-9; upper\_x=-3; lower\_eta=0.8*M\_PI; upper\_eta=2*M\_PI;\\
-    dx=(upper\_x-lower\_x)/100; deta=(upper\_eta-lower\_eta)/100;\\
-        glbSetProjection(projection);\\
-   for (x=lower\_x;x<=upper\_x;x=x+dx)\{ \\
-    for (eta=lower\_eta;eta<=upper\_eta;eta=eta+deta)\{\\
-     glbSetOscParams(test\_values,x,0); glbSetOscParams(test\_values,eta,1);\\
-        float res=glbChiNP(test\_values,NULL,GLB\_ALL);\\
-            fprintf(File,"\%f \%f  \%f $\backslash$n",x,eta/M\_PI,res-res0);\\
-                     \} fprintf(File,"$\backslash$n");\}\\
-}
+
+
+\section{Constraint of model parameters}
+
+To get the constraint of $x$ and $\eta$, we obtain the minimum of $\chi^2$ value.\\
 
 \begin{figure}[!h]
  \flushleft
@@ -216,53 +199,6 @@ We use the same code to obtain the constraint of any other combination of two pa
 
 We can also study on excluding the model, assuming different true values for oscillation parameters. In this example, we present testing the tri-driect littlest seesaw model in various $\theta_{23}$ and $\delta$. To do so, we set the true value in oscillation parameters. We change values of $\theta_{23}$ and $\delta$ of the true theory, and compute the minimal $\chi^2$ value for the tested model with all four model parameters, free to be varied. And, the studied statistics function is exactly Eq.~\ref{eq:chi-squared}, but the true event rate $n_i$ is predicted by a set of oscillation parameters, which will be varied in the code. And all four model parameter can be varied with the prior given by Eq.~\ref{eq:prior}.
 
-
-The example code is given below.\vspace{0.2cm}\\
-\texttt{ \{ ...  initalize the code ...\}\\
-\{ ...  register the probability engine ...\}    }\vspace{0.2cm}\\
-\texttt{    
-    float degree   = M\_PI/180;\\
-    float x\_true,eta\_true,r\_true,ma\_true;\\
-    x\_true=-3.65029; eta\_true=1.13067*M\_PI; r\_true=0.511325; ma\_true=3.71199e-3;\\
-    double M\_para[4],OSC\_para[6];\\
-    M\_para[0]=x\_true; M\_para[1]=eta\_true; M\_para[2]=r\_true; M\_para[3]=ma\_true;\\
-    MtoS(OSC\_para, M\_para);\\
-    double th12\_true=OSC\_para[0];\\
-    double th13\_true=OSC\_para[1];\\
-    double th23\_true=OSC\_para[2];\\
-    double dCP\_true=OSC\_para[3];\\
-    double DM21\_true=OSC\_para[4];\\
-    double DM31\_true=OSC\_para[5];\\
-    glb\_params true\_values = glbAllocParams();\\
-    glb\_params test\_values = glbAllocParams();\\
-    glb\_params input\_errors = glbAllocParams();\\
-    glb\_params centers = glbAllocParams();\\
-    \\
-    glbDefineParams(test\_values,x\_true,eta\_true,r\_true,ma\_true,0,0);\\
-    glbSetDensityParams(test\_values,1.0,GLB\_ALL);\\
-    glbDefineParams(true\_values,th12\_true,th13\_true,th23\_true,dCP\_true,DM21\_true,DM31\_true);\\
-    glbSetDensityParams(true\_values,1.0,GLB\_ALL); }\vspace{0.2cm}\\
-\texttt{ \{ ...  set up for prior ...\}}\vspace{0.2cm}\\
-\texttt{
-    float th23,dCP,dth23,ddCP,lower\_th23,upper\_th23,lower\_dCP,upper\_dCP;\\
-    FILE* File=fopen("data/ModelTest\_th23\_dCP\_test.dat", "w");\\
-    lower\_th23=40; upper\_th23=50; lower\_dCP=125; upper\_dCP=392;\\
-    dth23=(upper\_th23-lower\_th23)/100; ddCP=(upper\_dCP-lower\_dCP)/100;\\
-    glbSetProjection(free);\\
-    for (th23=lower\_th23;th23<=upper\_th23;th23=th23+dth23)\{\\
-    for (dCP=lower\_dCP;dCP<=upper\_dCP;dCP=dCP+ddCP)\{\\
-    glbSetOscParams(true\_values,th23*degree,GLB\_THETA\_23);\\
-    glbSetOscParams(true\_values,dCP*degree,GLB\_DELTA\_CP);\\
-    PARA=STAN; \\
-    glbSetOscillationParameters(true\_values);\\
-    glbSetRates();\\
-    PARA=MODEL;\\ 
-        float res=glbChiNP(test\_values,NULL,GLB\_ALL);\\
-            fprintf(File,"\%f \%f \%f $\backslash$n",th23,dCP,gsl\_cdf\_chisq\_Qinv(gsl\_cdf\_chisq\_Q(fabs(res),dof),1));\\
-         \} fprintf(File,"$\backslash$n");\\
-    \}
-}\vspace{0.2cm}\\
-\texttt{ \{ ...  destroy the pointer ...\}}\vspace{0.2cm}\\
 Finally, in the code we adopt Wilk's theorem \cite{Wilks:1938dza}. When comparing nested models, the $\Delta \chi^2$ test statistics is a random variable asymptotically distributed according to the $\chi^2$-distribution with the number of degrees of freedom, which is equal to the difference in the number of free model parameters \texttt{dof}. Here the number \texttt{dof} is $2$. And that is our output: \texttt{gsl\_cdf\_chisq\_Qinv(gsl\_cdf\_chisq\_Q(fabs(res),dof),1)}.
 
 \begin{figure}[!h]
