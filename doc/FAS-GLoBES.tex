@@ -1,9 +1,11 @@
-\documentclass[a4paper,11pt]{article}
-\pdfoutput=1 % if your are submitting a pdflatex (i.e. if you have
-             % images in pdf, png or jpg format)
+%\documentclass[a4paper,11pt]{article}%JHEP%
+%\pdfoutput=1 % if your are submitting a pdflatex (i.e. if you have
+             % images in pdf, png or jpg format)%JHEP%
 
-\usepackage{jheppub} % for details on the use of the package, please
-                     % see the JHEP-author-manual
+%\usepackage{jheppub} % for details on the use of the package, please
+                     % see the JHEP-author-manual%JHEP%
+
+\documentclass[aps,prd,nofootinbib,preprint]{revtex4}
 
 \usepackage[T1]{fontenc} % if needed
 \usepackage{amsmath}
@@ -11,36 +13,52 @@
 \usepackage{multirow}
 \usepackage{enumerate}
 %\usepackage{textcomp}
+
 %\usepackage{underscore}
-\title{\boldmath  Flavour Symmetry Embedded - GLoBES}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+\usepackage[nottoc]{tocbibind}
+
+\usepackage{hyperref}
+%\usepackage{ulem}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{amsmath,amssymb,amsthm,amsxtra,overpic,bbm,bm,float
+,epsfig}
 
 
 
-% more complex case: 4 authors, 3 institutions, 2 footnotes
-\author[a]{Jian Tang,}
-\author[a]{Tse-Chun Wang}
+%JHEP%
+%\title{\boldmath  Flavour Symmetry Embedded - GLoBES (FaSE-GLoBES)}
 
 
-% The "\note" macro will give a warning: "Ignoring empty anchor..."
-% you can safely ignore it.
-
-\affiliation[a]{School of Physics, Sun Yat-Sen University, Guangzhou 510275, China}
-%\affiliation[c]{A School for Advanced Studies,\\some-location, Country}
-
-% e-mail addresses: one for each author, in the same order as the authors
-\emailAdd{tangjian5@mail.sysu.edu.cn}
-\emailAdd{wangzejun@mail.sysu.edu.cn}
+%JHEP%
+%\author[a]{Jian Tang,}
+%\author[a]{Tse-Chun Wang}
+%\affiliation[a]{School of Physics, Sun Yat-Sen University, Guangzhou 510275, China}
+%\emailAdd{tangjian5@mail.sysu.edu.cn}
+%\emailAdd{wangzejun@mail.sysu.edu.cn}
+%\abstract{Abstract...}
 
 
-
-
-\abstract{Abstract...}
-
-
-
+%\fontsize{3}{5}\selectfont
 \begin{document} 
+%\title{The user manual: FlAvour Symmetry with the GLoBES library}
+%\title{FlAvour Symmetry with the GLoBES library}
+\title{The user manual: Flavour Symmetry Embedded - GLoBES (FaSE-GLoBES)} %JHEP%
+%\maketitle %JHEP%
+%\flushbottom %JHEP%
+\author{Jian Tang$^1$\footnote{tangjian5@mail.sysu.edu.cn}}
+\author{Tse-Chun Wang$^1$\footnote{wangzejun@mail.sysu.edu.cn}}
+\affiliation{$^1$School of Physics, Sun Yat-Sen University, Guangzhou 510275, China}
+
+\begin{abstract}
+\textbf{Keywords: Neutrino Oscillations, Leptonic Flavour Symmetry}  
+\end{abstract}
+
 \maketitle
-\flushbottom
 
 \section{Introduction}\label{sec:intro}
 
@@ -66,16 +84,15 @@ The symmetries need to be broken at the low energy. Otherwise, the flavour of le
 %
 To achieve the $\delta$ prediction, many models are based on a discrete family symmetry $G_f$ together with a non-commuting CP symmetry $H_\mathrm{CP}$. Broken in different approaches, the symmetry $G_f\otimes H_\mathrm{CP}$ can predict different patterns for the neutrino mixing. For example, in the semi-direct approach, $S_4$ is preserved in the leading order, and leads the bimaximal (MB) or tri-bimaximal (TB) neutrino mixing, while the higher order terms bring the correction to the neutrino mixing.
 
-Currently, some works discuss on how the future experiments can be used for testing these flavour symmetry models in the phenomenological point of view, \textit{e.g.}~\cite{Ballett:2016yod,Chatterjee:2017xkb,Ding:2019zhn,Tang:2019edw}. A large number of these works are based on the \texttt{c}-library -- \textbf{G}eneral \textbf{Lo}ng \textbf{B}aseline \textbf{E}xperiment \textbf{S}imulator (\textbf{GLoBES}) \cite{Huber:2004ka,Huber:2007ji}, which is a convenient simulation tool to simulate neutrino oscillation experiments via the Abstract Experiment Definition Language (AEDL). Some AEDL files for experiments are also available on \textbf{GLoBES} website. In addition, the working group of DUNE experiment also releases their AEDL files~\cite{Alion:2016uaj}.  \textbf{GLoBES} can be taken as one of popular and useful tools in the community of neutrino oscillation physics. However, it has not yet to be extended for the purpose of analysing flavour symmetry models. 
+Currently, some works discuss on how the future experiments can be used for testing these flavour symmetry models in the phenomenological point of view, \textit{e.g.}~Ref.~\cite{Ballett:2016yod,Chatterjee:2017xkb,Ding:2019zhn,Tang:2019edw}. A large number of these works are based on the \texttt{c}-library -- \textbf{G}eneral \textbf{Lo}ng \textbf{B}aseline \textbf{E}xperiment \textbf{S}imulator (\textbf{GLoBES}) \cite{Huber:2004ka,Huber:2007ji}, which is a convenient simulation tool to simulate neutrino oscillation experiments via the Abstract Experiment Definition Language (AEDL). Some AEDL files for experiments are also available on \textbf{GLoBES} website, while the working group of DUNE experiment also releases their AEDL files~\cite{Alion:2016uaj}.  \textbf{GLoBES} can be taken as one of popular and useful tools in the community of neutrino oscillation physics. However, it has not yet to be extended for the purpose of analysing flavour symmetry models.  In this work, we will present our simulation tool \textbf{F}l\textbf{a}vour \textbf{S}ymmetry \textbf{E}mbedded - \textbf{GLoBES} (\textbf{FaSE-GloBES}) that is a simulation code based on GLoBES library for studying the flavour symmetry. \textbf{FaSE} is a supplemental tool for GLoBES, written in \texttt{c/c++} language, and FASE-GLoBES allows the user to assign the flavour symmetry model and analysis how a flavour symmetry model can be excluded by the simulated neutrino oscillation experiment.
 
-In this work, we will present our simulation tool \textbf{F}l\textbf{a}vour \textbf{S}ymmetry \textbf{E}mbedded - \textbf{GLoBES} (\textbf{FaSE-GloBES}) that is a simulation code based on GLoBES library and specific for studying the flavour symmetry. 
 
 %One of the most predictive flavour-symmetry models is the littlest seesaw model (LSS), which includes two massive right-handed neutrinos: one corresponds to the atmospheric-mass term, while the other is included for the solar-mass term~\cite{King:2013iva,King:2015dvf,King:2016yvg}.  The littlest seesaw model in the tri-direct approach (TDLS) has been proposed and succeeds in describing the current global-fit results~\cite{Ding:2018fyz,Ding:2018tuj}. The tri-direct approach is that after the breaking of the family symmetry $G_f\otimes H_\mathrm{CP}$, three residual symmetries are preserved in different sectors: one in the charged-lepton sector, two in the sectors of right-handed neutrinos for atmospheric and solar mass terms, respectively. In this model, four parameters $x$, $\eta$, $r$, $m_a$ are used to describe neutrino oscillations. This model has been studied with simulated data at NO$\nu$A, T2K, DUNE, T2HK and JUNO~\cite{Ding:2019zhn}. In this work, we study how the next-generation neutrino project using muon-decay beams such as MOMENT can further extend our knowledge on the TDLS model. We have two reasons to motivate this study. Firstly, TDLS describes the current data successfully and tends to be a nice way to offer neutrino mass terms from theoretical point of view. Secondly, it must be straightforward to test the underlying model predictions and compare the performance of MOMENT to the other experiments, \textit{such as} NO$\nu$A, T2K, DUNE, and T2HK.
 
 
 \section{Overview FASE-GloBES}
 
-\textbf{F}l\textbf{A}vor \textbf{S}ymmetry \textbf{E}mbedded (\textbf{FASE}) is a supplemental tool for General Long Baseline Experiment Simulator (\textbf{GLoBES}) in order to analysis how a leptonic flavour symmetry model can be tested in neutrino oscillation experiments. \textbf{FASE} is written in the \texttt{c/c++} language, and consist with three codes \textbf{FASE\_GLoBES.c}, \textbf{model-input\_diag.c} and \textbf{model-input.c}. The user defines the model in to \textbf{model-input\_diag.c} or \textbf{model-input.c}, while \textbf{FASE\_GLoBES.c} does not need to be touched. 
+\textbf{F}l\textbf{a}vor \textbf{S}ymmetry \textbf{E}mbedded (\textbf{FaSE}) is a supplemental tool for General Long Baseline Experiment Simulator (\textbf{GLoBES}) in order to analysis how a leptonic flavour symmetry model can be tested in neutrino oscillation experiments. \textbf{FaSE} is written in the \texttt{c/c++} language, and consist with three codes \textbf{FASE\_GLoBES.c}, \textbf{model-input\_diag.c} and \textbf{model-input.c}. The user defines the model in to \textbf{model-input\_diag.c} or \textbf{model-input.c}, while \textbf{FASE\_GLoBES.c} does not need to be touched. 
 
 \begin{figure}[!h]%
 \centering
@@ -85,11 +102,11 @@ In this work, we will present our simulation tool \textbf{F}l\textbf{a}vour \tex
 \end{figure}
 
 
-The \textbf{FASE-GLoBES} is \textbf{FASE} working with \textbf{GLoBES} as shown in Fig.~\ref{fig:FASE}, in which three parts are shown: 1.~\textbf{the parameter translation} (the blue box), 2.~\textbf{giving oscillation-parameter values} (the green box), and 3.~\textbf{the $\chi^2$-value calculation} (the orange box). 
+The concept of \textbf{FaSE-GLoBES} is shown in Fig.~\ref{fig:FASE}, in which three parts are shown: 1.~\textbf{the parameter translation} (the blue box), 2.~\textbf{giving oscillation-parameter values} (the green box), and 3.~\textbf{the $\chi^2$-value calculation} (the orange box). 
 The idea behind this flow chart Fig.~\ref{fig:FASE} is that given a set of value for model parameter, the corresponding values for oscillation parameters are obtained by a translation, which is assigned by the user in \textbf{model-input\_diag.c} or \textbf{model-input.c}. And then, through \textbf{FASE\_GLoBES.c}, these oscillation-parameter values are passed in to \textbf{GLoBES} library to simulate the event spectrum for evaluating the $\chi^2$ value. 
 
 
-API functions to use \textbf{FASE} are listed:
+API functions to use \textbf{FaSE} are listed:
 \begin{enumerate}
 \item \texttt{MODEL\_init($N_{para}$)},
 \item  \texttt{FASE\_glb\_probability\_matrix},
@@ -98,7 +115,7 @@ API functions to use \textbf{FASE} are listed:
 \item \texttt{FASE\_prior\_OSC},
 \item \texttt{FASE\_prior\_model}.
 \end{enumerate}
-The first one is to initialise FASE with the parameter $N_{para}$ the number of input parameters. The next three functions need to be included to replace the default GLoBES probability engine by the one that can read the output from  \textbf{model-input\_diag.c} or \textbf{model-input.c}, as follows\vspace{0.2cm}\\
+The first one is to initialise \textbf{FaSE} with the parameter $N_{para}$ the number of input parameters. The next three functions need to be included to replace the default GLoBES probability engine by the one that can read the output from  \textbf{model-input\_diag.c} or \textbf{model-input.c}, as follows\vspace{0.2cm}\\
 \texttt{    glbRegisterProbabilityEngine(6,\\
                                  \&FASE\_glb\_probability\_matrix,\\
                                  \&FASE\_glb\_set\_oscillation\_parameters,\\
@@ -118,7 +135,7 @@ In the following, we give more details about using \textbf{FASE-GLoBES}. In Sec.
 {\color{red}[will fill in after the code ready on Github]}
 
 \subsection{Compile and Run}\label{sec:compile}
-As FASE works based on GLoBES, the user should use the \textbf{GLoBES} \texttt{Makefile}, but include the binary file for FASE. To do so, we include the script in the \texttt{Makefile},\vspace{0.2cm}\\
+As \textbf{FaSE} works based on \textbf{GLoBES}, the user should use the \textbf{GLoBES} \texttt{Makefile}, but include the binary file of \textbf{FaSE}. To do so, we include the script in the \texttt{Makefile},\vspace{0.2cm}\\
 \texttt{\{makefile\_execution\}: my\_program.o  FASE\_GLoBES.o model-input\_diag.o\\
 	gcc my\_program.o  FASE\_GLoBES.o model-input\_diag.o -o my\_executable  \$(LDFLAGS) \$(local\_LDFLAGS)}\\
 or\\
@@ -135,7 +152,7 @@ or\\
 \texttt{gcc my\_program.o FASE\_GLoBES.o model-input.o -lglobes -LGLB\_DIR/lib/ -o my\_executable}\vspace{0.2cm}\\
 And, the execution is also in the same way: \texttt{./my\_executable}.\\
 
-Finally we need to initialize \textbf{FASE} by giving $N_{para}$ which is the number of model parameters. To do so, we need to include the following script in the main code.\\
+Finally we need to initialize \textbf{FaSE} by giving $N_{para}$ which is the number of model parameters. To do so, we need to include the following script in the main code.\\
 \texttt{    MODEL\_init($N_{para}$); }\vspace{0.2cm}\\ 
 
 \subsection{Model setting}\label{sec:model_set}
@@ -177,7 +194,7 @@ where  stands for a cube root of unity and the parameter $x$ is real because of 
  x &~ x^2 &~ x^2 \\
 \end{pmatrix}\,,
 \end{equation}
-where $x$, $\eta$, $m_a$, and the ratio $r\equiv m_s/m_a$ are four parameters and will be constrained by experimental data. We note that from Eq.~(\ref{eq:mnu}), $m_1=0$ and the normal mass ordering are imposed, and will need to be imposed in \textbf{FASE-GLoBES}. Therefore, the restrictions in this model are $m_a>0$ and $r>0$.
+where $x$, $\eta$, $m_a$, and the ratio $r\equiv m_s/m_a$ are four parameters and will be constrained by experimental data. We note that from Eq.~(\ref{eq:mnu}), $m_1=0$ and the normal mass ordering are imposed, and will need to be imposed in \textbf{FaSE-GLoBES}. Therefore, the restrictions in this model are $m_a>0$ and $r>0$.
 
 \begin{table}[h!]
 \caption{\label{tab:TD_parameters}A summary of the relation between oscillation parameters and TDLS model parameters~\cite{Ding:2018fyz}. Two requirements are imposed by TDLS: the smallest mass state $m_1=0$ and the normal mass ordering. The sign of $\sin\delta$ depends on the sign of $x\cos\psi$: ``$+$'' (``$-$'') is for $x\cos\psi>0$ ($<0$).}
@@ -334,7 +351,7 @@ The parameter \texttt{degree} is defined as $\pi/180$.
 
 \subsection{Constraint of model parameters}
 
-The user can use \textbf{FASE-GLoBES} to study the constraint of model parameters. Here we take tri-direct littlest seesaw as an example to present how we can adopt \textbf{FASE-GLoBES} to constrain two model parameters -- $x$ and $\eta$. 
+The user can use \textbf{FaSE-GLoBES} to study the constraint of model parameters. Here we take tri-direct littlest seesaw as an example to present how we can adopt \textbf{FaSE-GLoBES} to constrain two model parameters -- $x$ and $\eta$. 
 The $\chi^2$ function is constructed based on a log-likelihood ratio,
 \begin{equation}\label{eq:chi-squared}
 \chi^2(\vec{\theta},\xi_s,\xi_b)=2\sum_i\left(\eta_i(\vec{\theta},\xi_s,\xi_b)-n_i+n_i\ln\frac{n_i}{\eta_i(\vec{\theta},\xi_s,\xi_b)} \right)+p(\xi_s,\sigma_s)+p(\xi_b,\sigma_b)+\chi^2_{prior},
@@ -458,10 +475,18 @@ Finally, in the code we adopt Wilk's theorem \cite{Wilks:1938dza}. When comparin
 
 We use the same code to analysis the exclusion ability for other oscillation-parameter combinations. Then, we have the results shown in Fig.~\ref{fig:SR_2D}.
 
-\section{Conclusion}
+\section{Summary and conclusions}
+
+We have presented \textbf{FaSE}, which is a supplemental simulation tool for \textbf{GLoBES} to study the flavour symmetry with neutrino oscillation experiments. \textbf{FaSE} provides \texttt{c}-codes: \textbf{model-input.c} and \textbf{FASE\_GLoBES.c}. Shown in Fig.~\ref{fig:FASE}, \textbf{FASE\_GLoBES}, which calls functions in \textbf{model-input.c}, plays a role as a bridge between \textbf{FaSE} and \textbf{GLoBES} to simulate the expected spectra and compute the prior value. It can be left to be untouched by users. However, all inputs of the user needs to be given in the code \textbf{model-input.c}. Given a set of model parameters $\vec{M}$, with \textbf{GLoBES}, the output can be the $\chi^2$ value for the hypothesis $\vec{M}$. {\color{red}\texttt{Makefile} is easy to include these two binary files (\textbf{model-input} and \textbf{FASE\_GLoBES}) in the \texttt{makefile} script for \textbf{GLoBES}. }
+
+We also present two examples for \textbf{FaSE-GLoBES} with the flavour symmetry model -- tri-direct littlest seesaw (TDLS) -- and the future neutrino oscillaiton experiment -- MOMENT. We show the model can be assign in two ways: the relation between model and oscillation parameters or the form of mass matrix in model parameters. The input of the oscillation probability and prior value can be in model or oscillation parameters. We further demonstrate how to use \textbf{FaSE-GLoBES} to obtain the constraint of any two of model parameters, and to study the ability to TDLS by MOMENT experiment. 
+
+Finally, \textbf{GLoBES} is a popular and powerful simulation tool to analysis the neutrino oscillation experiments in a simple language (AEDL), without losing too much detail. Considering the success of the flavour symmetry theory to explain the neutrino oscillations, \textbf{FaSE-GLoBES} should benefit model builders of leptonic flavour symmetry and phenomenologists for neutrino oscillation physics. We leave the flexibility for the user, and some other improvements and extensions might be done in the future.
+ 
 
 % BIBLIOGRAPHY
 % use BIBTEX if you want
 \bibliographystyle{JHEP}
+%\bibliographystyle{plain}
 \bibliography{FAS-GLoBES.bib}
 \end{document}
