@@ -47,16 +47,16 @@
 \begin{document} 
 %\title{The user manual: FlAvour Symmetry with the GLoBES library}
 %\title{FlAvour Symmetry with the GLoBES library}
-\title{The user manual: Flavour Symmetry Embedded - GLoBES (FaSE-GLoBES)} %JHEP%
+\title{\Large The user manual: Flavour Symmetry Embedded - GLoBES (FaSE-GLoBES)} %JHEP%
 %\maketitle %JHEP%
 %\flushbottom %JHEP%
 \author{Jian Tang$^1$\footnote{tangjian5@mail.sysu.edu.cn}}
 \author{Tse-Chun Wang$^1$\footnote{wangzejun@mail.sysu.edu.cn}}
 \affiliation{$^1$School of Physics, Sun Yat-Sen University, Guangzhou 510275, China}
 
-\begin{abstract}
-\textbf{Keywords: Neutrino Oscillations, Leptonic Flavour Symmetry}  
-\end{abstract}
+%\begin{abstract}
+%\textbf{Keywords: Neutrino Oscillations, Leptonic Flavour Symmetry}  
+%\end{abstract}
 
 \maketitle
 
@@ -92,7 +92,7 @@ Currently, some works discuss on how the future experiments can be used for test
 
 \section{Overview FASE-GloBES}
 
-\textbf{F}l\textbf{a}vor \textbf{S}ymmetry \textbf{E}mbedded (\textbf{FaSE}) is a supplemental tool for General Long Baseline Experiment Simulator (\textbf{GLoBES}) in order to analysis how a leptonic flavour symmetry model can be tested in neutrino oscillation experiments. \textbf{FaSE} is written in the \texttt{c/c++} language, and consist with three codes \textbf{FASE\_GLoBES.c}, \textbf{model-input\_diag.c} and \textbf{model-input.c}. The user defines the model in to \textbf{model-input\_diag.c} or \textbf{model-input.c}, while \textbf{FASE\_GLoBES.c} does not need to be touched. 
+\textbf{F}l\textbf{a}vor \textbf{S}ymmetry \textbf{E}mbedded (\textbf{FaSE}) is a supplemental tool for \textbf{G}eneral \textbf{Lo}ng \textbf{B}aseline \textbf{E}xperiment \textbf{S}imulator (\textbf{GLoBES}) in order to analysis how a leptonic flavour symmetry model can be tested in neutrino oscillation experiments. \textbf{FaSE} is written in the \texttt{c/c++} language, and consist with three codes \textbf{FASE\_GLoBES.c} and \textbf{model-input.c}. The user defines the model in to \textbf{model-input.c}, while \textbf{FASE\_GLoBES.c} does not need to be touched. 
 
 \begin{figure}[!h]%
 \centering
@@ -103,10 +103,10 @@ Currently, some works discuss on how the future experiments can be used for test
 
 
 The concept of \textbf{FaSE-GLoBES} is shown in Fig.~\ref{fig:FASE}, in which three parts are shown: 1.~\textbf{the parameter translation} (the blue box), 2.~\textbf{giving oscillation-parameter values} (the green box), and 3.~\textbf{the $\chi^2$-value calculation} (the orange box). 
-The idea behind this flow chart Fig.~\ref{fig:FASE} is that given a set of value for model parameter, the corresponding values for oscillation parameters are obtained by a translation, which is assigned by the user in \textbf{model-input\_diag.c} or \textbf{model-input.c}. And then, through \textbf{FASE\_GLoBES.c}, these oscillation-parameter values are passed in to \textbf{GLoBES} library to simulate the event spectrum for evaluating the $\chi^2$ value. 
+The idea behind this flow chart Fig.~\ref{fig:FASE} is that given a set of value for model parameter, the corresponding values for oscillation parameters are obtained by a translation, which is assigned by the user in \textbf{model-input.c}. And then, through \textbf{FASE\_GLoBES.c} these oscillation-parameter values are passed in to \textbf{GLoBES} library to simulate the event spectrum for evaluating the $\chi^2$ value. 
 
 
-API functions to use \textbf{FaSE} are listed:
+API functions in \textbf{FaSE} are listed:
 \begin{enumerate}
 \item \texttt{MODEL\_init($N_{para}$)},
 \item  \texttt{FASE\_glb\_probability\_matrix},
@@ -115,13 +115,13 @@ API functions to use \textbf{FaSE} are listed:
 \item \texttt{FASE\_prior\_OSC},
 \item \texttt{FASE\_prior\_model}.
 \end{enumerate}
-The first one is to initialise \textbf{FaSE} with the parameter $N_{para}$ the number of input parameters. The next three functions need to be included to replace the default GLoBES probability engine by the one that can read the output from  \textbf{model-input\_diag.c} or \textbf{model-input.c}, as follows\vspace{0.2cm}\\
+The first one is to initialise \textbf{FaSE} with the number of input parameters $N_{para}$. The next three functions need to be included to replace the default \textbf{GLoBES} probability engine by the one that can read the output from \textbf{model-input.c}, as follows.\vspace{0.2cm}\\
 \texttt{    glbRegisterProbabilityEngine(6,\\
                                  \&FASE\_glb\_probability\_matrix,\\
                                  \&FASE\_glb\_set\_oscillation\_parameters,\\
                                  \&FASE\_glb\_get\_oscillation\_parameters,\\
                                  NULL); }\vspace{0.2cm}\\ 
-This probability engine can work with the oscillation or model parameter. It can be set by the user with the parameter \texttt{PARA}. If \texttt{PARA=STAN} (\texttt{PARA=MODEL}) the probability engine works with oscillation (model) parameters. The final two functions are prior functions. Once the user gives the prior in oscillation (model) parameters, the user needs to call \texttt{FASE\_prior\_OSC} (\texttt{FASE\_prior\_model}) as follows.\vspace{0.2cm}\\
+This probability engine can work with oscillation or model parameters. It can be set by the user with the parameter \texttt{PARA}. If \texttt{PARA=STAN} (\texttt{PARA=MODEL}) the probability engine works with oscillation (model) parameters. The final two items on the API list are prior functions. Once the user gives the prior in oscillation (model) parameters, the user needs to call \texttt{FASE\_prior\_OSC} (\texttt{FASE\_prior\_model}) as follows.\vspace{0.2cm}\\
 \texttt{glbRegisterPriorFunction(FASE\_prior\_OSC,NULL,NULL,NULL); }  \\
 or\\
 \texttt{glbRegisterPriorFunction(FASE\_prior\_model,NULL,NULL,NULL); } \vspace{0.2cm}\\
@@ -157,26 +157,37 @@ Finally we need to initialize \textbf{FaSE} by giving $N_{para}$ which is the nu
 
 \subsection{Model setting}\label{sec:model_set}
 
-FASE includes three \texttt{c++} files: \textbf{model-input\_diag.c}, \textbf{model-input.c}, and \textbf{FASE\_GLoBES.c}. As shown in the previous paragraph, these files are for different service. In \textbf{model-input\_diag.c} and \textbf{model-input.c}, the user can assign the relation between the oscillation and model parameter sets. The difference between these two code is that in \textbf{model-input.c}, the user give the relation between these two parameter sets directly, while in \textbf{model-input.c}, the mass matrix, which is provided by the user, can be diagonalised to obtain the corresponding oscillation-parameter values. 
+The function \texttt{MtoS} can do the translator from model parameters $\vec{\theta}_{Model}$ to oscillation parameters $\vec{\theta}_{OSC.}$. After the user gives the array $\vec{\theta}_{Model}$ to the function \texttt{MtoS}, the output is the corresponding oscillation parameter $\vec{\theta}_{OSC.}$, of which components are $\theta_{12}$, $\theta_{13}$, $\theta_{23}$, $\delta$, $\Delta m_{21}^2$, and $\Delta m_{31}^2$. For the first four components, values are given in the unit of \textbf{rad}, while the other two are in \textbf{eV$^2$}. These values will be passed in to \textbf{FaSE\_GLoBES} to simulate 
+the experimental spectra and compute the prior value.
 
-For different methods to include the model, we use different \texttt{c++} file. Adopting the mass matrix expressed by model parameters, we assign this model in \textbf{model-input\_diag.c}. In function \texttt{MtoS}, we give
-the mass matrix in the $3\times3$ complex matrix \texttt{Mass\_Matrix[]}.
+
+To do the translation from $\vec{\theta}_{Model}$ to $\vec{\theta}_{OSC.}$, the user can assign the relation between the oscillation and model parameter sets, or define the mass matrix in model parameters, which will be diagonalised by the function \texttt{ModelTO} to obtain the corresponding oscillation-parameter values. 
+%The relation between the oscillation and model parameter sets can be derived out by the user, 
+In the way of directly giving the relation between oscillation and model parameter sets, the user needs to provide
+\begin{equation}\label{eq:modelofOSC}
+\vec{\theta}_{Model}=\vec{f}(\vec{\theta}_{OSC.})
+\end{equation}
+ in the function \texttt{MtoS}.
 %
-Passing the complex matrix \texttt{Mass\_Matrix[]} into the function \texttt{STAN\_OSC}, we will get the corresponding oscillation parameters in an array \texttt{OSC\_PARAMS}, components of which are the value for $\theta_{12}$, $\theta_{13}$, $\theta_{23}$, $\delta$, $\Delta m_{21}^2$, and $\Delta m_{31}^2$. The expression of \texttt{Mass\_Matrix[]} is given by the user. For the first four components, values are given in the unit of \textbf{rad}, while the other two are in \textbf{eV$^2$}.  We can also assign the relation between oscillation and model parameters in \textbf{model-input.c}. The relations are given in \texttt{MtoS} as well.
 
-
+The oscillation parameters can also be obtained in the way based on
+\begin{equation}\label{eq:MM}
+U^\dagger\mathcal{M}\mathcal{M}^\dagger U = \mathbf{M}^2,~\text{where}~\mathbf{M}^2_{\alpha\beta}=m_\alpha^2\delta_{\alpha\beta},
+\end{equation}
+where $\mathcal{M}$ ($\mathbf{M}$) is the neutrino mass matrix in the flavour (mass) state. The matrix $\mathcal{M}$ is given by user with model parameters $\vec{\theta}_{Model}$. The matrix $U$ is the neutrino mixing matrix, and can be used for getting mixing angles. The difference between any two diagonal elements of $\textbf{M}$ ($\textbf{M}_{ii}-\textbf{M}_{jj}$) is the mass-squared difference ($\Delta m_{ij}^2$). This diagnolisation Eq.~\ref{eq:MM} can be done with the function \texttt{ModelTO}, which needs to be called in \texttt{MtoS} and outputs directly the vector $\vec{\theta}_{OSC.}$.
 
 \subsection{Prior setting}\label{sec:prior}
-Given a set of values for model parameters, \textbf{FASE\_GLoBES.c} will obtain the corresponding oscillation-parameter values from \textbf{model-input\_diga.c} or \textbf{model-input.c}, and will pass these values to simulate the event spectrum and to give the prior value. Two gaussian prior functions are provided in \textbf{FASE} -- \texttt{FASE\_prior\_OSC} and \texttt{FASE\_prior\_model}. These two functions are for different purposes. If the user give the prior in oscillation (model) parameters, the user should register \texttt{FASE\_prior\_OSC} (\texttt{FASE\_prior\_model}) for the prior with the \textbf{GLoBES} function \texttt{glbRegisterPriorFunction}, as we introduced in the beginning of this section. The Gaussian prior is 
+Given a set of values for model parameters, \textbf{FASE\_GLoBES.c} will obtain the corresponding oscillation-parameter values from \textbf{model-input.c}, and will pass these values to simulate event spectra and to compute the prior value. Two gaussian prior functions are provided in \textbf{FaSE} -- \texttt{FASE\_prior\_OSC} and \texttt{FASE\_prior\_model}. These two functions are for different purposes. If the user give the prior in oscillation (model) parameters, the user should register \texttt{FASE\_prior\_OSC} (\texttt{FASE\_prior\_model}) with the \textbf{GLoBES} function \texttt{glbRegisterPriorFunction}, as we introduced in the beginning of this section. The user also needs to assign the parameter \texttt{PARA=STAN} (\texttt{PARA=Model}), when the user prefers to give the prior in oscillation (model) parameters. The Gaussian prior is 
 \begin{equation}\label{eq:prior}
 \chi^2_{prior}=\sum_{i} \frac{(\theta_i-\theta^c_i)^2}{\sigma_i^2},
 \end{equation}
- where $\theta_i$ is one of parameters constrained by prior, $\theta^c_i$ ($\sigma_c$) is the central value (Gaussian width) of the prior for $\theta_i$. We note that $\theta_i$ can be either model or oscillation parameter.
- But, oscillation and model parameters can be mixed up together in the using of prior. 
+ where $\theta_i$ is one of parameters constrained by prior, $\theta^c_i$ ($\sigma_i$) is the central value (Gaussian width) of the prior for $\theta_i$. We note that $\theta_i$ can be either model ($\vec{\theta}_{Model}$) or oscillation parameters ($\vec{\theta}_{OSC.}$).
+%
+The values of $\theta^c_i$ and $\sigma_i$ need to be given by the user through three arrays: \texttt{Central\_prior}, \texttt{UPPER\_prior}, and \texttt{LOWER\_prior}, in which there are six components. To treat asymmetry of width for upper ($\theta_i>\theta_i^c$) and lower ($\theta_i<\theta_i^c$) Gaussian widths, we give values in two arrays \texttt{UPPER\_prior}, and \texttt{LOWER\_prior}, respectively. If the user gives the prior in model parameters, the order of each component follows with the setup of input of the probability engine. While the user gives the prior in oscillation parameters, the six components in order are $\theta_{12}$, $\theta_{13}$, $\theta_{23}$, $\delta$, $\Delta m_{21}^2$, and  $\Delta m_{31}^2$. The first four parameter are in \textbf{rad}, and the final two are in \textbf{eV$^2$}.
 
-The values of $\theta^c_i$ and $\sigma_i$ need to be given by the user through three arrays: \texttt{Central\_prior}, \texttt{UPPER\_prior}, and \texttt{LOWER\_prior}, in which there are six components. To treat asymmetry of width for the upper and lower Gaussian widths, we give values in two arrays \texttt{UPPER\_prior}, and \texttt{LOWER\_prior}, respectively. If the user gives the prior in model parameters, the order of each component follow with the setup of input of the probability engine. While the user gives the prior in oscillation parameters, the six components in order are $\theta_{12}$, $\theta_{13}$, $\theta_{23}$, $\delta$, $\Delta m_{21}^2$, and  $\Delta m_{31}^2$. The first four parameter are in \textbf{rad}, and the final two are in \textbf{eV$^2$}.
+Finally, some restrictions are imposed by the studied flavour symmetry model. We set up these restrictions in the function \texttt{model\_restriction} in \texttt{model-input.c}. In the function \texttt{model\_restriction}, the user needs to \textit{return $1$} once the restriction is broken. For example, if the normal ordering is imposed, we give ``\texttt{ if (DMS31<0) \{ return 1;\} } '' in \texttt{model\_restriction}, where \texttt{DMS31} is the variable for $\Delta m_{31}^2$. Then, when the restriction is broken, \texttt{model\_restriction} returns the value $1$ to the prior function \texttt{FASE\_prior\_OSC} or \texttt{FASE\_prior\_model}. 
+%In the following, the prior function will give $10^6$ for the $\chi^2$ value, and it will be selected out when the user studies the statistically reasonable region in the parameter space.  
 
-Finally, some restrictions are imposed by the studied flavour symmetry model. We set up these restrictions in the function \texttt{model\_restriction}, which is in \texttt{model-input\_diga.c} and \texttt{model-input.c}. In the function \texttt{model\_restriction}, the user needs to \textit{return $0$} once the restriction is broken. For example, if the normal ordering is imposed, we give ``\texttt{ if (DMS31<0) \{ return 1;\} } '' in \texttt{model\_restriction}, where \texttt{DMS31} is for $\Delta m_{31}^2$. Then, when the restriction is broken, \texttt{model\_restriction} returns the value $1$ to the prior function \texttt{FASE\_prior\_OSC} or \texttt{FASE\_prior\_model}. In the following, the prior function will give $10^6$ for the $\chi^2$ value, and it will be selected out when we study the statistically reasonable region in the parameter space.  
 
 \section{Examples}
 \subsection{Setup for a model}
@@ -351,16 +362,23 @@ The parameter \texttt{degree} is defined as $\pi/180$.
 
 \subsection{Constraint of model parameters}
 
-The user can use \textbf{FaSE-GLoBES} to study the constraint of model parameters. Here we take tri-direct littlest seesaw as an example to present how we can adopt \textbf{FaSE-GLoBES} to constrain two model parameters -- $x$ and $\eta$. 
-The $\chi^2$ function is constructed based on a log-likelihood ratio,
+The user can use \textbf{FaSE-GLoBES} to study the constraint of model parameters. The expression of $\chi^2$ is used as the default \textbf{GLoBES} setting. In more detail, the $\chi^2$ function is constructed based on a log-likelihood ratio,
 \begin{equation}\label{eq:chi-squared}
 \chi^2(\vec{\theta},\xi_s,\xi_b)=2\sum_i\left(\eta_i(\vec{\theta},\xi_s,\xi_b)-n_i+n_i\ln\frac{n_i}{\eta_i(\vec{\theta},\xi_s,\xi_b)} \right)+p(\xi_s,\sigma_s)+p(\xi_b,\sigma_b)+\chi^2_{prior},
 \end{equation}
-where $i$ runs over the number of bins, $\eta_i{\vec{\theta},\xi_s,\xi_b}$ is the hypothesis event rate for bin i and $E_i$ is the central bin energy. The vector $\vec{\theta}$ consist test model or oscillation parameters. Here, $\vec{\theta}=(x,\eta,r,m_a)$. The parameters $\xi_s$ and $\xi_b$ are introduced to account for the systematic uncertainty of normalisation for the signal (subscript $_s$) and background (subscript $_b$) components for the event rate, and are allowed to bary in the fit as nuisance parameters. For a given hypothesized set of parmaeters $\vec{\theta}$, the event rate for bin $i$ is calculated as\\
+where $i$ runs over the number of bins, $\eta_i(\vec{\theta},\xi_s,\xi_b)$ is the hypothesis event rate for bin i and $E_i$ is the central bin energy. The vector $\vec{\theta}$ consists of test model or oscillation parameters. The parameters $\xi_s$ and $\xi_b$ are introduced to account for the systematic uncertainty of normalisation for the signal (subscript $_s$) and background (subscript $_b$) components for the event rate, and are allowed to vary in the fit as nuisance parameters. For a given hypothesised set of parameters $\vec{\theta}$, the event rate for bin $i$ is calculated as\\
 \begin{equation}
 \eta_i(\vec{\theta},\xi_s,\xi_b)=(1+\xi_s)\times n_i+(1+\xi_b)\times b_i,
 \end{equation}
-where $n_i$ and $b_i$ are the expected number of signal and background events in bin $i$, respectively. The nuisance parameters are constrained by the Gaussian prior $p(\xi,\sigma)=\xi^2/\sigma^2$ with corresponding uncertainties $\sigma_s$ and $\sigma_b$ for the signal and background, respectively. Finally, $\chi^2_{prior}$ is a set of Gaussian priors for hypothesis, and is expressed as Eq.~\ref{eq:prior}. 
+where $n_i$ and $b_i$ are the expected number of signal and background events in bin $i$, respectively. The nuisance parameters are constrained by the Gaussian prior $p(\xi,\sigma)=\xi^2/\sigma^2$ with corresponding uncertainties $\sigma_s$ and $\sigma_b$ for the signal and background, respectively. Finally, $\chi^2_{prior}$ is a set of Gaussian priors for hypothesis, and is expressed as Eq.~\ref{eq:prior}. After doing all minimisations, the user obtain the $\chi^2$ value for a specific hypothesis $\vec{\theta}^{hyp.}$, $\chi^2(\vec{\theta}^{hyp.})$.
+
+The user of \textbf{FaSE-GLoBES} is able to study how model parameters can be constrained by the simulated experiment. To do so, the user needs to define the true event spectrum $n_i$ with a set of model or oscillation parameters, \textit{i.e.}~$n_i(\vec{\theta}_{Model}^{true})$ or $n_i(\vec{\theta}_{OSC.}^{true})$. The hypothesis $\vec{\theta}_{Model}^{hyp.}$ predicts the tested event spectrum $\eta_i(\vec{\theta}_{Model}^{hyp.},\xi_s,\xi_b)$. With the default setting for $\chi^2$ function Eq.~\ref{eq:prior}, from \textbf{FaSE-GLoBES} the user computes the statistical quantity,
+\begin{equation}\label{eq:chi_model}
+\chi^2(\vec{\theta}_{Model}^{hyp.}),~~\text{with}~n_i(\vec{\theta}_{Model}^{true})~\text{or}~n_i(\vec{\theta}_{OSC.}^{true}).
+\end{equation}
+%
+We note that the minimum of $\chi^2$ in the whole parameter space ($\chi^2_{min.}$) may not be $0$. Therefore, to study the precision of model parameters, the user should use the value $\Delta\chi^2(\vec{\theta}_{Model}^{hyp.})\equiv \chi^2(\vec{\theta}_{Model}^{hyp.})-\chi^2_{min.}$, instead of $\chi^2$ itself. By varying different hypothesis $\vec{\theta}_{Model}^{hyp.}$, the user can obtain the allowed region of model parameters with the statistical quantity $\Delta\chi^2(\vec{\theta}_{Model}^{hyp.})$. 
+
 To get the constraint of $x$ and $\eta$, we obtain the minimum of $\chi^2$ value,\vspace{0.2cm}\\
 \texttt{
     glbSetProjection(free);\\
@@ -409,6 +427,11 @@ We use the same code to obtain the constraint of any other combination of two pa
 
 
 \subsection{Model testing}
+
+The user can also study how well a flavour symmetry model explains the computed data as predicting how the simulated experiment can exclude this model. In the other word, the user studies the minimum of $\chi^2$ for the flavour symmetry model $\vec{\theta}_{Model}$ as a hypothesis, assuming different true oscillation values, \textit{i.e.}~different $\vec{\theta}^{true}_{OSC}$. To do so, we compute the same statistical quantity Eq.~\ref{eq:chi_model}, while the true spectrum is varied with different true values $\vec{\theta}_{OSC}^{true}$. All model parameters are allowed to be varied with the user-defined prior.
+%
+Finally, the user needs to adopt Wilk's theorem \cite{Wilks:1938dza}. When comparing nested models, the $\Delta \chi^2$ test statistics is a random variable asymptotically distributed according to the $\chi^2$-distribution with the number of degrees of freedom, which is equal to the difference in the number of free model parameters \texttt{dof}. 
+
 
 We can also study on excluding the model, assuming different true values for oscillation parameters. In this example, we present testing the tri-driect littlest seesaw model in various $\theta_{23}$ and $\delta$. To do so, we set the true value in oscillation parameters. We change values of $\theta_{23}$ and $\delta$ of the true theory, and compute the minimal $\chi^2$ value for the tested model with all four model parameters, free to be varied. And, the studied statistics function is exactly Eq.~\ref{eq:chi-squared}, but the true event rate $n_i$ is predicted by a set of oscillation parameters, which will be varied in the code. And all four model parameter can be varied with the prior given by Eq.~\ref{eq:prior}.
 
