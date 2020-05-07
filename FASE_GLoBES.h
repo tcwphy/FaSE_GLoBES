@@ -39,16 +39,17 @@
 #include <gsl/gsl_complex_math.h>
 #include <gsl/gsl_matrix.h>
 #include <gsl/gsl_blas.h>
-#include <gsl/gsl_statistics.h>
-#include <gsl/gsl_rng.h>
-#include <gsl/gsl_randist.h>
+//#include <gsl/gsl_statistics.h>
+//#include <gsl/gsl_rng.h>
+//#include <gsl/gsl_randist.h>
 #include <gsl/gsl_cblas.h>
 #include <gsl/gsl_eigen.h>
 #include <gsl/gsl_vector.h>
 //#include <globes/globes.h>   /* GLoBES library */
 
 #include "model-input.h"
-//#include "model-input.h"
+//#include "model-input_diag.h"
+
 /*#define GLB_NU_FLAVOURS 3*/
 #define GLB_SIGMA_E 6        /* Index of non-standard parameter sigma_E */
 #define GLB_ETA 0
@@ -74,7 +75,6 @@
 /* which vacuum algorithms are used   */
 #define M_SQRT3  1.73205080756887729352744634151      /* sqrt(3) */
 
-
 /* Interface for non-standard implementations of the probability engine */
 
 //typedef struct OSC_PARAMS { double theta12; double theta13; double theta23; double delta; double alpha21; double alpha31; double Dm21; double Dm31; double m3; double m2; double m1; } OSC_PARAMS;
@@ -96,11 +96,8 @@ double x_in,eta_in,r_in,ma_in;
 
 double UPPER_prior[6],LOWER_prior[6],Central_prior[6];
 
-
-double randn (double mu, double sigma);
-int random_gaussian(int n, double sigma);
-int random_poisson_n(int n, double mu) ;
-int free_random();
+int STAN_OSC(double complex M[], double output[6]);
+int ModelTO( double OSC_PARAMS[6],double M_para[]);
 inline double square(double x);
 int sinsq(double complex U[], double * a);
 //double find_PMNS(double complex M[], OSC_PARAMS * output);
