@@ -362,6 +362,15 @@ The parameter \texttt{degree} is defined as $\pi/180$.
 
 \subsection{Constraint of model parameters}
 
+
+\begin{figure}[!h]
+ %\flushleft
+ \centering
+\hspace{15mm}\includegraphics[width=0.5\textwidth]{figs/x_eta.pdf}
+ \caption{\label{fig:x_eta}Precision measurements of any two model parameters in the framework of three neutrino oscillations taking uncertainties of the current global fit results, for MOMENT, at $1\sigma$ (gray), $2\sigma$ (orange), $3\sigma$ (black). True values for the model parameters are used $(x,~\eta,~r,~M_a)=(-3.65,~1.13\pi,~0.511,~3.71~\text{meV})$.}
+\end{figure}
+
+
 The user can use \textbf{FaSE-GLoBES} to study the constraint of model parameters. The expression of $\chi^2$ is used as the default \textbf{GLoBES} setting. In more detail, the $\chi^2$ function is constructed based on a log-likelihood ratio,
 \begin{equation}\label{eq:chi-squared}
 \chi^2(\vec{\theta},\xi_s,\xi_b)=2\sum_i\left(\eta_i(\vec{\theta},\xi_s,\xi_b)-n_i+n_i\ln\frac{n_i}{\eta_i(\vec{\theta},\xi_s,\xi_b)} \right)+p(\xi_s,\sigma_s)+p(\xi_b,\sigma_b)+\chi^2_{prior},
@@ -372,19 +381,20 @@ where $i$ runs over the number of bins, $\eta_i(\vec{\theta},\xi_s,\xi_b)$ is th
 \end{equation}
 where $n_i$ and $b_i$ are the expected number of signal and background events in bin $i$, respectively. The nuisance parameters are constrained by the Gaussian prior $p(\xi,\sigma)=\xi^2/\sigma^2$ with corresponding uncertainties $\sigma_s$ and $\sigma_b$ for the signal and background, respectively. Finally, $\chi^2_{prior}$ is a set of Gaussian priors for hypothesis, and is expressed as Eq.~\ref{eq:prior}. After doing all minimisations, the user obtain the $\chi^2$ value for a specific hypothesis $\vec{\theta}^{hyp.}$, $\chi^2(\vec{\theta}^{hyp.})$.
 
-The user of \textbf{FaSE-GLoBES} is able to study how model parameters can be constrained by the simulated experiment. To do so, the user needs to define the true event spectrum $n_i$ with a set of model or oscillation parameters, \textit{i.e.}~$n_i(\vec{\theta}_{Model}^{true})$ or $n_i(\vec{\theta}_{OSC.}^{true})$. The hypothesis $\vec{\theta}_{Model}^{hyp.}$ predicts the tested event spectrum $\eta_i(\vec{\theta}_{Model}^{hyp.},\xi_s,\xi_b)$. With the default setting for $\chi^2$ function Eq.~\ref{eq:prior}, from \textbf{FaSE-GLoBES} the user computes the statistical quantity,
+The user of \textbf{FaSE-GLoBES} is able to study how model parameters can be constrained by the simulated experiment. To do so, the user needs to define the true event spectrum $n_i$ with a set of model ($\vec{\theta}_{Model}^{true}$) or oscillation parameters ($\vec{\theta}_{OSC.}^{true}$), \textit{i.e.}~set up $n_i(\vec{\theta}_{Model}^{true})$ or $n_i(\vec{\theta}_{OSC.}^{true})$. The hypothesis $\vec{\theta}_{Model}^{hyp.}$ predicts the tested event spectrum $\eta_i(\vec{\theta}_{Model}^{hyp.},\xi_s,\xi_b)$. With the default setting for $\chi^2$ function Eq.~\ref{eq:prior}, from \textbf{FaSE-GLoBES} the user computes the statistical quantity,
 \begin{equation}\label{eq:chi_model}
 \chi^2(\vec{\theta}_{Model}^{hyp.}),~~\text{with}~n_i(\vec{\theta}_{Model}^{true})~\text{or}~n_i(\vec{\theta}_{OSC.}^{true}).
 \end{equation}
 %
 We note that the minimum of $\chi^2$ in the whole parameter space ($\chi^2_{min.}$) may not be $0$. Therefore, to study the precision of model parameters, the user should use the value $\Delta\chi^2(\vec{\theta}_{Model}^{hyp.})\equiv \chi^2(\vec{\theta}_{Model}^{hyp.})-\chi^2_{min.}$, instead of $\chi^2$ itself. By varying different hypothesis $\vec{\theta}_{Model}^{hyp.}$, the user can obtain the allowed region of model parameters with the statistical quantity $\Delta\chi^2(\vec{\theta}_{Model}^{hyp.})$. 
 
-To get the constraint of $x$ and $\eta$, we obtain the minimum of $\chi^2$ value,\vspace{0.2cm}\\
+We take TDLS as an example model, to see how the model parameter can be constrained by MOMENT experiment. To get the constraint of $x$ and $\eta$, we obtain the minimum of $\chi^2$ value as the following script in the main code.\vspace{0.2cm}\\
 \texttt{
     glbSetProjection(free);\\
     float res0=glbChiNP(true\_values,NULL,GLB\_ALL);\\ } \vspace{0.2cm}\\
 %
-Then, we set two loops to get the $\Delta \chi^2$ value for different $x$ and $\eta$\vspace{0.2cm}\\
+The \textbf{GLoBES} projector \texttt{free} allows all model parameters to vary, in order to find the value of \texttt{res0}, $\chi^2_{min}$.
+Then, we set two loops varying different values of $x$ and $\eta$ in $\vec{\theta}^{hyp}_{Model}$ to get $\Delta \chi^2$ values for different hypotheses.\vspace{0.2cm}\\
 %
 \texttt{     float x,eta,r,ma,dx,deta;\\
      float lower\_x,upper\_x,lower\_eta,upper\_eta;\\
@@ -400,19 +410,19 @@ Then, we set two loops to get the $\Delta \chi^2$ value for different $x$ and $\
                      \} fprintf(File,"$\backslash$n");\}\\
 }
 
-\begin{figure}[!h]
- \flushleft
-\hspace{15mm}\includegraphics[width=0.32\textwidth]{figs/x_eta.pdf}$~~~~~~$\\
-\hspace{15mm} \includegraphics[width=0.32\textwidth]{figs/x_r.pdf}\hspace{-11mm}
- \includegraphics[width=0.32\textwidth]{figs/eta_r.pdf}$~~~~~~$\\
-\hspace{15mm} \includegraphics[width=0.32\textwidth]{figs/x_ma.pdf}\hspace{-11mm}
- \includegraphics[width=0.32\textwidth]{figs/eta_ma.pdf}\hspace{-11mm}
- \includegraphics[width=0.32\textwidth]{figs/r_ma.pdf}
- \caption{\label{fig:model_2D}Precision measurements of any two model parameters at 3$\sigma$ confidence level in the framework of three neutrino oscillations taking uncertainties of the current global fit results, for MOMENT, at $1\sigma$ (gray), $2\sigma$ (orange), $3\sigma$ (black). True values for the model parameters are used $(x,~\eta,~r,~M_a)=(-3.65,~1.13\pi,~0.511,~3.71~\text{meV})$.}
-\end{figure}
+The output is a set of $\Delta \chi^2(\vec{\theta}^{hyp})$ (the third column) values with the changed $x$ (the first column), $\eta$ (the second column) in the file \texttt{data/contraint\_x\_eta.dat}. We use these data, and find the $1\sigma$, $2\sigma$, and $3\sigma$ constraints of $x$ and $\eta$ shown in Fig.~\ref{fig:x_eta}. 
+ 
+%\begin{figure}[!h]
+% \flushleft
+%\hspace{15mm}\includegraphics[width=0.32\textwidth]{figs/x_eta.pdf}$~~~~~~$\\
+%\hspace{15mm} \includegraphics[width=0.32\textwidth]{figs/x_r.pdf}\hspace{-11mm}
+% \includegraphics[width=0.32\textwidth]{figs/eta_r.pdf}$~~~~~~$\\
+%\hspace{15mm} \includegraphics[width=0.32\textwidth]{figs/x_ma.pdf}\hspace{-11mm}
+% \includegraphics[width=0.32\textwidth]{figs/eta_ma.pdf}\hspace{-11mm}
+% \includegraphics[width=0.32\textwidth]{figs/r_ma.pdf}
+% \caption{\label{fig:model_2D}Precision measurements of any two model parameters at 3$\sigma$ confidence level in the framework of three neutrino oscillations taking uncertainties of the current global fit results, for MOMENT, at $1\sigma$ (gray), $2\sigma$ (orange), $3\sigma$ (black). True values for the model parameters are used $(x,~\eta,~r,~M_a)=(-3.65,~1.13\pi,~0.511,~3.71~\text{meV})$.}
+%\end{figure}
 
-
-We use the same code to obtain the constraint of any other combination of two parameters. Then, we can have the result as in Fig.~\ref{fig:model_2D}.
 
 
 %\texttt{
