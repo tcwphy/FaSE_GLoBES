@@ -157,15 +157,15 @@ Finally we need to initialize \textbf{FaSE} by giving $N_{para}$ which is the nu
 
 \subsection{Model setting}\label{sec:model_set}
 
-The function \texttt{MtoS} can do the translator from model parameters $\vec{\theta}_{Model}$ to oscillation parameters $\vec{\theta}_{OSC.}$. After the user gives the array $\vec{\theta}_{Model}$ to the function \texttt{MtoS}, the output is the corresponding oscillation parameter $\vec{\theta}_{OSC.}$, of which components are $\theta_{12}$, $\theta_{13}$, $\theta_{23}$, $\delta$, $\Delta m_{21}^2$, and $\Delta m_{31}^2$. For the first four components, values are given in the unit of \textbf{rad}, while the other two are in \textbf{eV$^2$}. These values will be passed in to \textbf{FaSE\_GLoBES} to simulate 
+The function \texttt{MtoS} can do the translator from model parameters $\vec{\theta}_{Model}$ to oscillation parameters $\vec{\theta}_{OSC}$. After the user gives the array $\vec{\theta}_{Model}$ to the function \texttt{MtoS}, the output is the corresponding oscillation parameter $\vec{\theta}_{OSC}$, of which components are $\theta_{12}$, $\theta_{13}$, $\theta_{23}$, $\delta$, $\Delta m_{21}^2$, and $\Delta m_{31}^2$. For the first four components, values are given in the unit of \textbf{rad}, while the other two are in \textbf{eV$^2$}. These values will be passed in to \textbf{FaSE\_GLoBES} to simulate 
 the experimental spectra and compute the prior value.
 
 
-To do the translation from $\vec{\theta}_{Model}$ to $\vec{\theta}_{OSC.}$, the user can assign the relation between the oscillation and model parameter sets, or define the mass matrix in model parameters, which will be diagonalised by the function \texttt{ModelTO} to obtain the corresponding oscillation-parameter values. 
+To do the translation from $\vec{\theta}_{Model}$ to $\vec{\theta}_{OSC}$, the user can assign the relation between the oscillation and model parameter sets, or define the mass matrix in model parameters, which will be diagonalised by the function \texttt{ModelTO} to obtain the corresponding oscillation-parameter values. 
 %The relation between the oscillation and model parameter sets can be derived out by the user, 
 In the way of directly giving the relation between oscillation and model parameter sets, the user needs to provide
 \begin{equation}\label{eq:modelofOSC}
-\vec{\theta}_{Model}=\vec{f}(\vec{\theta}_{OSC.})
+\vec{\theta}_{Model}=\vec{f}(\vec{\theta}_{OSC})
 \end{equation}
  in the function \texttt{MtoS}.
 %
@@ -174,24 +174,26 @@ The oscillation parameters can also be obtained in the way based on
 \begin{equation}\label{eq:MM}
 U^\dagger\mathcal{M}\mathcal{M}^\dagger U = \mathbf{M}^2,~\text{where}~\mathbf{M}^2_{\alpha\beta}=m_\alpha^2\delta_{\alpha\beta},
 \end{equation}
-where $\mathcal{M}$ ($\mathbf{M}$) is the neutrino mass matrix in the flavour (mass) state. The matrix $\mathcal{M}$ is given by user with model parameters $\vec{\theta}_{Model}$. The matrix $U$ is the neutrino mixing matrix, and can be used for getting mixing angles. The difference between any two diagonal elements of $\textbf{M}$ ($\textbf{M}_{ii}-\textbf{M}_{jj}$) is the mass-squared difference ($\Delta m_{ij}^2$). This diagnolisation Eq.~\ref{eq:MM} can be done with the function \texttt{ModelTO}, which needs to be called in \texttt{MtoS} and outputs directly the vector $\vec{\theta}_{OSC.}$.
+where $\mathcal{M}$ ($\mathbf{M}$) is the neutrino mass matrix in the flavour (mass) state. The matrix $\mathcal{M}$ is given by user with model parameters $\vec{\theta}_{Model}$. The matrix $U$ is the neutrino mixing matrix, and can be used for getting mixing angles. The difference between any two diagonal elements of $\textbf{M}$ ($\textbf{M}_{ii}-\textbf{M}_{jj}=m_i^2-m_j^2$) is the mass-squared difference ($\Delta m_{ij}^2$). This diagnolisation Eq.~\ref{eq:MM} can be done with the function \texttt{ModelTO}, which needs to be called in \texttt{MtoS} and outputs directly the vector $\vec{\theta}_{OSC}$.
 
 \subsection{Prior setting}\label{sec:prior}
 Given a set of values for model parameters, \textbf{FASE\_GLoBES.c} will obtain the corresponding oscillation-parameter values from \textbf{model-input.c}, and will pass these values to simulate event spectra and to compute the prior value. Two gaussian prior functions are provided in \textbf{FaSE} -- \texttt{FASE\_prior\_OSC} and \texttt{FASE\_prior\_model}. These two functions are for different purposes. If the user give the prior in oscillation (model) parameters, the user should register \texttt{FASE\_prior\_OSC} (\texttt{FASE\_prior\_model}) with the \textbf{GLoBES} function \texttt{glbRegisterPriorFunction}, as we introduced in the beginning of this section. The user also needs to assign the parameter \texttt{PARA=STAN} (\texttt{PARA=Model}), when the user prefers to give the prior in oscillation (model) parameters. The Gaussian prior is 
 \begin{equation}\label{eq:prior}
 \chi^2_{prior}=\sum_{i} \frac{(\theta_i-\theta^c_i)^2}{\sigma_i^2},
 \end{equation}
- where $\theta_i$ is one of parameters constrained by prior, $\theta^c_i$ ($\sigma_i$) is the central value (Gaussian width) of the prior for $\theta_i$. We note that $\theta_i$ can be either model ($\vec{\theta}_{Model}$) or oscillation parameters ($\vec{\theta}_{OSC.}$).
+ where $\theta_i$ is one of parameters constrained by prior, $\theta^c_i$ ($\sigma_i$) is the central value (Gaussian width) of the prior for $\theta_i$. We note that $\theta_i$ can be either model ($\vec{\theta}_{Model}$) or oscillation parameters ($\vec{\theta}_{OSC}$).
 %
 The values of $\theta^c_i$ and $\sigma_i$ need to be given by the user through three arrays: \texttt{Central\_prior}, \texttt{UPPER\_prior}, and \texttt{LOWER\_prior}, in which there are six components. To treat asymmetry of width for upper ($\theta_i>\theta_i^c$) and lower ($\theta_i<\theta_i^c$) Gaussian widths, we give values in two arrays \texttt{UPPER\_prior}, and \texttt{LOWER\_prior}, respectively. If the user gives the prior in model parameters, the order of each component follows with the setup of input of the probability engine. While the user gives the prior in oscillation parameters, the six components in order are $\theta_{12}$, $\theta_{13}$, $\theta_{23}$, $\delta$, $\Delta m_{21}^2$, and  $\Delta m_{31}^2$. The first four parameter are in \textbf{rad}, and the final two are in \textbf{eV$^2$}.
 
-Finally, some restrictions are imposed by the studied flavour symmetry model. We set up these restrictions in the function \texttt{model\_restriction} in \texttt{model-input.c}. In the function \texttt{model\_restriction}, the user needs to \textit{return $1$} once the restriction is broken. For example, if the normal ordering is imposed, we give ``\texttt{ if (DMS31<0) \{ return 1;\} } '' in \texttt{model\_restriction}, where \texttt{DMS31} is the variable for $\Delta m_{31}^2$. Then, when the restriction is broken, \texttt{model\_restriction} returns the value $1$ to the prior function \texttt{FASE\_prior\_OSC} or \texttt{FASE\_prior\_model}. 
+Finally, some restrictions are imposed by the studied flavour symmetry model. We set up these restrictions in the function \texttt{model\_restriction} in \texttt{model-input.c}. In the function \texttt{model\_restriction}, the user needs to \textit{return $1$} once the restriction is broken. For example, if the normal ordering is imposed, we give ``\texttt{ if (DMS31<0) \{ return 1;\} } '' in \texttt{model\_restriction}, where \texttt{DMS31} is the variable for $\Delta m_{31}^2$. Then, when the restriction is broken, \texttt{model\_restriction} returns the value $1$ to the prior function \texttt{FASE\_prior\_OSC} or \texttt{FASE\_prior\_model}. Therefore, if there is no any restrictions, we simply \textit{return $0$} in \texttt{model\_restriction} as follows.\vspace{0.2cm}\\
+\texttt{double model\_restriction(double model [])\{ return 0;\} }\vspace{0.2cm}\\
+
 %In the following, the prior function will give $10^6$ for the $\chi^2$ value, and it will be selected out when the user studies the statistically reasonable region in the parameter space.  
 
 
 \section{Examples}
 \subsection{Setup for a model}
-We now take the littlest seesaw model in the tri-direct approach as an example. In this model, the atmospheric and solar flavon vacuum alignments are $\langle\phi_{\text{atm}}\rangle\propto\left(1, \omega^2, \omega\right)^T$ and $\langle\phi_{\text{sol}}\rangle\propto\left(1, x, x\right)^T$,
+We now take the tri-direct littlest seesaw (TDLS)~\cite{King:2013iva,King:2015dvf,King:2016yvg} as an example. In this model, the atmospheric and solar flavon vacuum alignments are $\langle\phi_{\text{atm}}\rangle\propto\left(1, \omega^2, \omega\right)^T$ and $\langle\phi_{\text{sol}}\rangle\propto\left(1, x, x\right)^T$,
 where  stands for a cube root of unity and the parameter $x$ is real because of the imposed CP symmetry. Under this model, the light left-handed Majorana neutrino mass matrix is given by
 \begin{equation}
 \label{eq:mnu}  m_{\nu}=m_{a}\begin{pmatrix}
@@ -256,17 +258,17 @@ model parameters                                 & $x$, $\eta$, $r$, $m_a$      
 \texttt{\{}\\
     \texttt{/*example: tri-direct*/}\\
 \\    
-    \texttt{double x\_in   = M\_para[0];}\\
-    \texttt{double eta\_in = M\_para[1];}\\
-    \texttt{double r\_in   = M\_para[2];}\\
-    \texttt{double ma\_in  = M\_para[3];}\\
+    \texttt{double x=M\_para[0];}\\
+    \texttt{double eta=M\_para[1];}\\
+    \texttt{double r=M\_para[2];}\\
+    \texttt{double ma=M\_para[3];}\\
 \\  
-    \texttt{osc\_para[0]=TDth12(x\_in,eta\_in,r\_in, ma\_in);}\\
-    \texttt{osc\_para[1]=TDth13(x\_in,eta\_in,r\_in, ma\_in);}\\
-    \texttt{osc\_para[2]=TDth23(x\_in,eta\_in,r\_in, ma\_in);}\\
-    \texttt{osc\_para[3]=TDdCP(x\_in,eta\_in,r\_in, ma\_in);}\\
-    \texttt{osc\_para[4]=TDdm21(x\_in,eta\_in,r\_in, ma\_in);}\\
-    \texttt{osc\_para[5]=TDdm31(x\_in,eta\_in,r\_in, ma\_in);}\\
+    \texttt{osc\_para[0]=TDth12(x,eta,r, ma);}\\
+    \texttt{osc\_para[1]=TDth13(x,eta,r, ma);}\\
+    \texttt{osc\_para[2]=TDth23(x,eta,r, ma);}\\
+    \texttt{osc\_para[3]=TDdCP(x,eta,r, ma);}\\
+    \texttt{osc\_para[4]=TDdm21(x,eta,r, ma);}\\
+    \texttt{osc\_para[5]=TDdm31(x,eta,r, ma);}\\
 \\    
     \texttt{return 0;}\\
 \texttt{\}}\\
@@ -286,11 +288,9 @@ The restrictions $m_a>0$ and $r>0$ need to be setup in \texttt{model\_restrictio
 \\ 
 \texttt{    return 0;}\\
 \}\vspace{0.2cm}\\
-If there is no any restrictions, we simply \textit{return $0$} in \texttt{model\_restriction} as follows.\vspace{0.2cm}\\
-\texttt{double model\_restriction(double model [])\{ return 0;\} }\vspace{0.2cm}\\
 
 \subsection{Initialise the code}
-In the beginning of main code, we need to initialise GLoBES and FASE, and include the considered experiment (here we consider MOMENT experiment) as follows.\vspace{0.2cm}\\ 
+In the beginning of main code, we need to initialise GLoBES and FASE, and to include the AEDL file for the MuOn-decay MEdium baseline NeuTrino beam experiment (MOMENT)~\cite{Cao:2014bea} as follows.\vspace{0.2cm}\\ 
 \texttt{glbInit(argv[0]);}\\
 \texttt{glbInitExperiment("expMOMENT\_FIX\_FLUX\_150KM\_addATM\_NC.glb",\&glb\_experiment\_list[0],}\\
 \texttt{\&glb\_num\_of\_exps);}\\
@@ -322,7 +322,7 @@ We then finally set up the projection. The projection \texttt{free} is to set al
     glb\_projection free = glbAllocProjection();  \\
      glbDefineProjection(free,GLB\_FREE,GLB\_FREE,GLB\_FREE,GLB\_FREE,GLB\_FIXED,GLB\_FIXED);\\
     glbSetDensityProjectionFlag(free, GLB\_FREE, GLB\_ALL);\\
-glbDefineProjection(projection,GLB\_FIXED,GLB\_FIXED,GLB\_FREE,GLB\_FREE,GLB\_FIXED,GLB\_FIXED);\\    
+glbDefineProjection(projection,GLB\_FIXED,GLB\_FIXED,GLB\_FREE,GLB\_FREE,GLB\_FIXED\\ ,GLB\_FIXED);\\    
 glbSetDensityProjectionFlag(projection, GLB\_FREE, GLB\_ALL);\\
     }
     
@@ -379,16 +379,16 @@ where $i$ runs over the number of bins, $\eta_i(\vec{\theta},\xi_s,\xi_b)$ is th
 \begin{equation}
 \eta_i(\vec{\theta},\xi_s,\xi_b)=(1+\xi_s)\times n_i+(1+\xi_b)\times b_i,
 \end{equation}
-where $n_i$ and $b_i$ are the expected number of signal and background events in bin $i$, respectively. The nuisance parameters are constrained by the Gaussian prior $p(\xi,\sigma)=\xi^2/\sigma^2$ with corresponding uncertainties $\sigma_s$ and $\sigma_b$ for the signal and background, respectively. Finally, $\chi^2_{prior}$ is a set of Gaussian priors for hypothesis, and is expressed as Eq.~\ref{eq:prior}. After doing all minimisations, the user obtain the $\chi^2$ value for a specific hypothesis $\vec{\theta}^{hyp.}$, $\chi^2(\vec{\theta}^{hyp.})$.
+where $n_i$ and $b_i$ are the expected number of signal and background events in bin $i$, respectively. The nuisance parameters are constrained by the Gaussian prior $p(\xi,\sigma)=\xi^2/\sigma^2$ with corresponding uncertainties $\sigma_s$ and $\sigma_b$ for the signal and background, respectively. Finally, $\chi^2_{prior}$ is a set of Gaussian priors for hypothesis, and is expressed as Eq.~\ref{eq:prior}. After doing all minimisations, the user obtain the $\chi^2$ value for a specific hypothesis $\vec{\theta}^{hyp}$, $\chi^2(\vec{\theta}^{hyp})$.
 
-The user of \textbf{FaSE-GLoBES} is able to study how model parameters can be constrained by the simulated experiment. To do so, the user needs to define the true event spectrum $n_i$ with a set of model ($\vec{\theta}_{Model}^{true}$) or oscillation parameters ($\vec{\theta}_{OSC.}^{true}$), \textit{i.e.}~set up $n_i(\vec{\theta}_{Model}^{true})$ or $n_i(\vec{\theta}_{OSC.}^{true})$. The hypothesis $\vec{\theta}_{Model}^{hyp.}$ predicts the tested event spectrum $\eta_i(\vec{\theta}_{Model}^{hyp.},\xi_s,\xi_b)$. With the default setting for $\chi^2$ function Eq.~\ref{eq:prior}, from \textbf{FaSE-GLoBES} the user computes the statistical quantity,
+The user of \textbf{FaSE-GLoBES} is able to study how model parameters can be constrained by the simulated experiment. To do so, the user needs to define the true event spectrum $n_i$ with a set of model ($\vec{\theta}_{Model}^{true}$) or oscillation parameters ($\vec{\theta}_{OSC}^{true}$), \textit{i.e.}~set up $n_i(\vec{\theta}_{Model}^{true})$ or $n_i(\vec{\theta}_{OSC}^{true})$. The hypothesis $\vec{\theta}_{Model}^{hyp}$ predicts the tested event spectrum $\eta_i(\vec{\theta}_{Model}^{hyp},\xi_s,\xi_b)$. With the default setting for $\chi^2$ function Eq.~\ref{eq:prior}, from \textbf{FaSE-GLoBES} the user computes the statistical quantity,
 \begin{equation}\label{eq:chi_model}
-\chi^2(\vec{\theta}_{Model}^{hyp.}),~~\text{with}~n_i(\vec{\theta}_{Model}^{true})~\text{or}~n_i(\vec{\theta}_{OSC.}^{true}).
+\chi^2(\vec{\theta}_{Model}^{hyp}),~~\text{with}~n_i(\vec{\theta}_{Model}^{true})~\text{or}~n_i(\vec{\theta}_{OSC}^{true}).
 \end{equation}
 %
-We note that the minimum of $\chi^2$ in the whole parameter space ($\chi^2_{min.}$) may not be $0$. Therefore, to study the precision of model parameters, the user should use the value $\Delta\chi^2(\vec{\theta}_{Model}^{hyp.})\equiv \chi^2(\vec{\theta}_{Model}^{hyp.})-\chi^2_{min.}$, instead of $\chi^2$ itself. By varying different hypothesis $\vec{\theta}_{Model}^{hyp.}$, the user can obtain the allowed region of model parameters with the statistical quantity $\Delta\chi^2(\vec{\theta}_{Model}^{hyp.})$. 
+We note that the minimum of $\chi^2$ in the whole parameter space ($\chi^2_{min.}$) may not be $0$. Therefore, to study the precision of model parameters, the user should use the value $\Delta\chi^2(\vec{\theta}_{Model}^{hyp})\equiv \chi^2(\vec{\theta}_{Model}^{hyp})-\chi^2_{min.}$, instead of $\chi^2$ itself. By varying different hypothesis $\vec{\theta}_{Model}^{hyp}$, the user can obtain the allowed region of model parameters with the statistical quantity $\Delta\chi^2(\vec{\theta}_{Model}^{hyp})$. 
 
-We take TDLS as an example model, to see how the model parameter can be constrained by MOMENT experiment. To get the constraint of $x$ and $\eta$, we obtain the minimum of $\chi^2$ value as the following script in the main code.\vspace{0.2cm}\\
+We take TDLS as an example model, to see how the model parameter can be constrained by MOMENT experiment, assuming the true model values $x=-3.65$, $\eta=1.13\pi$, $r=0.511$, and $m_a=3.71$~meV. To get the constraint of $x$ and $\eta$, we need to comput the minimum of $\chi^2$ value as the following script in the main code.\vspace{0.2cm}\\
 \texttt{
     glbSetProjection(free);\\
     float res0=glbChiNP(true\_values,NULL,GLB\_ALL);\\ } \vspace{0.2cm}\\
@@ -410,7 +410,7 @@ Then, we set two loops varying different values of $x$ and $\eta$ in $\vec{\thet
                      \} fprintf(File,"$\backslash$n");\}\\
 }
 
-The output is a set of $\Delta \chi^2(\vec{\theta}^{hyp})$ (the third column) values with the changed $x$ (the first column), $\eta$ (the second column) in the file \texttt{data/contraint\_x\_eta.dat}. We use these data, and find the $1\sigma$, $2\sigma$, and $3\sigma$ constraints of $x$ and $\eta$ shown in Fig.~\ref{fig:x_eta}. 
+The \textbf{GLoBES} projector \texttt{projection} fixes values of $x$ and $\eta$, but allows the other parameters to vary. The output (\texttt{data/contraint\_x\_eta.dat}) is a set of $\Delta \chi^2(\vec{\theta}^{hyp})$ (the third column) values with the changed $x$ (the first column), $\eta$ (the second column). We use these data, and obtain the predicted $1\sigma$, $2\sigma$, and $3\sigma$ constraints of $x$ and $\eta$ by MOMENT shown in Fig.~\ref{fig:x_eta}. The code for this example is provided as \textbf{x\_eta.c} in the \textbf{FaSE} distribution.
  
 %\begin{figure}[!h]
 % \flushleft
@@ -443,10 +443,18 @@ The user can also study how well a flavour symmetry model explains the computed 
 Finally, the user needs to adopt Wilk's theorem \cite{Wilks:1938dza}. When comparing nested models, the $\Delta \chi^2$ test statistics is a random variable asymptotically distributed according to the $\chi^2$-distribution with the number of degrees of freedom, which is equal to the difference in the number of free model parameters \texttt{dof}. 
 
 
-We can also study on excluding the model, assuming different true values for oscillation parameters. In this example, we present testing the tri-driect littlest seesaw model in various $\theta_{23}$ and $\delta$. To do so, we set the true value in oscillation parameters. We change values of $\theta_{23}$ and $\delta$ of the true theory, and compute the minimal $\chi^2$ value for the tested model with all four model parameters, free to be varied. And, the studied statistics function is exactly Eq.~\ref{eq:chi-squared}, but the true event rate $n_i$ is predicted by a set of oscillation parameters, which will be varied in the code. And all four model parameter can be varied with the prior given by Eq.~\ref{eq:prior}.
+\begin{figure}[!h]
+ \centering
+\includegraphics[width=0.5\textwidth]{figs/SR_th23_dCP.pdf}
+\caption{\label{fig:th23_delta}The 2-D exclusion contour for tri-direct littlest seesaw model on the plane of two true standard parameters $\theta_{23}$ and $\delta$, from $1\sigma$ to $5\sigma$. The range for each parameter is taken according to the $3\sigma$ uncertainty in NuFit4.0 results. The black dot denotes the best fit of NuFit4.0 results ($(\theta_{12},~\theta_{13},~\theta_{23},~\delta,~\Delta m_{21}^2,~\Delta m_{31}^2)=(33.82^\circ,~8.61^\circ,~49.6^\circ,~215^\circ,~7.39\times10^{-5}~\text{eV}^2,~2.525\times10^{-3}~\text{eV}^2)$), while the star is the prediction by the tri-direct littlest seesaw model with NuFit4.0 results ($(\theta_{12},~\theta_{13},~\theta_{23},~\delta,~\Delta m_{21}^2,~\Delta m_{31}^2)\sim(36.25^\circ,~8.63^\circ,~47^\circ,~279^\circ,~7.39\times10^{-5}~\text{eV}^2,~2.525\times10^{-3}~\text{eV}^2)$).}
+\end{figure}
 
+%We can also study on excluding the model, assuming different true values for oscillation parameters. 
+As an example, we present testing TDLS, assuming various true values of $\theta_{23}$ and $\delta$. The code for this example is provided as \textbf{th23\_delta.c}. in the \textbf{FaSE} distribution We change values of $\theta_{23}$ and $\delta$ of the true theory, and compute the minimal $\chi^2$ value for the tested model with all four model parameters, allowed to vary with priors. And, the studied statistics function is exactly Eq.~\ref{eq:chi-squared}, but the true event rate $n_i$ is predicted by a set of oscillation parameters, which will be varied in the code. And all four model parameter can be varied with the prior given by Eq.~\ref{eq:prior}. 
+%
+Except for $\theta_{23}$ and $\delta$, which are varied between $40^\circ<\theta_{23}<52^\circ$ and $125^\circ<\delta<392^\circ$, we fix the other oscillation parameters at $\theta_{12}=36.25^\circ$, $\theta_{13}=8.63^\circ$, $\Delta m_{21}^2=7.39\times 10^{-5}$~eV$^2$ and $2.525\times10^{-3}$~eV$^2$ predicted by the model $x=-3.65$, $\eta=1.13\pi$, $r=0.511$, and $m_a=3.71$~meV. 
 
-The example code is given below.\vspace{0.2cm}\\
+The example code is presented as follows.\vspace{0.2cm}\\
 \texttt{ \{ ...  initalize the code ...\}\\
 \{ ...  register the probability engine ...\}    }\vspace{0.2cm}\\
 \texttt{    
@@ -469,13 +477,14 @@ The example code is given below.\vspace{0.2cm}\\
     \\
     glbDefineParams(test\_values,x\_true,eta\_true,r\_true,ma\_true,0,0);\\
     glbSetDensityParams(test\_values,1.0,GLB\_ALL);\\
-    glbDefineParams(true\_values,th12\_true,th13\_true,th23\_true,dCP\_true,DM21\_true,DM31\_true);\\
+    glbDefineParams(true\_values,th12\_true,th13\_true,th23\_true,dCP\_true,\\
+    DM21\_true,DM31\_true);\\
     glbSetDensityParams(true\_values,1.0,GLB\_ALL); }\vspace{0.2cm}\\
 \texttt{ \{ ...  set up for prior ...\}}\vspace{0.2cm}\\
 \texttt{
     float th23,dCP,dth23,ddCP,lower\_th23,upper\_th23,lower\_dCP,upper\_dCP;\\
     FILE* File=fopen("data/ModelTest\_th23\_dCP\_test.dat", "w");\\
-    lower\_th23=40; upper\_th23=50; lower\_dCP=125; upper\_dCP=392;\\
+    lower\_th23=40; upper\_th23=52; lower\_dCP=125; upper\_dCP=392;\\
     dth23=(upper\_th23-lower\_th23)/100; ddCP=(upper\_dCP-lower\_dCP)/100;\\
     glbSetProjection(free);\\
     for (th23=lower\_th23;th23<=upper\_th23;th23=th23+dth23)\{\\
@@ -487,26 +496,29 @@ The example code is given below.\vspace{0.2cm}\\
     glbSetRates();\\
     PARA=MODEL;\\ 
         float res=glbChiNP(test\_values,NULL,GLB\_ALL);\\
-            fprintf(File,"\%f \%f \%f $\backslash$n",th23,dCP,gsl\_cdf\_chisq\_Qinv(gsl\_cdf\_chisq\_Q(fabs(res),dof),1));\\
+            fprintf(File,"\%f \%f \%f $\backslash$n",th23,dCP,\\
+            gsl\_cdf\_chisq\_Qinv(gsl\_cdf\_chisq\_Q(fabs(res),dof),1));\\
          \} fprintf(File,"$\backslash$n");\\
     \}
 }\vspace{0.2cm}\\
 \texttt{ \{ ...  destroy the pointer ...\}}\vspace{0.2cm}\\
-Finally, in the code we adopt Wilk's theorem \cite{Wilks:1938dza}. When comparing nested models, the $\Delta \chi^2$ test statistics is a random variable asymptotically distributed according to the $\chi^2$-distribution with the number of degrees of freedom, which is equal to the difference in the number of free model parameters \texttt{dof}. Here the number \texttt{dof} is $2$. And that is our output: \texttt{gsl\_cdf\_chisq\_Qinv(gsl\_cdf\_chisq\_Q(fabs(res),dof),1)}.
+Finally, in the code we adopt Wilk's theorem \cite{Wilks:1938dza}. Here the number \texttt{dof} is $2$. And that is our output: \texttt{gsl\_cdf\_chisq\_Qinv(gsl\_cdf\_chisq\_Q(fabs(res),dof),1)}.
 
-\begin{figure}[!h]
- \flushleft
+%\begin{figure}[!h]
+ %\flushleft
 %
-\includegraphics[width=0.32\textwidth]{figs/SR_th13_th23.pdf}$~~~~~~$\\
-\includegraphics[width=0.32\textwidth]{figs/SR_th13_dCP.pdf}
-\includegraphics[width=0.32\textwidth]{figs/SR_th23_dCP.pdf}$~~~~~~$\\
-\includegraphics[width=0.32\textwidth]{figs/SR_th13_ldm.pdf}
-\includegraphics[width=0.32\textwidth]{figs/SR_th23_ldm.pdf}
-\includegraphics[width=0.32\textwidth]{figs/SR_dCP_ldm.pdf}
- \caption{\label{fig:SR_2D}The 2-D exclusion contour for tri-direct littlest seesaw model on the plane of any two true standard parameters, from $1\sigma$ to $5\sigma$. The range for each parameter is taken according to the $3\sigma$ uncertainty in NuFit4.0 results. The black dot denotes the best fit of NuFit4.0 results ($(\theta_{12},~\theta_{13},~\theta_{23},~\delta,~\Delta m_{21}^2,~\Delta m_{31}^2)=(33.82^\circ,~8.61^\circ,~49.6^\circ,~215^\circ,~7.39\times10^{-5}~\text{eV}^2,~2.525\times10^{-3}~\text{eV}^2)$), while the star is the prediction by the tri-direct littlest seesaw model with NuFit4.0 results ($(\theta_{12},~\theta_{13},~\theta_{23},~\delta,~\Delta m_{21}^2,~\Delta m_{31}^2)\sim(36.25^\circ,~8.63^\circ,~47^\circ,~279^\circ,~7.39\times10^{-5}~\text{eV}^2,~2.525\times10^{-3}~\text{eV}^2)$).}
-\end{figure}
+%\includegraphics[width=0.32\textwidth]{figs/SR_th13_th23.pdf}$~~~~~~$\\
+%\includegraphics[width=0.32\textwidth]{figs/SR_th13_dCP.pdf}
+%\includegraphics[width=0.32\textwidth]{figs/SR_th23_dCP.pdf}$~~~~~~$\\
+%\includegraphics[width=0.32\textwidth]{figs/SR_th13_ldm.pdf}
+%\includegraphics[width=0.32\textwidth]{figs/SR_th23_ldm.pdf}
+%\includegraphics[width=0.32\textwidth]{figs/SR_dCP_ldm.pdf}
+% \caption{\label{fig:SR_2D}The 2-D exclusion contour for tri-direct littlest seesaw model on the plane of any two true standard parameters, from $1\sigma$ to $5\sigma$. The range for each parameter is taken according to the $3\sigma$ uncertainty in NuFit4.0 results. The black dot denotes the best fit of NuFit4.0 results ($(\theta_{12},~\theta_{13},~\theta_{23},~\delta,~\Delta m_{21}^2,~\Delta m_{31}^2)=(33.82^\circ,~8.61^\circ,~49.6^\circ,~215^\circ,~7.39\times10^{-5}~\text{eV}^2,~2.525\times10^{-3}~\text{eV}^2)$), while the star is the prediction by the tri-direct littlest seesaw model with NuFit4.0 results ($(\theta_{12},~\theta_{13},~\theta_{23},~\delta,~\Delta m_{21}^2,~\Delta m_{31}^2)\sim(36.25^\circ,~8.63^\circ,~47^\circ,~279^\circ,~7.39\times10^{-5}~\text{eV}^2,~2.525\times10^{-3}~\text{eV}^2)$).}
+%\end{figure}
 
-We use the same code to analysis the exclusion ability for other oscillation-parameter combinations. Then, we have the results shown in Fig.~\ref{fig:SR_2D}.
+
+
+The output \texttt{data/ModelTest\_th23\_dCP\_test.dat} contains true values of $\theta_{23}$ (the first column) and $\delta$ (the second column) with $\chi^2_{min}$ for TDLS (the third column). With these data, we then have the results shown in Fig.~\ref{fig:th23_delta}.
 
 \section{Summary and conclusions}
 
