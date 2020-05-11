@@ -91,7 +91,7 @@ Currently, some works discuss on how the future experiments can be used for test
 
 \begin{figure}[!h]%
 \centering
-\includegraphics[width=4.5in]{Figs/FASE-chart_1_v1.pdf}
+\includegraphics[width=4.5in]{Figs/FASE-chart_1_2.pdf}
 \caption{A scheme to correlate the model parameters with standard neutrino oscillation parameters. The error propagation is implemented in the simulation code up to the spectra analysis.}%
 \label{fig:FASE}
 \end{figure}
@@ -168,7 +168,7 @@ The user can use \textbf{FaSE-GLoBES} to study the constraint of model parameter
 &+p(\xi_s,\sigma_s)+p(\xi_b,\sigma_b)+\chi^2_{prior},
 \end{align}
 %\end{equation}
-where $i$ runs over the number of bins, $\eta_i(\vec{\theta},\xi_s,\xi_b)$ is the hypothesis event rate for bin i and $E_i$ is the central bin energy. The vector $\vec{\theta}$ consists of test model or oscillation parameters. The parameters $\xi_s$ and $\xi_b$ are introduced to account for the systematic uncertainty of normalisation for the signal (subscript $_s$) and background (subscript $_b$) components for the event rate, and are allowed to vary in the fit as nuisance parameters. For a given hypothesised set of parameters $\vec{\theta}$, the event rate for bin $i$ is calculated as\\
+where $i$ runs over the number of bins, $\eta_i(\vec{\theta},\xi_s,\xi_b)$ is the hypothesis event rate for bin i and $E_i$ is the central bin energy. The vector $\vec{\theta}$ consists of tested model or oscillation parameters. The parameters $\xi_s$ and $\xi_b$ are introduced to account for the systematic uncertainty of normalisation for the signal (subscript $_s$) and background (subscript $_b$) components for the event rate, and are allowed to vary in the fit as nuisance parameters. For a given hypothesised set of parameters $\vec{\theta}$, the event rate for bin $i$ is calculated as\\
 \begin{equation}
 \eta_i(\vec{\theta}^{hyp},\xi_s,\xi_b)=(1+\xi_s)\times s_i+(1+\xi_b)\times b_i,
 \end{equation}
@@ -256,13 +256,12 @@ Mentioned in Sec.~\ref{sec:chi-squared}, the user need to consider Wilk's theory
 
 \section{Summary and conclusions}
 
-We have presented \textbf{FaSE}, which is a supplemental simulation tool for \textbf{GLoBES} to study the flavour symmetry with neutrino oscillation experiments. \textbf{FaSE} provides \texttt{c}-codes: \textbf{model-input.c} and \textbf{FASE\_GLoBES.c}. Shown in Fig.~\ref{fig:FASE}, \textbf{FASE\_GLoBES}, which calls functions in \textbf{model-input.c}, plays a role as a bridge between \textbf{FaSE} and \textbf{GLoBES} to simulate the expected spectra and compute the prior value. It can be left to be untouched by users. However, all inputs of the user needs to be given in the code \textbf{model-input.c}. Given a set of model parameters $\vec{\theta}_{Model}$, with \textbf{GLoBES}, the output can be the $\chi^2$ value for the hypothesis $\vec{\theta}_{Model}$. 
-%{\color{red}\texttt{Makefile} is easy to include these two binary files (\textbf{model-input} and \textbf{FASE\_GLoBES}) in the \texttt{makefile} script for \textbf{GLoBES}. }
+e have presented \textbf{FaSE}, which is a supplemental simulation tool for \textbf{GLoBES} to study the leptonic flavour symmetry with neutrino oscillation experiments in a user-friendly way. \textbf{FaSE} contains two \texttt{c}-codes: \textbf{model-input.c} and \textbf{FASE\_GLoBES.c}. Shown in Fig.~\ref{fig:FASE}, \textbf{FASE\_GLoBES}, which calls functions in \textbf{model-input.c}, plays a role as a bridge between \textbf{FaSE} and \textbf{GLoBES} to simulate the event spectrum and compute the prior value. It can be left to be untouched by users. However, all inputs from the user needs to be given in \textbf{model-input.c}. The user can provide the relation between model and oscillation parameters, or simply give the mass matrix predicted by the studied model. The prior can be assigned as a Gaussian distribution in model or oscillation parameters. Central values and widths are given by the user in the main code through three arrays. Given a set of model parameters $\vec{\theta}_{Model}$, with \textbf{GLoBES}, the output can be the $\chi^2$ value for the hypothesis $\vec{\theta}_{Model}$ in the simulated experiments.
 
-We also present two examples for \textbf{FaSE-GLoBES} with the flavour symmetry model -- tri-direct littlest seesaw (TDLS) -- and the future neutrino oscillaiton experiment -- MOMENT. We show the model can be assign in two ways: the relation between model and oscillation parameters or the form of mass matrix in model parameters. The input of the oscillation probability and prior value can be in model or oscillation parameters. We further demonstrate how to use \textbf{FaSE-GLoBES} to obtain the constraint of any two of model parameters, and to study the ability to TDLS by MOMENT experiment. 
+We also present demonstrate examples for \textbf{FaSE-GLoBES} with the flavour symmetry model -- tri-direct littlest seesaw (TDLS) -- and the future neutrino oscillaiton experiment -- MOMENT. We demonstrate how to use \textbf{FaSE-GLoBES} to obtain the constraint of any two of model parameters, and to study the ability to TDLS by MOMENT experiment.
 
-Finally, \textbf{GLoBES} is a popular and powerful simulation tool to analysis the neutrino oscillation experiments in a simple language (AEDL), without losing too much detail. Considering the success of the flavour symmetry theory to explain the neutrino oscillations, \textbf{FaSE-GLoBES} should benefit model builders of leptonic flavour symmetry and phenomenologists for neutrino oscillation physics. We leave the flexibility for the user, and some other improvements and extensions can be also expected in the future.
- 
+Finally, \textbf{GLoBES} is a popular and powerful simulation tool to analysis the neutrino oscillation experiments in a simple language (AEDL), without losing too much detail. Considering the success of the flavour symmetry theory to explain the neutrino oscillations, \textbf{FaSE-GLoBES} should benefit model builders of leptonic flavour symmetry and phenomenologists for neutrino oscillation physics. We leave the flexibility for the user, and some other improvements and extensions can be expected in the future.
+  
  \begin{acknowledgements}
 \end{acknowledgements}
 

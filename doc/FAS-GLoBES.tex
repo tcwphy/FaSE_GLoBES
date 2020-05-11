@@ -96,7 +96,7 @@ Currently, some works discuss on how the future experiments can be used for test
 
 \begin{figure}[!h]%
 \centering
-\includegraphics[width=4.5in]{Figs/FASE-chart_1_v1.pdf}
+\includegraphics[width=4.5in]{Figs/FASE-chart_1_2.pdf}
 \caption{A scheme to correlate the model parameters with standard neutrino oscillation parameters. The error propagation is implemented in the simulation code up to the spectra analysis.}%
 \label{fig:FASE}
 \end{figure}
@@ -136,19 +136,14 @@ In the following, we give more details about using \textbf{FASE-GLoBES}. In Sec.
 
 \subsection{Compile and Run}\label{sec:compile}
 As \textbf{FaSE} works based on \textbf{GLoBES}, the user should use the \textbf{GLoBES} \texttt{Makefile}, but include the binary file of \textbf{FaSE}. To do so, we include the script in the \texttt{Makefile},\vspace{0.2cm}\\
-\texttt{\{makefile\_execution\}: my\_program.o  FASE\_GLoBES.o model-input\_diag.o\\
-	gcc my\_program.o  FASE\_GLoBES.o model-input\_diag.o -o my\_executable  \$(LDFLAGS) \$(local\_LDFLAGS)}\\
-or\\
 \texttt{\{makefile\_execution\}: my\_program.o  FASE\_GLoBES.o model-input.o\\
 	gcc my\_program.o  FASE\_GLoBES.o model-input.o -o my\_executable  \$(LDFLAGS) \$(local\_LDFLAGS)}\vspace{0.2cm}\\	
 where \texttt{\{compile\_execusion\}} is the makefile commend for the program \texttt{my\_program.o} and the execution \texttt{my\_executable} is the output. After giving this script in the \textbf{GLoBES} \texttt{Makefile}, the user needs to makefile the program \texttt{my\_program} on the terminal.\vspace{0.2cm}\\
 \texttt{makefile \{makefile\_execution\}}\vspace{0.2cm}\\
 And, the user can execute the program by typing the following commend on the terminal.\vspace{0.2cm}\\ 
-\texttt{./my\_executable}\vspace{0.2cm}\\
+\texttt{./my\_executable}%\vspace{0.2cm}\\
 
 The user can also compile the program without the \textbf{GLoBES} \texttt{Makefile} with the following script.\vspace{0.2cm}\\
-\texttt{gcc my\_program.o FASE\_GLoBES.o model-input\_diag.o -lglobes -LGLB\_DIR/lib/ -o my\_executable}\\
-or\\
 \texttt{gcc my\_program.o FASE\_GLoBES.o model-input.o -lglobes -LGLB\_DIR/lib/ -o my\_executable}\vspace{0.2cm}\\
 And, the execution is also in the same way: \texttt{./my\_executable}.\\
 
@@ -174,7 +169,10 @@ The oscillation parameters can also be obtained in the way based on
 \begin{equation}\label{eq:MM}
 U^\dagger\mathcal{M}\mathcal{M}^\dagger U = \mathbf{M}^2,~\text{where}~\mathbf{M}^2_{\alpha\beta}=m_\alpha^2\delta_{\alpha\beta},
 \end{equation}
-where $\mathcal{M}$ ($\mathbf{M}$) is the neutrino mass matrix in the flavour (mass) state. The matrix $\mathcal{M}$ is given by user with model parameters $\vec{\theta}_{Model}$. The matrix $U$ is the neutrino mixing matrix, and can be used for getting mixing angles. The difference between any two diagonal elements of $\textbf{M}$ ($\textbf{M}_{ii}-\textbf{M}_{jj}=m_i^2-m_j^2$) is the mass-squared difference ($\Delta m_{ij}^2$). This diagnolisation Eq.~\ref{eq:MM} can be done with the function \texttt{ModelTO}, which needs to be called in \texttt{MtoS} and outputs directly the vector $\vec{\theta}_{OSC}$.
+where $\mathcal{M}$ ($\mathbf{M}$) is the neutrino mass matrix in the flavour (mass) state. The matrix $\mathcal{M}$ is given by user with model parameters $\vec{\theta}_{Model}$. The matrix $U$ is the neutrino mixing matrix, and can be used for getting mixing angles. The difference between any two diagonal elements of $\textbf{M}$ ($\textbf{M}_{ii}-\textbf{M}_{jj}=m_i^2-m_j^2$) is the mass-squared difference ($\Delta m_{ij}^2$). This diagnolisation Eq.~\ref{eq:MM} can be done with the function \texttt{STAN\_OSC}, which outputs directly the vector $\vec{\theta}\_{OSC}$. 
+The user needs to call it in \texttt{MtoS} with the script,\vspace{0.2cm}\\
+\texttt{STAN\_OSC(\{}$M$\texttt{\},\{}$\vec{\theta}_{OSC}$\texttt{\});},\\
+where \texttt{\{}$M$\texttt{\}} and \texttt{\{}$\vec{\theta}_{OSC}$\texttt{\}} are the input neutrino mass matrix and the output array of oscillation parameter values, respectively.
 
 \subsection{Prior setting}\label{sec:prior}
 Given a set of values for model parameters, \textbf{FASE\_GLoBES.c} will obtain the corresponding oscillation-parameter values from \textbf{model-input.c}, and will pass these values to simulate event spectra and to compute the prior value. Two gaussian prior functions are provided in \textbf{FaSE} -- \texttt{FASE\_prior\_OSC} and \texttt{FASE\_prior\_model}. These two functions are for different purposes. If the user give the prior in oscillation (model) parameters, the user should register \texttt{FASE\_prior\_OSC} (\texttt{FASE\_prior\_model}) with the \textbf{GLoBES} function \texttt{glbRegisterPriorFunction}, as we introduced in the beginning of this section. The user also needs to assign the parameter \texttt{PARA=STAN} (\texttt{PARA=Model}), when the user prefers to give the prior in oscillation (model) parameters. The Gaussian prior is 
@@ -183,7 +181,7 @@ Given a set of values for model parameters, \textbf{FASE\_GLoBES.c} will obtain 
 \end{equation}
  where $\theta_i$ is one of parameters constrained by prior, $\theta^c_i$ ($\sigma_i$) is the central value (Gaussian width) of the prior for $\theta_i$. We note that $\theta_i$ can be either model ($\vec{\theta}_{Model}$) or oscillation parameters ($\vec{\theta}_{OSC}$).
 %
-The values of $\theta^c_i$ and $\sigma_i$ need to be given by the user through three arrays: \texttt{Central\_prior}, \texttt{UPPER\_prior}, and \texttt{LOWER\_prior}, in which there are six components. To treat asymmetry of width for upper ($\theta_i>\theta_i^c$) and lower ($\theta_i<\theta_i^c$) Gaussian widths, we give values in two arrays \texttt{UPPER\_prior}, and \texttt{LOWER\_prior}, respectively. If the user gives the prior in model parameters, the order of each component follows with the setup of input of the probability engine. While the user gives the prior in oscillation parameters, the six components in order are $\theta_{12}$, $\theta_{13}$, $\theta_{23}$, $\delta$, $\Delta m_{21}^2$, and  $\Delta m_{31}^2$. The first four parameter are in \textbf{rad}, and the final two are in \textbf{eV$^2$}.
+The values of $\theta^c_i$ and $\sigma_i$ need to be given by the user through three arrays: \texttt{Central\_prior}, \texttt{UPPER\_prior}, and \texttt{LOWER\_prior}, in which there are six components. To treat asymmetry of width for upper ($\theta_i>\theta_i^c$) and lower ($\theta_i<\theta_i^c$) Gaussian widths, we give values in two arrays \texttt{UPPER\_prior}, and \texttt{LOWER\_prior}, respectively. If the user gives the prior in model parameters, the order of each component follows with the setup of input for the probability engine. If the user gives the prior in oscillation parameters, the six components in order are $\theta_{12}$, $\theta_{13}$, $\theta_{23}$, $\delta$, $\Delta m_{21}^2$, and  $\Delta m_{31}^2$. The first four parameter are in \textbf{rad}, and the final two are in \textbf{eV$^2$}.
 
 Finally, some restrictions are imposed by the studied flavour symmetry model. We set up these restrictions in the function \texttt{model\_restriction} in \texttt{model-input.c}. In the function \texttt{model\_restriction}, the user needs to \textit{return $1$} once the restriction is broken. For example, if the normal ordering is imposed, we give ``\texttt{ if (DMS31<0) \{ return 1;\} } '' in \texttt{model\_restriction}, where \texttt{DMS31} is the variable for $\Delta m_{31}^2$. Then, when the restriction is broken, \texttt{model\_restriction} returns the value $1$ to the prior function \texttt{FASE\_prior\_OSC} or \texttt{FASE\_prior\_model}. Therefore, if there is no any restrictions, we simply \textit{return $0$} in \texttt{model\_restriction} as follows.\vspace{0.2cm}\\
 \texttt{double model\_restriction(double model [])\{ return 0;\} }\vspace{0.2cm}\\
@@ -290,7 +288,7 @@ The restrictions $m_a>0$ and $r>0$ need to be setup in \texttt{model\_restrictio
 \}\vspace{0.2cm}\\
 
 \subsection{Initialise the code}
-In the beginning of main code, we need to initialise GLoBES and FASE, and to include the AEDL file for the MuOn-decay MEdium baseline NeuTrino beam experiment (MOMENT)~\cite{Cao:2014bea} as follows.\vspace{0.2cm}\\ 
+In the beginning of main code, we need to initialise \textbf{GLoBES} and \textbf{FaSE}, and to include the AEDL file for the MuOn-decay MEdium baseline NeuTrino beam experiment (MOMENT)~\cite{Cao:2014bea} as follows.\vspace{0.2cm}\\ 
 \texttt{glbInit(argv[0]);}\\
 \texttt{glbInitExperiment("expMOMENT\_FIX\_FLUX\_150KM\_addATM\_NC.glb",\&glb\_experiment\_list[0],}\\
 \texttt{\&glb\_num\_of\_exps);}\\
@@ -302,7 +300,7 @@ Then we register the probability engine.\vspace{0.2cm}\\
                                  \&FASE\_glb\_set\_oscillation\_parameters,\\
                                  \&FASE\_glb\_get\_oscillation\_parameters,\\
                                  NULL); }\vspace{0.2cm}\\                                 
-In the following we define the model-parameter values, and set the true value in model parameters.\vspace{0.2cm}\\
+In the following we define the model-parameter values ($x$, $\eta$, $r$, and $m_a$), and set the true value in model parameters \texttt{true\_values} to simulated the true event spectrum.\vspace{0.2cm}\\
 \texttt{     float degree   = M\_PI/180;}\\
 \texttt{     float x\_true,eta\_true,r\_true,ma\_true;}\\
 \texttt{    x\_true=-3.65029; eta\_true=1.13067*M\_PI; r\_true=0.511325; ma\_true=3.71199e-3;}\\
@@ -317,7 +315,7 @@ In the following we define the model-parameter values, and set the true value in
 \texttt{PARA=MODEL;\\
     glbSetOscillationParameters(true\_values);\\
     glbSetRates();}\vspace{0.2cm}\\
-We then finally set up the projection. The projection \texttt{free} is to set all four parameters free to find the minimal value of $\chi^2$, which \texttt{project} is used for studying the constraint on $x$ and $\eta$.\vspace{0.2cm}\\  
+We then finally set up the projection. The projection \texttt{free} allows all four parameters to be varied for finding the minimal value of $\chi^2$, which \texttt{project} is used for studying the constraint on $x$ and $\eta$.\vspace{0.2cm}\\  
 \texttt{glb\_projection projection = glbAllocProjection();\\
     glb\_projection free = glbAllocProjection();  \\
      glbDefineProjection(free,GLB\_FREE,GLB\_FREE,GLB\_FREE,GLB\_FREE,GLB\_FIXED,GLB\_FIXED);\\
@@ -326,7 +324,7 @@ glbDefineProjection(projection,GLB\_FIXED,GLB\_FIXED,GLB\_FREE,GLB\_FREE,GLB\_FI
 glbSetDensityProjectionFlag(projection, GLB\_FREE, GLB\_ALL);\\
     }
     
-\subsection{Prior setup} 
+\subsection{Prior setup {\color{red}[updating]}} 
 
 To set up the prior, we need to register the prior function. As mentioned, when we use the prior in oscillation and model parameters, we register \texttt{FASE\_prior\_OSC} and \texttt{FASE\_prior\_model}, respectively. Here we present an example setting up priors in oscillation parameters according to NUFIT4.0 Table~\ref{tab:nufit4.0}.
 
@@ -375,7 +373,7 @@ The user can use \textbf{FaSE-GLoBES} to study the constraint of model parameter
 \begin{equation}\label{eq:chi-squared}
 \chi^2(\vec{\theta},\xi_s,\xi_b)=2\sum_i\left(\eta_i(\vec{\theta},\xi_s,\xi_b)-n_i+n_i\ln\frac{n_i}{\eta_i(\vec{\theta},\xi_s,\xi_b)} \right)+p(\xi_s,\sigma_s)+p(\xi_b,\sigma_b)+\chi^2_{prior},
 \end{equation}
-where $i$ runs over the number of bins, $\eta_i(\vec{\theta},\xi_s,\xi_b)$ is the hypothesis event rate for bin i and $E_i$ is the central bin energy. The vector $\vec{\theta}$ consists of test model or oscillation parameters. The parameters $\xi_s$ and $\xi_b$ are introduced to account for the systematic uncertainty of normalisation for the signal (subscript $_s$) and background (subscript $_b$) components for the event rate, and are allowed to vary in the fit as nuisance parameters. For a given hypothesised set of parameters $\vec{\theta}$, the event rate for bin $i$ is calculated as\\
+where $i$ runs over the number of bins, $\eta_i(\vec{\theta},\xi_s,\xi_b)$ is the hypothesis event rate for bin i and $E_i$ is the central bin energy. The vector $\vec{\theta}$ consists of tested model or oscillation parameters. The parameters $\xi_s$ and $\xi_b$ are introduced to account for the systematic uncertainty of normalisation for the signal (subscript $_s$) and background (subscript $_b$) components for the event rate, and are allowed to vary in the fit as nuisance parameters. For a given hypothesised set of parameters $\vec{\theta}$, the event rate for bin $i$ is calculated as\\
 \begin{equation}
 \eta_i(\vec{\theta},\xi_s,\xi_b)=(1+\xi_s)\times n_i+(1+\xi_b)\times b_i,
 \end{equation}
@@ -522,16 +520,16 @@ The output \texttt{data/ModelTest\_th23\_dCP\_test.dat} contains true values of 
 
 \section{Summary and conclusions}
 
-We have presented \textbf{FaSE}, which is a supplemental simulation tool for \textbf{GLoBES} to study the flavour symmetry with neutrino oscillation experiments. \textbf{FaSE} provides \texttt{c}-codes: \textbf{model-input.c} and \textbf{FASE\_GLoBES.c}. Shown in Fig.~\ref{fig:FASE}, \textbf{FASE\_GLoBES}, which calls functions in \textbf{model-input.c}, plays a role as a bridge between \textbf{FaSE} and \textbf{GLoBES} to simulate the expected spectra and compute the prior value. It can be left to be untouched by users. However, all inputs of the user needs to be given in the code \textbf{model-input.c}. Given a set of model parameters $\vec{M}$, with \textbf{GLoBES}, the output can be the $\chi^2$ value for the hypothesis $\vec{M}$. {\color{red}\texttt{Makefile} is easy to include these two binary files (\textbf{model-input} and \textbf{FASE\_GLoBES}) in the \texttt{makefile} script for \textbf{GLoBES}. }
+We have presented \textbf{FaSE}, which is a supplemental simulation tool for \textbf{GLoBES} to study the leptonic flavour symmetry with neutrino oscillation experiments in a user-friendly way. \textbf{FaSE} contains two \texttt{c}-codes: \textbf{model-input.c} and \textbf{FASE\_GLoBES.c}. Shown in Fig.~\ref{fig:FASE}, \textbf{FASE\_GLoBES}, which calls functions in \textbf{model-input.c}, plays a role as a bridge between \textbf{FaSE} and \textbf{GLoBES} to simulate the event spectrum and compute the prior value. It can be left to be untouched by users. However, all inputs from the user needs to be given in \textbf{model-input.c}. The user can provide the relation between model and oscillation parameters, or simply give the mass matrix predicted by the studied model. The prior can be assigned as a Gaussian distribution in model or oscillation parameters. Central values and widths are given by the user in the main code through three arrays. Given a set of model parameters $\vec{\theta}_{Model}$, with \textbf{GLoBES}, the output can be the $\chi^2$ value for the hypothesis $\vec{\theta}_{Model}$ in the simulated experiments.
 
-We also present two examples for \textbf{FaSE-GLoBES} with the flavour symmetry model -- tri-direct littlest seesaw (TDLS) -- and the future neutrino oscillaiton experiment -- MOMENT. We show the model can be assign in two ways: the relation between model and oscillation parameters or the form of mass matrix in model parameters. The input of the oscillation probability and prior value can be in model or oscillation parameters. We further demonstrate how to use \textbf{FaSE-GLoBES} to obtain the constraint of any two of model parameters, and to study the ability to TDLS by MOMENT experiment. 
+We also present demonstrate examples for \textbf{FaSE-GLoBES} with the flavour symmetry model -- tri-direct littlest seesaw (TDLS) -- and the future neutrino oscillaiton experiment -- MOMENT. We demonstrate how to use \textbf{FaSE-GLoBES} to obtain the constraint of any two of model parameters, and to study the ability to TDLS by MOMENT experiment.
 
-Finally, \textbf{GLoBES} is a popular and powerful simulation tool to analysis the neutrino oscillation experiments in a simple language (AEDL), without losing too much detail. Considering the success of the flavour symmetry theory to explain the neutrino oscillations, \textbf{FaSE-GLoBES} should benefit model builders of leptonic flavour symmetry and phenomenologists for neutrino oscillation physics. We leave the flexibility for the user, and some other improvements and extensions might be done in the future.
+Finally, \textbf{GLoBES} is a popular and powerful simulation tool to analysis the neutrino oscillation experiments in a simple language (AEDL), without losing too much detail. Considering the success of the flavour symmetry theory to explain the neutrino oscillations, \textbf{FaSE-GLoBES} should benefit model builders of leptonic flavour symmetry and phenomenologists for neutrino oscillation physics. We leave the flexibility for the user, and some other improvements and extensions can be expected in the future.
  
 
 % BIBLIOGRAPHY
 % use BIBTEX if you want
-\bibliographystyle{JHEP}
-%\bibliographystyle{plain}
+%\bibliographystyle{JHEP}
+\bibliographystyle{plain}
 \bibliography{FAS-GLoBES.bib}
 \end{document}
