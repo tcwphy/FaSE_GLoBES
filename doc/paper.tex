@@ -192,7 +192,7 @@ Finally, the user needs to adopt Wilk's theorem \cite{Wilks:1938dza}. When compa
 
 \section{Constraint of model parameters}
 
-\textbf{FaSE-GloBES} can be used to study how the model parameter is constrained by simulated neutrino oscillation experiments. We take the tri-direct littlest seesaw (TDLS) model~\cite{King:2013iva,King:2015dvf,King:2016yvg} as example. Under this model, the light left-handed Majorana neutrino mass matrix is given by
+\textbf{FaSE-GloBES} can be used to study how the model parameter is constrained by simulated neutrino oscillation experiments. We take \textit{the tri-direct littlest seesaw} (TDLS)~\cite{King:2013iva,King:2015dvf,King:2016yvg} as an example. Under this model, the light left-handed Majorana neutrino mass matrix is given by
 \begin{equation}
 \label{eq:mnu}  m_{\nu}=m_{a}\begin{pmatrix}
  1 &~ \omega  &~ \omega ^2 \\
@@ -226,6 +226,16 @@ where $x$, $\eta$, $m_a$, and the ratio $r\equiv m_s/m_a$ are four parameters an
 
 In Fig.~\ref{fig:x_eta}, we study how parameters $x$ and $\eta$ can be constrained by the MuOn-decay MEdium baseline NeuTrino beam experiment (MOMENT)~\cite{Cao:2014bea}. We input the model by giving model parameters as functions of oscillation parameters Eq.~\ref{eq:modelofOSC}. And, parameters $r$ and $ma$ are varied with the prior that is given in oscillation parameters, according to the global-fit result NUFIT4.0. More details are presented in the user manual. The code for this example is provided as \textbf{x\_eta.c} in the \textbf{FaSE} distribution.
 
+{\color{red}To show the generality of \textbf{FaSE-GLoBES}, we present the similar result with another model -- \textit{the warped flavor symmetry} (WFS). This model predict the simplification that mixing angles and the CP phase are functions of two model parameters $\theta_\nu$ and $\phi_\nu$,
+\begin{align}
+\sin^2\theta_{12}&=\frac{1}{2-\sin2\theta_{\nu}\cos\phi_\nu},\nonumber\\
+\sin^2\theta_{13}&=\frac{1}{3}(1+\sin2\theta_\nu\cos\phi_\nu),\nonumber\\
+\sin^2\theta_{23}&=\frac{1-\sin2\theta_\nu\sin(\pi/6-\phi_\nu)}{2-\sin2\theta_\nu\cos\phi_\nu},\nonumber\\
+J_{CP}&=-\frac{1}{6\sqrt{3}}\cos2\theta_\nu.
+\end{align}
+The constraint of $\theta_\nu$ and $\phi_\nu$ is presented in Fig.
+}
+
 
 \section{Model testing}
 
@@ -237,8 +247,10 @@ In Fig.~\ref{fig:x_eta}, we study how parameters $x$ and $\eta$ can be constrain
 
 We can also study on excluding the model, assuming different true values for oscillation parameters. In this example, we present testing the TDLS model in various true values of $\theta_{23}$ and $\delta$. We compute the minimal $\chi^2$ value for the tested model with all four model parameters, varied with the prior Eq.~\ref{eq:prior} according to NUFIT4.0 result. And, the studied statistics function is exactly Eq.~\ref{eq:chi-squared}, but the true event rate $n_i$ is predicted by a set of oscillation parameters, which will be varied in the code. 
 
-Mentioned in Sec.~\ref{sec:chi-squared}, the user need to consider Wilk's theory with the different of degrees of freedom between the true theory and the hypothesis, \texttt{dof}. Here the number \texttt{dof} is $2$. And that is our output: \texttt{gsl\_cdf\_chisq\_Qinv(gsl\_cdf\_chisq\_Q(fabs(res),dof),1)}. We show the result in Fig.~\ref{fig:th23_delta}. More details are presented in the user manual. The code for this example is provided as \textbf{th23\_delta.c} in the \textbf{FaSE} distribution.
+Mentioned in Sec.~\ref{sec:chi-squared}, the user need to consider Wilk's theory with the different of degrees of freedom between the true theory and the hypothesis, \texttt{dof}. Here the number \texttt{dof} is $2$. And that is our output: \texttt{gsl\_cdf\_chisq\_Qinv(gsl\_cdf\_chisq\_Q(fabs(res),dof),1)}. We show the result in Fig.~\ref{fig:th23_delta}. More details are presented in the user manual. The code for this example is provided as 
+\textbf{th23\_delta.c} in the \textbf{FaSE} distribution.
 
+{\color{red}We also show the similar result for WFS, and present it in Fig.}
 
 
 %\begin{figure}[!h]
@@ -252,6 +264,7 @@ Mentioned in Sec.~\ref{sec:chi-squared}, the user need to consider Wilk's theory
 %\includegraphics[width=0.32\textwidth]{figs/SR_dCP_ldm.pdf}
  %\caption{\label{fig:SR_2D}The 2-D exclusion contour for tri-direct littlest seesaw model on the plane of any two true standard parameters, from $1\sigma$ to $5\sigma$. The range for each parameter is taken according to the $3\sigma$ uncertainty in NuFit4.0 results. The black dot denotes the best fit of NuFit4.0 results ($(\theta_{12},~\theta_{13},~\theta_{23},~\delta,~\Delta m_{21}^2,~\Delta m_{31}^2)=(33.82^\circ,~8.61^\circ,~49.6^\circ,~215^\circ,~7.39\times10^{-5}~\text{eV}^2,~2.525\times10^{-3}~\text{eV}^2)$), while the star is the prediction by the tri-direct littlest seesaw model with NuFit4.0 results ($(\theta_{12},~\theta_{13},~\theta_{23},~\delta,~\Delta m_{21}^2,~\Delta m_{31}^2)\sim(36.25^\circ,~8.63^\circ,~47^\circ,~279^\circ,~7.39\times10^{-5}~\text{eV}^2,~2.525\times10^{-3}~\text{eV}^2)$).}
 %\end{figure}
+
 
 
 \section{Summary and conclusions}
