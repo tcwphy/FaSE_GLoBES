@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
     glb_params test_values = glbAllocParams();
     glb_params input_errors = glbAllocParams();
     glb_params centers = glbAllocParams();
-    
+    glb_params out = glbAllocParams();
     /*define model parameter: true_values( x, eta, r, ma)*/
     glbDefineParams(test_values,x_true,eta_true,r_true,ma_true,0,0);
     glbSetDensityParams(test_values,1.0,GLB_ALL);
@@ -114,6 +114,10 @@ int main(int argc, char *argv[])
     dth23=(upper_th23-lower_th23)/100; ddCP=(upper_dCP-lower_dCP)/100;
     int dof=2;
     glbSetProjection(free);
+    
+    PARA=MODEL;
+    float res0=glbChiNP(test_values,out,GLB_ALL);
+
     for (th23=lower_th23;th23<=upper_th23;th23=th23+dth23){
     for (dCP=lower_dCP;dCP<=upper_dCP;dCP=dCP+ddCP){
     glbSetOscParams(true_values,th23*degree,GLB_THETA_23);
@@ -123,8 +127,11 @@ int main(int argc, char *argv[])
     glbSetRates();
     PARA=MODEL; /* if the user is interested in the sensitivity on Standard Oscillation parameters*/
         float res=glbChiNP(test_values,NULL,GLB_ALL);
-            fprintf(File,"%f %f %f\n",th23,dCP,gsl_cdf_chisq_Qinv(gsl_cdf_chisq_Q(fabs(res),dof),1));
-//            printf("%f %f %f\n",th23,dCP,res);
+//        float res2=glbChiNP(out,NULL,GLB_ALL);
+//        if(res2<res) {res=res2;}
+            fprintf(File,"%f %f %f\n",th23,dCP,gsl_cdf_chisq_Qinv(gsl_cdf_chisq_Q(fabs(res-res0),dof),1));
+//            printf("%f %f %f\n",th23,dCP,gsl_cdf_chisq_Qinv(gsl_cdf_chisq_Q(fabs(res),dof),1));
+//                    printf("%f %f %f %f\n",th23,dCP,res,res0);
          } fprintf(File,"\n");
     }
  
