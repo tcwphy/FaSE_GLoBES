@@ -265,14 +265,14 @@ Parameters $r$ and $ma$ are varied with the prior that is given in standard osci
 %\end{figure}
 
 
-{\color{red}To show the generality of \textbf{FaSE-GLoBES}, we also present the similar result for another model -- \textit{the warped flavor symmetry} (WFS)~\cite{Chen:2015jta}. This model predicts further simplified correlations that the standard oscillation parameters including mixing angles and the CP phase are functions of only two model parameters $\theta_\nu$ and $\phi_\nu$,
-\begin{align}
+{\color{blue}To show the generality of \textbf{FaSE-GLoBES}, we also present the similar result for another model -- \textit{the warped flavor symmetry} (WFS)~\cite{Chen:2015jta}. This model predicts further simplified correlations that the standard oscillation parameters including mixing angles and the CP phase are functions of only two model parameters $\theta_\nu$ and $\phi_\nu$,
+\begin{align}\label{eq:WFS}
 \sin^2\theta_{12}&=\frac{1}{2-\sin2\theta_{\nu}\cos\phi_\nu},\nonumber\\
 \sin^2\theta_{13}&=\frac{1}{3}(1+\sin2\theta_\nu\cos\phi_\nu),\nonumber\\
 \sin^2\theta_{23}&=\frac{1-\sin2\theta_\nu\sin(\pi/6-\phi_\nu)}{2-\sin2\theta_\nu\cos\phi_\nu},\nonumber\\
 J_{CP}&=-\frac{1}{6\sqrt{3}}\cos2\theta_\nu.
 \end{align}
-The constraint of $\theta_\nu$ and $\phi_\nu$ for DUNE and MOMENT is presented in the right panel of Fig~\ref{fig:constraint}, in which we use the best fit of NUFIT 4.0 result as the true values $(\theta_{12},~\theta_{13},~\theta_{23},~\delta,~\Delta m_{21}^2,~\Delta m_{31}^2)=(33.82^\circ,~8.61^\circ,~49.6^\circ,~215^\circ,~7.39\times10^{-5}~\text{eV}^2,~2.525\times10^{-3}~\text{eV}^2)$.}
+The constraint of $\theta_\nu$ and $\phi_\nu$ for DUNE and MOMENT is presented in the right panel of Fig~\ref{fig:constraint}, in which we use the best fit of NUFIT 4.0 result as the true values $(\theta_{12},~\theta_{13},~\theta_{23},~\delta,~\Delta m_{21}^2,~\Delta m_{31}^2)=(33.82^\circ,~8.61^\circ,~49.6^\circ,~215^\circ,~7.39\times10^{-5}~\text{eV}^2,~2.525\times10^{-3}~\text{eV}^2)$. To reproduce the result show in \cite{Chatterjee:2017xkb}, we do not include any priors.}
 
 
 \section{Model testing}
@@ -281,20 +281,23 @@ The constraint of $\theta_\nu$ and $\phi_\nu$ for DUNE and MOMENT is presented i
  \centering
 \includegraphics[width=0.48\textwidth]{Figs/SR_th23_dCP_DUNE_MOMENT.pdf}
 \includegraphics[width=0.48\textwidth]{Figs/SR_th23_dCP_WFS.pdf}
-\caption{\label{fig:th23_delta}Examples for using \textbf{FaSE-GLoBES} to obtain the 2-D exclusion contour on the plane of true values of $\theta_{23}$ and $\delta$ for sub-models of TDLS (left) and of WFS (right) with DUNE and MOMENT. {\color{red} [keep tuning plots]}}
+\caption{\label{fig:th23_delta}Examples for using \textbf{FaSE-GLoBES} to obtain the 2-D exclusion contour at $99\%$ C.L. on the plane of true values of $\theta_{23}$ and $\delta$ for sub-models of TDLS (left) and of WFS (right) with DUNE and MOMENT. {\color{red} [keep tuning plots]}}
 %\caption{\label{fig:th23_delta}The 2-D exclusion contour for sub-models of tri-direct littlest seesaw on the plane of two true standard parameters $\theta_{23}$ and $\delta$, from $1\sigma$ to $5\sigma$, for DUNE (dotted) and MOMENT (solid). The range for each parameter is taken according to the $3\sigma$ uncertainty in NuFit4.0 results. The black dot denotes the best fit of NuFit4.0 results ($(\theta_{12},~\theta_{13},~\theta_{23},~\delta,~\Delta m_{21}^2,~\Delta m_{31}^2)=(33.82^\circ,~8.61^\circ,~49.6^\circ,~215^\circ,~7.39\times10^{-5}~\text{eV}^2,~2.525\times10^{-3}~\text{eV}^2)$), while the star is the prediction by the tri-direct littlest seesaw model with NuFit4.0 results ($(\theta_{12},~\theta_{13},~\theta_{23},~\delta,~\Delta m_{21}^2,~\Delta m_{31}^2)\sim(36.25^\circ,~8.63^\circ,~47^\circ,~279^\circ,~7.39\times10^{-5}~\text{eV}^2,~2.525\times10^{-3}~\text{eV}^2)$).}
 \end{figure}
 
 We can also study on whether a neutrino mass model is excluded or not, assuming different true values for oscillation parameters. In this example, we present testing sub-models of TDLS in various true values of $\theta_{23}$ and $\delta$. We compute the minimal $\chi^2$ value for the model with $r$ and $m_a$, varied with the prior Eq.~(\ref{eq:prior}) according to NUFIT4.0 results. Two parameters $x$ and $\eta$ are fixed at the best fit. In addition, the studied statistics function is exactly given by Eq.~(\ref{eq:chi-squared}), but the true event rate $n_i$ is predicted by a set of oscillation parameters, which will be varied in the code. 
 %
+{\color{blue}We present this result in the left panel of Fig.~\ref{fig:th23_delta}. We further show the generality of \textbf{FaSE-GLoBES} by demonstrating the similar result for another model -- WFS Eq.~(\ref{eq:WFS}) for DUNE and MOMENT, in right panel of Fig.~\ref{fig:th23_delta}. In this result, two mass-squared differences are fixed at the true values without including any priors.
+%
 %As mentioned in Sec.~\ref{sec:chi-squared}, the user needs to consider Wilk's theorem with the different of degrees of freedom between the {\color{blue}assumed} true theory {\color{blue}($\vec{\theta}^{true}_{OSC}$)} and the hypothesis {\color{blue}($\vec{\theta}^{hyp}_{Model}$)}, \texttt{dof}. 
 %{\color{blue}`The assumed true theory' here means that the oscillation parameters assumed for predicting the true event spectrum.} \textcolor{red}{[JT: what is the meaning of the true theory?]} 
 %Here the number \texttt{dof} is $2$. 
 %And that is our output: \texttt{gsl\_cdf\_chisq\_Qinv(gsl\_cdf\_chisq\_Q(fabs(res),dof),1)}. \textcolor{red}{[I don't understand this sentence.]} 
-We show the result in Fig.~\ref{fig:th23_delta}. More details are presented in the user manual. 
+More details are presented in the user manual. 
 %The code for this example is provided as \textbf{th23\_delta.c} in the \textbf{FaSE} distribution.
 
-{\color{red}We also show the similar result for WFS, and present it in Fig.}
+
+}
 
 
 %\begin{figure}[!h]
