@@ -197,10 +197,10 @@ where $i$ runs over the number of bins, $\eta_i(\vec{\theta},\xi_s,\xi_b)$ is th
 \begin{equation}
 \eta_i(\vec{\theta}^{hyp},\xi_s,\xi_b)=(1+\xi_s)\times s_i+(1+\xi_b)\times b_i,
 \end{equation}
-where $s_i$ and $b_i$ are the expected number of signal and background events in $i$th energy bin, respectively. The nuisance parameters are constrained by the Gaussian prior $p(\xi,\sigma)=\xi^2/\sigma^2$ with corresponding uncertainties $\sigma_s$ and $\sigma_b$ for the signal and background, respectively. Finally, $\chi^2_{prior}$ is a set of Gaussian priors for hypothesis, and is expressed as Eq.~\ref{eq:prior}. After doing all minimisations, the user obtain the $\chi^2$ value for a specific hypothesis $\vec{\theta}^{hyp}$, $\chi^2(\vec{\theta}^{hyp})$.
+where $s_i$ and $b_i$ are the expected number of signal and background events in $i$th energy bin, respectively. The nuisance parameters are constrained by the Gaussian prior $p(\xi,\sigma)=\xi^2/\sigma^2$ with corresponding uncertainties $\sigma_s$ and $\sigma_b$ for the signal and background, respectively. Finally, $\chi^2_{prior}$ is a set of Gaussian priors for hypothesis, and is expressed as Eq.~(\ref{eq:prior}). After doing all minimisations, the user obtain the $\chi^2$ value for a specific hypothesis $\vec{\theta}^{hyp}$, $\chi^2(\vec{\theta}^{hyp})$.
 
 
-Based on the $\chi^2$ value Eq.~\ref{eq:chi-squared}, we can study how model parameters can be constrained and whether a flavour-symmetry neutrino model is excluded by simulated experiments. In the following we will demonstrate with typical examples how it works.
+Based on the $\chi^2$ function Eq.~(\ref{eq:chi-squared}), we can study how model parameters can be constrained and whether a flavour-symmetry neutrino model is excluded by simulated experiments. In the following we will demonstrate with typical examples how it works, {\color{blue} before presenting some demonstrations in next two sections.}
 
 \subsection*{Applications}
 
@@ -250,7 +250,7 @@ where $x$, $\eta$, $m_a$, and the ratio $r\equiv m_s/m_a$ are four parameters to
  \includegraphics[width=0.48\textwidth]{Figs/theta_phi.pdf}
 % \caption{\label{fig:constraint}Precision measurements of two model parameters in the framework of three neutrino oscillations taking uncertainties of the current global fit results, for MOMENT, at $1\sigma$ (gray), $2\sigma$ (orange), $3\sigma$ (black). True values for the model parameters are used $(x,~\eta,~r,~M_a)=(-3.65,~1.13\pi,~0.511,~3.71~\text{meV})$.}
  %
-  \caption{\label{fig:constraint}Examples for using \textbf{FaSE-GLoBES} to obtain the constraints of model parameters for tri-direct littlest seesaw (left) and the warped flavor symmetry (right), with simulated DUNE and MOMENT data. {\color{blue}[the left panel will be updated]}}
+  \caption{\label{fig:constraint}Examples for using \textbf{FaSE-GLoBES} to obtain the constraints of model parameters for tri-direct littlest seesaw (left) and the warped flavor symmetry (right), with simulated DUNE and MOMENT data.}
 \end{figure}
 
 In left panel of Fig.~\ref{fig:constraint}, we study how parameters $x$ and $\eta$ can be constrained by the MuOn-decay MEdium baseline NeuTrino beam experiment (MOMENT)~\cite{Cao:2014bea}. 
@@ -272,7 +272,7 @@ Parameters $r$ and $ma$ are varied with the prior that is given in standard osci
 \sin^2\theta_{23}&=\frac{1-\sin2\theta_\nu\sin(\pi/6-\phi_\nu)}{2-\sin2\theta_\nu\cos\phi_\nu},\nonumber\\
 J_{CP}&=-\frac{1}{6\sqrt{3}}\cos2\theta_\nu.
 \end{align}
-The constraint of $\theta_\nu$ and $\phi_\nu$ for DUNE and MOMENT is presented in the right panel of Fig~\ref{fig:constraint}, in which we use the best fit of NUFIT 4.0 result as the true values $(\theta_{12},~\theta_{13},~\theta_{23},~\delta,~\Delta m_{21}^2,~\Delta m_{31}^2)=(33.82^\circ,~8.61^\circ,~49.6^\circ,~215^\circ,~7.39\times10^{-5}~\text{eV}^2,~2.525\times10^{-3}~\text{eV}^2)$. To reproduce the result show in \cite{Chatterjee:2017xkb}, we do not include any priors.}
+The constraint of $\theta_\nu$ and $\phi_\nu$ for DUNE and MOMENT is presented in the right panel of Fig~\ref{fig:constraint}, in which we use the best fit of NUFIT 4.0 result as the true values $(\theta_{12},~\theta_{13},~\theta_{23},~\delta,~\Delta m_{21}^2,~\Delta m_{31}^2)=(33.82^\circ,~8.61^\circ,~49.6^\circ,~215^\circ,~7.39\times10^{-5}~\text{eV}^2,~2.525\times10^{-3}~\text{eV}^2)$. To reproduce the result shown in \cite{Chatterjee:2017xkb}, we do not include any priors.}
 
 
 \section{Model testing}
@@ -281,7 +281,7 @@ The constraint of $\theta_\nu$ and $\phi_\nu$ for DUNE and MOMENT is presented i
  \centering
 \includegraphics[width=0.48\textwidth]{Figs/SR_th23_dCP_DUNE_MOMENT.pdf}
 \includegraphics[width=0.48\textwidth]{Figs/SR_th23_dCP_WFS.pdf}
-\caption{\label{fig:th23_delta}Examples for using \textbf{FaSE-GLoBES} to obtain the 2-D exclusion contour at $99\%$ C.L. on the plane of true values of $\theta_{23}$ and $\delta$ for sub-models of TDLS (left) and of WFS (right) with DUNE and MOMENT. {\color{red} [keep tuning plots]}}
+\caption{\label{fig:th23_delta}Examples for using \textbf{FaSE-GLoBES} to obtain the 2-D exclusion contour at $99\%$ C.L. on the plane of true values of $\theta_{23}$ and $\delta$ for sub-models of TDLS (left) and of WFS (right) with DUNE and MOMENT. }
 %\caption{\label{fig:th23_delta}The 2-D exclusion contour for sub-models of tri-direct littlest seesaw on the plane of two true standard parameters $\theta_{23}$ and $\delta$, from $1\sigma$ to $5\sigma$, for DUNE (dotted) and MOMENT (solid). The range for each parameter is taken according to the $3\sigma$ uncertainty in NuFit4.0 results. The black dot denotes the best fit of NuFit4.0 results ($(\theta_{12},~\theta_{13},~\theta_{23},~\delta,~\Delta m_{21}^2,~\Delta m_{31}^2)=(33.82^\circ,~8.61^\circ,~49.6^\circ,~215^\circ,~7.39\times10^{-5}~\text{eV}^2,~2.525\times10^{-3}~\text{eV}^2)$), while the star is the prediction by the tri-direct littlest seesaw model with NuFit4.0 results ($(\theta_{12},~\theta_{13},~\theta_{23},~\delta,~\Delta m_{21}^2,~\Delta m_{31}^2)\sim(36.25^\circ,~8.63^\circ,~47^\circ,~279^\circ,~7.39\times10^{-5}~\text{eV}^2,~2.525\times10^{-3}~\text{eV}^2)$).}
 \end{figure}
 
@@ -316,12 +316,12 @@ More details are presented in the user manual.
 
 \section{Summary and conclusions}
 \textcolor{red}{[JT: This section has to be significantly improved.]}
-{\color{blue}[updated]}
+
 We have presented a simulation toolkit \textbf{FaSE-GLoBES} to study the leptonic flavour symmetry models with neutrino oscillation experiments in a user-friendly way. \textbf{FaSE} contains two \texttt{c}-codes: \textbf{model-input.c} and \textbf{FASE\_GLoBES.c}. While \textbf{FASE\_GLoBES.c} plays a role as a bridge between \textbf{FaSE} and \textbf{GLoBES}, all inputs from the user needs to be given in \textbf{model-input.c}. Two main functions provided by \textbf{FaSE} for users are a convenient way to assign a flavour symmetry model and to include Gaussian priors that can be in oscillation or model parameters.
 %
 With \textbf{FaSE-GLoBES}, users are able to study how a flavour model can be studied by the simulated experimental configuration in varieties of perspectives, \textit{e.g.} model parameter constraints, hypothesis testing.
 
-Finally, \textbf{GLoBES} is a popular and powerful simulation tool to analysis the neutrino oscillation experiments in a simple language (AEDL), without losing too much detail. Considering the success of the flavour symmetry theory to explain the neutrino oscillations, \textbf{FaSE-GLoBES} should benefit model builders of leptonic flavour symmetry and phenomenologists for neutrino oscillation physics. We leave the flexibility for the user, and some other improvements and extensions can be expected in the future.
+{\color{blue}With the progression of the precision measurements in the neutrino physics, and considering the success of the flavour symmetry theory in explaining neutrino oscillations, \textbf{FaSE-GLoBES} should benefit model builders of leptonic flavour symmetry and phenomenologists for neutrino oscillation physics. Finally, we leave the flexibility for the user, and some other improvements and extensions can be expected in the future.}
 
 \acknowledgements{
 This work was supported in part by Guangdong Basic and Applied Basic Research Foundation under Grant No. 2019A1515012216, National Natural Science Foundation of China under Grant Nos. 11505301 and 11881240247, the university funding based on National SuperComputer Center-Guangzhou. Jian Tang acknowledge the support from the CAS Center for Excellence in Particle Physics (CCEPP). Tse-Chun Wang was supported in part by Postdoctoral recruitment program in Guangdong province.
