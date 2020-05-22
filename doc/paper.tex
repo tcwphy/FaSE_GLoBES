@@ -5,7 +5,9 @@
 %\usepackage{jheppub} % for details on the use of the package, please
                      % see the JHEP-author-manual%JHEP%
 
-\documentclass[aps,prd,nofootinbib,preprint]{revtex4}
+%\documentclass[aps,prd,nofootinbib,preprint]{revtex4}
+\documentclass[preprint]{revtex4}
+%\documentclass[a4paper]{article}
 
 \usepackage[T1]{fontenc} % if needed
 \usepackage{amsmath}
@@ -31,17 +33,6 @@
 
 
 
-%JHEP%
-%\title{\boldmath  Flavour Symmetry Embedded - GLoBES (FaSE-GLoBES)}
-
-
-%JHEP%
-%\author[a]{Jian Tang,}
-%\author[a]{Tse-Chun Wang}
-%\affiliation[a]{School of Physics, Sun Yat-Sen University, Guangzhou 510275, China}
-%\emailAdd{tangjian5@mail.sysu.edu.cn}
-%\emailAdd{wangzejun@mail.sysu.edu.cn}
-%\abstract{Abstract...}
 
 
 %\fontsize{3}{5}\selectfont
@@ -250,7 +241,7 @@ where $x$, $\eta$, $m_a$, and the ratio $r\equiv m_s/m_a$ are four parameters to
  \includegraphics[width=0.48\textwidth]{Figs/theta_phi.pdf}
 % \caption{\label{fig:constraint}Precision measurements of two model parameters in the framework of three neutrino oscillations taking uncertainties of the current global fit results, for MOMENT, at $1\sigma$ (gray), $2\sigma$ (orange), $3\sigma$ (black). True values for the model parameters are used $(x,~\eta,~r,~M_a)=(-3.65,~1.13\pi,~0.511,~3.71~\text{meV})$.}
  %
-  \caption{\label{fig:constraint}Examples for using \textbf{FaSE-GLoBES} to obtain the constraints of model parameters for tri-direct littlest seesaw (left) and the warped flavor symmetry (right), with simulated DUNE and MOMENT data. In the left panel, the dot)denotes the prediction by the tri-direct littlest seesaw model with NuFit4.0 results. \textcolor{red}{No best-fit values in the right panel? NH is assumed here?}}
+  \caption{\label{fig:constraint}Examples for using \textbf{FaSE-GLoBES} to obtain the constraints of model parameters for tri-direct littlest seesaw (left) and the warped flavor symmetry (right), with simulated DUNE and MOMENT data. {\color{blue}Two results are assumed the normal ordering. And, the dot denotes the model prediction with with NuFit4.0 results.} \textcolor{red}{No best-fit values in the right panel? NH is assumed here?}}
 \end{figure}
 
 In left panel of Fig.~\ref{fig:constraint}, we study how parameters $x$ and $\eta$ can be constrained at $3\sigma$ by the MuOn-decay MEdium baseline NeuTrino beam experiment (MOMENT)~\cite{Cao:2014bea} and DUNE experiment. 
@@ -281,13 +272,15 @@ The constraint of $\theta_\nu$ and $\phi_\nu$ for DUNE and MOMENT is presented i
  \centering
 \includegraphics[width=0.48\textwidth]{Figs/SR_th23_dCP_DUNE_MOMENT.pdf}
 \includegraphics[width=0.48\textwidth]{Figs/SR_th23_dCP_WFS.pdf}
-\caption{\label{fig:th23_delta}Examples for using \textbf{FaSE-GLoBES} to obtain the 2-D exclusion contour at $99\%$ C.L. on the plane of true values of $\theta_{23}$ and $\delta$ for sub-models of TDLS (left) and of WFS (right) with DUNE and MOMENT. In the left panel, the star (dot) denotes the prediction by the tri-direct littlest seesaw model with NuFit4.0 results (best fit of NuFit4.0). \textcolor{red}{No best-fit values in the right panel? NH is assumed here?}}
+\caption{\label{fig:th23_delta}Examples for using \textbf{FaSE-GLoBES} to obtain the 2-D exclusion contour at $99\%$ C.L. on the plane of true values of $\theta_{23}$ and $\delta$ for sub-models of TDLS (left) and of WFS (right) with DUNE and MOMENT. {\color{blue}Two results are assumed the normal ordering. And, the dot (star) denotes the model prediction with NuFit4.0 results (best fit of NuFit4.0).} \textcolor{red}{No best-fit values in the right panel? NH is assumed here?}}
 %\caption{\label{fig:th23_delta}The 2-D exclusion contour for sub-models of tri-direct littlest seesaw on the plane of two true standard parameters $\theta_{23}$ and $\delta$, from $1\sigma$ to $5\sigma$, for DUNE (dotted) and MOMENT (solid). The range for each parameter is taken according to the $3\sigma$ uncertainty in NuFit4.0 results. The black dot denotes the best fit of NuFit4.0 results ($(\theta_{12},~\theta_{13},~\theta_{23},~\delta,~\Delta m_{21}^2,~\Delta m_{31}^2)=(33.82^\circ,~8.61^\circ,~49.6^\circ,~215^\circ,~7.39\times10^{-5}~\text{eV}^2,~2.525\times10^{-3}~\text{eV}^2)$), while the star is the prediction by the tri-direct littlest seesaw model with NuFit4.0 results ($(\theta_{12},~\theta_{13},~\theta_{23},~\delta,~\Delta m_{21}^2,~\Delta m_{31}^2)\sim(36.25^\circ,~8.63^\circ,~47^\circ,~279^\circ,~7.39\times10^{-5}~\text{eV}^2,~2.525\times10^{-3}~\text{eV}^2)$).}
 \end{figure}
 
 We can also study on whether a neutrino mass model is excluded or not, assuming different true values for oscillation parameters. In this example, we present testing sub-models of TDLS in various true values of $\theta_{23}$ and $\delta$. We compute the minimal $\chi^2$ value for the model with $r$ and $m_a$, varied with the prior in Eq.~(\ref{eq:prior}) according to NuFit4.0 results. Two parameters $x$ and $\eta$ are fixed at the best fit. In addition, the studied statistics function is exactly given by Eq.~(\ref{eq:chi-squared}), but the true event rate $n_i$ is predicted by a set of oscillation parameters, which will be varied in the code. 
 %
-We present this result in the left panel of Fig.~\ref{fig:th23_delta}. We further show the generality of \textbf{FaSE-GLoBES} by demonstrating the similar result for another model -- WFS in Eq.~(\ref{eq:WFS}) for DUNE and MOMENT, in right panel of Fig.~\ref{fig:th23_delta}. In this result, two mass-squared differences are fixed at the true values without including any priors.
+We present this result in the left panel of Fig.~\ref{fig:th23_delta}. We further show the generality of \textbf{FaSE-GLoBES} by demonstrating the similar result for another model -- WFS in Eq.~(\ref{eq:WFS}) for DUNE and MOMENT, in right panel of Fig.~\ref{fig:th23_delta}. In this result, two mass-squared differences are fixed at the true values without including any priors. 
+%
+%{\color{blue}And, true values of the other oscillation parameters are fixed at the best fit of NuFit4.0, and this setup is different from the left panel, in which we fix the other oscillation parameters at the model prediction for the true value.}
 %
 %As mentioned in Sec.~\ref{sec:chi-squared}, the user needs to consider Wilk's theorem with the different of degrees of freedom between the {\color{blue}assumed} true theory {\color{blue}($\vec{\theta}^{true}_{OSC}$)} and the hypothesis {\color{blue}($\vec{\theta}^{hyp}_{Model}$)}, \texttt{dof}. 
 %{\color{blue}`The assumed true theory' here means that the oscillation parameters assumed for predicting the true event spectrum.} \textcolor{red}{[JT: what is the meaning of the true theory?]} 
@@ -323,7 +316,8 @@ This work was supported in part by Guangdong Basic and Applied Basic Research Fo
 
 % BIBLIOGRAPHY
 % use BIBTEX if you want
-\bibliographystyle{JHEP}
-%\bibliographystyle{plain}
+%\bibliographystyle{JHEP}
+\bibliographystyle{plain}
+%\bibliographystyle{ksfh_nat}
 \bibliography{FAS-GLoBES.bib}
 \end{document}
