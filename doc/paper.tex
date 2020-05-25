@@ -172,8 +172,7 @@ And, if there is no restriction, we simply \textit{return $0$} in \texttt{model\
 %In the following, the prior function will give $10^6$ for the $\chi^2$ value, and it will be selected out when the user studies the statistically reasonable region in the parameter space.  
 
 \section{The definition for $\chi^2$ (based on \textbf{GLoBES})}\label{sec:chi-squared}
-% {\color{red}CAN BE REMOVED}
- 
+
 The user can use \textbf{FaSE-GLoBES} to constrain model parameters. 
 Suppose we have the measurement $\vec{x}$ and the likelihood function $L(\vec{\theta})=P(\vec{x}|\vec{\theta})$ for a set of parameters $\vec{\theta}=(\theta_1,...,\theta_N)$, where $P(\vec{x}|\vec{\theta})$ is the probability function for data $\vec{x}$ in favour of the hypothesis $\vec{\theta}$. The constraint of model parameters can be obtained with the statistis parameter $\chi^2\equiv \ln L(\vec{\theta})$.
 The expression $\chi^2$ is used as the default \textbf{GLoBES} setting. In more detail, the $\chi^2$ function, following the Poisson distribution, is constructed based on a log-likelihood ratio,
