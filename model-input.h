@@ -8,9 +8,6 @@
 #include <gsl/gsl_complex_math.h>
 #include <gsl/gsl_matrix.h>
 #include <gsl/gsl_blas.h>
-//#include <gsl/gsl_statistics.h>
-//#include <gsl/gsl_rng.h>
-//#include <gsl/gsl_randist.h>
 #include <gsl/gsl_cblas.h>
 #include <gsl/gsl_eigen.h>
 #include <gsl/gsl_vector.h>
@@ -18,19 +15,6 @@
 
 int N_M;
 /******************************************the user-defined relation*/
-double complex TDModelY(double x, double eta, double r, double Ma);
-double complex TDModelZ(double x, double eta, double r, double Ma);
-double complex TDModelW(double x, double eta, double r, double Ma);
-double TDpsi(double x, double eta, double r, double Ma);
-double TDsinpsi(double x, double eta, double r, double Ma);
-double TDcospsi(double x, double eta, double r, double Ma);
-double TDtheta(double x, double eta, double r, double Ma);
-double TDth12(double x, double eta, double r, double Ma);
-double TDth13(double x, double eta, double r, double Ma);
-double TDth23(double x, double eta, double r, double Ma);
-double TDdCP(double x, double eta, double r, double Ma);
-double TDdm21(double x, double eta, double r, double Ma);
-double TDdm31(double x, double eta, double r, double Ma);
 /*******************************************************************/
 
 double MODEL_init();

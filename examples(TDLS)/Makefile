@@ -35,10 +35,9 @@
 # replaced by the respective library, such as libglobes.so.0.0.1
 
 
-
-prefix = /usr/local
-exec_prefix = ${prefix}
-libdir = ${exec_prefix}/lib
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+libdir = @libdir@
 globesconf= $(exec_prefix)/bin/globes-config
 
 local_CFLAGS = -g -O4
@@ -48,19 +47,17 @@ local_LDFLAGS:=$(shell $(globesconf) --libs)
 local_LTLDFLAGS:=$(shell $(globesconf) --ltlibs)
 
 
+BIN = x_eta.o th23_dCP.o
+OBJ = x_eta.o th23_dCP.o FASE_GLoBES.o model-input.o
 
-BIN = example-tour example-static example1 example2 example3 example4 example5 example6
-OBJ = example-tour.o example-tour-s.o example1.o example2.o example3.o example4.o \
-      example5.o example6.o myio.o
-FaSE = FASE_GLoBES.o model-input.o
+all: $(BIN)
 
+x_eta: x_eta_NT.o  $(FaSE)
+	gcc x_eta_NT.o  $(FaSE) -o x_eta  $(LDFLAGS) $(local_LDFLAGS)
 
+th23_dCP: th23_dCP.o  $(FaSE)
+	gcc th23_dCP.o  $(FaSE) -o th23_dCP  $(LDFLAGS) $(local_LDFLAGS)
 
-theta_phi: theta_phi.o $(FaSE)
-	gcc theta_phi.o $(FaSE) -o theta_phi  $(LDFLAGS) $(local_LDFLAGS)
-
-th23_dCP: th23_dCP_WFS.o  $(FaSE)
-	gcc th23_dCP_WFS.o $(FaSE) -o th23_dCP  $(LDFLAGS) $(local_LDFLAGS)
 
 
 %.o : %.c
