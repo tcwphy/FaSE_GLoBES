@@ -139,17 +139,32 @@ We note that except for setting the probability engine and the prior function, t
 
 The function \texttt{MtoS} can do the translation from model parameters $\vec{\theta}_{Model}$ to oscillation parameters $\vec{\theta}_{OSC}$. After the user gives the array $\vec{\theta}_{Model}$ to the function \texttt{MtoS}, the output is the corresponding oscillation parameter $\vec{\theta}_{OSC}$, of which components are $\theta_{12}$, $\theta_{13}$, $\theta_{23}$, $\delta$, $\Delta m_{21}^2$, and $\Delta m_{31}^2$. For the first four components, values are given in the unit of \textbf{rad}, while the other two are in \textbf{eV$^2$}. These values will be passed into \textbf{FaSE\_GLoBES} to simulate experimental spectra and compute prior values.
 
-To translate from $\vec{\theta}_{Model}$ to $\vec{\theta}_{OSC}$, the user can assign the correlation between the standard oscillation and model parameter sets, or define the mass matrix in model parameters, which will be diagonalised by the function \texttt{STAN\_OSC} to obtain the corresponding oscillation-parameter values. 
+{\color{blue}There are three methods to translate from $\vec{\theta}_{Model}$ to $\vec{\theta}_{OSC}$ in \textbf{FaSE-GLoBES}:} the user can assign the correlation between the standard oscillation and model parameter sets{\color{blue}, give the mixing matrix in model parameter $U$}, or define the mass matrix in model parameters, which will be diagonalised by the function \texttt{STAN\_OSC} to obtain the corresponding oscillation-parameter values. 
 %The relation between the oscillation and model parameter sets can be derived out by the user, 
 In the way of directly giving the relation between oscillation and model parameter sets, the user needs to provide
-$\vec{\theta}_{Model}=\vec{f}(\vec{\theta}_{OSC})$ in the function \texttt{MtoS}.
+{\color{blue}
+\begin{equation}
+\vec{\theta}_{Model}=\vec{f}(\vec{\theta}_{OSC}), 
+\end{equation}
+in the function \texttt{MtoS}.}
 %
+
+{\color{blue}When the user give the mixing matrix $U$ in model parameters, the corresponding mixing angles can be obtained easily through,
+\begin{eqnarray}\label{eq:U_angle}
+\tan\theta_{12}=\left|\frac{U_{e2}}{U_{e1}}\right|,& \tan\theta_{23} = \left|\frac{U_{\mu 3}}{U_{\tau 3}}\right|,&  \sin\theta_{13}=|U_{e3}|.
+\end{eqnarray}
+After getting these mixing angles, we can easily get the Dirac CP phase $\delta$ with Jarlskog invariant $J_{CP}$,\
+\begin{equation}\label{eq:U_phase}
+J_{CP}=c_{12}s_{12}c_{23}s_{23}c_{13}^2s_{13}\sin\delta,
+\end{equation}
+where $c_{ij}$ and $s_{ij}$ are $\cos \theta_{ij}$ and $\sin\theta_{ij}$, respectively. In \texttt{MtoS}, the user can pass the mixing matrix $U$ to the function  \texttt{STAN\_OSC\_U}, and can obtain the corresponding mixing matrix and the CP phase.
+}
 
 The oscillation parameters can also be obtained in the way based on
 \begin{equation}\label{eq:MM}
 U^\dagger\mathcal{M}\mathcal{M}^\dagger U = \mathbf{M}^2,~\text{where}~\mathbf{M}^2_{\alpha\beta}=m_\alpha^2\delta_{\alpha\beta},
 \end{equation}
-where $\mathcal{M}$ ($\mathbf{M}$) is the neutrino mass matrix in the flavour (mass) state. The matrix $\mathcal{M}$ is given by the user with model parameters $\vec{\theta}_{Model}$. The matrix $U$ is the neutrino mixing matrix, and can be used to get mixing angles and the CP phase. The difference between any two diagonal elements of $\textbf{M}$ ($\textbf{M}_{ii}-\textbf{M}_{jj}=m_i^2-m_j^2$) is the mass-squared difference ($\Delta m_{ij}^2$). This diagnolisation in Eq.~(\ref{eq:MM}) can be done by the function \texttt{STAN\_OSC}, which needs to be called in \texttt{MtoS} with outputs of the vector $\vec{\theta}_{OSC}$. 
+where $\mathcal{M}$ ($\mathbf{M}$) is the neutrino mass matrix in the flavour (mass) state. The matrix $\mathcal{M}$ is given by the user with model parameters $\vec{\theta}_{Model}$. The mixing matrix $U$ can be used to get mixing angles and the CP phase, as Eqs. (\ref{eq:U_angle}) and (\ref{eq:U_phase}). The difference between any two diagonal elements of $\textbf{M}$ ($\textbf{M}_{ii}-\textbf{M}_{jj}=m_i^2-m_j^2$) is the mass-squared difference ($\Delta m_{ij}^2$). This diagnolisation in Eq.~(\ref{eq:MM}) can be done by the function \texttt{STAN\_OSC}, which needs to be called in \texttt{MtoS} with outputs of the vector $\vec{\theta}_{OSC}$. 
 
 
 \section{Prior setting}\label{sec:prior}

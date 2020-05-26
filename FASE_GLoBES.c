@@ -84,8 +84,6 @@ int STAN_OSC(double complex M[], double out[6])
     cblas_zgemm (CblasRowMajor, CblasConjTrans, CblasNoTrans, 3, 3, 3, &alpha, M, 3, M, 3, &beta, MMsquare, 3); //eq 4.5 page 107 Giunti
     
     
-    
-    
     gsl_matrix_complex *MM = gsl_matrix_complex_alloc(3, 3);
     int i,j;
     for(i=0;i<3;i++)
@@ -144,32 +142,25 @@ int STAN_OSC(double complex M[], double out[6])
 }
 
 
-
-int ModelTO( double OSC_PARAMS[6],double M_para[])
+int STAN_OSC_U(double complex U[], double out[4])
 {
     
+    double s13 = cabs(U[2]);       double the13=asin(s13);
+    double t12 = cabs(U[1])/cabs(U[0]);           double the12=atan(t12);
+    double t23 = cabs(U[5])/cabs(U[8]);           double the23=atan(t23);
     
-    //for the 2 heavy sterile case keep these zero.
-    double alpha = 0.0;
-    double mc = 0.0;
-    double gamma = 0.0;
+    double s12=sin(the12);
+    double c12=cos(the12);
+    double s23=sin(the23);
+    double c13=cos(the13);
+    double dCP=carg(U[1]*conj(U[2])*conj(U[4])*U[5]+s12*s12*s13*s13*c13*c13*s23*s23);
     
-    
-    
-    double x=M_para[0];
-    double eta=M_para[1];
-    double r=M_para[2];
-    double ma=M_para[3];
-    
-    double ms=ma*r;
-    
-    double complex Mass_Matrix[] = {ma+ms*(cos(eta) + I*sin(eta)), ma*(cos(6.6666e-1*M_PI) + I*sin(6.6666e-1*M_PI))+x*ms*(cos(eta) + I*sin(eta)), ma*(cos(6.6666e-1*M_PI) + I*sin(6.6666e-1*M_PI))*(cos(6.6666e-1*M_PI) + I*sin(6.6666e-1*M_PI))+x*ms*(cos(eta) + I*sin(eta)), ma*(cos(6.6666e-1*M_PI) + I*sin(6.6666e-1*M_PI))+x*ms*(cos(eta) + I*sin(eta)), ma*(cos(6.6666e-1*M_PI) + I*sin(6.6666e-1*M_PI))*(cos(6.6666e-1*M_PI) + I*sin(6.6666e-1*M_PI))+x*x*ms*(cos(eta) + I*sin(eta)), ma+x*x*ms*(cos(eta) + I*sin(eta)), ma*(cos(6.6666e-1*M_PI) + I*sin(6.6666e-1*M_PI))*(cos(6.6666e-1*M_PI) + I*sin(6.6666e-1*M_PI))+x*ms*(cos(eta) + I*sin(eta)), ma+x*x*ms*(cos(eta) + I*sin(eta)), ma*(cos(6.6666e-1*M_PI) + I*sin(6.6666e-1*M_PI))+x*x*ms*(cos(eta) + I*sin(eta))};
-    
-    double out[6];
-    STAN_OSC(Mass_Matrix,OSC_PARAMS);
+    out[0]=the12; out[1]=the13; out[2]=the23;
+    out[3]=dCP;
     
     return 0;
 }
+
 
 
 inline double square(double x)
