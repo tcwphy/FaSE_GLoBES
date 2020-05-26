@@ -146,25 +146,25 @@ In the way of directly giving the relation between oscillation and model paramet
 \begin{equation}
 \vec{\theta}_{Model}=\vec{f}(\vec{\theta}_{OSC}), 
 \end{equation}
-in the function \texttt{MtoS}.}
+in the function \texttt{MtoS}. }
 %
 
 {\color{blue}When the user give the mixing matrix $U$ in model parameters, the corresponding mixing angles can be obtained easily through,
 \begin{eqnarray}\label{eq:U_angle}
-\tan\theta_{12}=\left|\frac{U_{e2}}{U_{e1}}\right|,& \tan\theta_{23} = \left|\frac{U_{\mu 3}}{U_{\tau 3}}\right|,&  \sin\theta_{13}=|U_{e3}|.
+\tan\theta_{12}=\left|\frac{U_{e2}}{U_{e1}}\right|,&  \sin\theta_{13}=|U_{e3}|,& \tan\theta_{23} = \left|\frac{U_{\mu 3}}{U_{\tau 3}}\right|.
 \end{eqnarray}
 After getting these mixing angles, we can easily get the Dirac CP phase $\delta$ with Jarlskog invariant $J_{CP}$,\
 \begin{equation}\label{eq:U_phase}
 J_{CP}=c_{12}s_{12}c_{23}s_{23}c_{13}^2s_{13}\sin\delta,
 \end{equation}
-where $c_{ij}$ and $s_{ij}$ are $\cos \theta_{ij}$ and $\sin\theta_{ij}$, respectively. In \texttt{MtoS}, the user can pass the mixing matrix $U$ to the function  \texttt{STAN\_OSC\_U}, and can obtain the corresponding mixing matrix and the CP phase.
+where $c_{ij}$ and $s_{ij}$ are $\cos \theta_{ij}$ and $\sin\theta_{ij}$, respectively. In \texttt{MtoS}, the user can pass the mixing matrix $U$ to the function  \texttt{STAN\_OSC\_U}, and can obtain the corresponding mixing matrix and the CP phase. 
 }
 
 The oscillation parameters can also be obtained in the way based on
 \begin{equation}\label{eq:MM}
 U^\dagger\mathcal{M}\mathcal{M}^\dagger U = \mathbf{M}^2,~\text{where}~\mathbf{M}^2_{\alpha\beta}=m_\alpha^2\delta_{\alpha\beta},
 \end{equation}
-where $\mathcal{M}$ ($\mathbf{M}$) is the neutrino mass matrix in the flavour (mass) state. The matrix $\mathcal{M}$ is given by the user with model parameters $\vec{\theta}_{Model}$. The mixing matrix $U$ can be used to get mixing angles and the CP phase, as Eqs. (\ref{eq:U_angle}) and (\ref{eq:U_phase}). The difference between any two diagonal elements of $\textbf{M}$ ($\textbf{M}_{ii}-\textbf{M}_{jj}=m_i^2-m_j^2$) is the mass-squared difference ($\Delta m_{ij}^2$). This diagnolisation in Eq.~(\ref{eq:MM}) can be done by the function \texttt{STAN\_OSC}, which needs to be called in \texttt{MtoS} with outputs of the vector $\vec{\theta}_{OSC}$. 
+where $\mathcal{M}$ ($\mathbf{M}$) is the neutrino mass matrix in the flavour (mass) state. The matrix $\mathcal{M}$ is given by the user with model parameters $\vec{\theta}_{Model}$. The mixing matrix $U$ can be used to get mixing angles and the CP phase, as Eqs. (\ref{eq:U_angle}) and (\ref{eq:U_phase}). The difference between any two diagonal elements of $\textbf{M}$ ($\textbf{M}_{ii}-\textbf{M}_{jj}=m_i^2-m_j^2$) is the mass-squared difference ($\Delta m_{ij}^2$). This diagnolisation in Eq.~(\ref{eq:MM}) can be done by the function \texttt{STAN\_OSC}, which needs to be called in \texttt{MtoS} with outputs of the vector $\vec{\theta}_{OSC}$. {\color{blue}We note that with non-diagonal mass matrix for charged leptons, this translation method is not suggested.}
 
 
 \section{Prior setting}\label{sec:prior}
