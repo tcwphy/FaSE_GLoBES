@@ -47,8 +47,8 @@
 \affiliation{$^1$School of Physics, Sun Yat-Sen University, Guangzhou 510275, China}
 
 \begin{abstract}
-Neutrino models based on flavour symmetries provide the natural way to explain the origin of tiny neutrino masses. At the dawn of precision measurements of neutrino mixing parameters, neutrino mass models can be constrained and examined by on-going and up-coming neutrino experiments. We present a supplemental tool \textbf{F}l\textbf{a}vour \textbf{S}ymmetry \textbf{E}mbedded (\textbf{FaSE}) for \textbf{G}eneral \textbf{Lo}ng \textbf{B}aseline \textbf{E}xperiment \textbf{S}imulator (\textbf{GLoBES}). It can translate the neutrino mass model inputs to standard neutrino oscillation parameters, and offers prior functions in a user-friendly way. We demonstrate the robustness of \textbf{FaSE-GLoBE} with two examples on how the model parameters can be constrained and even whether the model is excluded by an experiment or not. We wish that this toolkit will facilitate the study of new neutrino mass models in an effecient and effective manner.\\
-\textbf{Keywords: Neutrino Oscillations, Leptonic Flavour Symmetry}  
+Neutrino models based on flavour symmetries provide the natural way to explain the origin of tiny neutrino masses. At the dawn of precision measurements of neutrino mixing parameters, neutrino mass models can be constrained and examined by on-going and up-coming neutrino experiments. We present a supplemental tool \textbf{F}l\textbf{a}vour \textbf{S}ymmetry \textbf{E}mbedded (\textbf{FaSE}) for \textbf{G}eneral \textbf{Lo}ng \textbf{B}aseline \textbf{E}xperiment \textbf{S}imulator (\textbf{GLoBES}). It can translate the neutrino mass model {\color{blue}parameters} to standard neutrino oscillation parameters, and offers prior functions in a user-friendly way. We demonstrate the robustness of \textbf{FaSE-GLoBE} with two examples on how the model parameters can be constrained and even whether the model is excluded by an experiment or not. We wish that this toolkit will facilitate the study of new neutrino mass models in an effecient and effective manner.\\
+\textbf{Keywords:} Neutrino Oscillations, Leptonic Flavour Symmetry 
 \end{abstract} 
 
 \maketitle
@@ -61,7 +61,7 @@ It is clear that neutrinos carry the peculiar mass smaller than $\mathcal{O}(1)$
 %The seesaw mechanism has been used to explain such a tiny mass in the neutrino sector with the help of neutrino flavor mixings. 
 The seesaw mechanism has been used to explain such a tiny mass in the neutrino sector. 
 %Anyhow new particles have to be introduced in such a mechanism. 
-More degrees of freedom in a theoretical model, the less predictivity of observables in experiments. Furthermore, flavour symmetries are employed to reduce degrees of freedom in the neutrino mass model. These models can explain the origin of the neutrino mixing, and predict correlations of oscillation parameters (some of recent review articles are~\cite{Altarelli:2010gt,Ishimori:2010au,King:2013eh,King:2014nza,King:2015aea,King:2015ata,King:2017guk}). Before the discovery of non-zero $\theta_{13}$ by Daya Bay reactor neutrino experiment~\cite{An:2013zwz}, the `tri-bi-maximal' neutrino mixing (TBM) ansatz, which was proposed in 2002 by Horrison, Perkins, and Scott~\cite{Harrison:2002er}, was in line with experimental data:
+More degrees of freedom in a theoretical model, the less predictivity of observables in experiments. Furthermore, flavour symmetries are employed to reduce degrees of freedom in the neutrino mass model. These models can explain the origin of the neutrino mixing, and predict correlations of oscillation parameters (some of recent review articles are~\cite{Altarelli:2010gt,Ishimori:2010au,King:2013eh,King:2014nza,King:2015aea,King:2015ata,King:2017guk}). Before the discovery of non-zero $\theta_{13}$ by Daya Bay reactor neutrino experiment~\cite{An:2013zwz}, the `tri-bi-maximal' neutrino mixing (TBM) ansatz, which was proposed in 2002 by Horrison, Perkins, and Scott~\cite{Harrison:2002er,Xing:2002sw}, was in line with experimental data:
 \begin{equation*}
 U_{\text{TBM}}=\left(
 \begin{array}{ccc}
@@ -223,7 +223,7 @@ In following two sections, we will present examples to demonstrate how the user 
 
 \section{Constraint of model parameters}
 
-\textbf{FaSE-GloBES} can be used to study how model parameters are constrained by simulated neutrino oscillation experiments as we introduced in Sec.~\ref{sec:chi-squared}. We take \textit{the tri-direct littlest seesaw} (TDLS)~\cite{King:2013iva,King:2015dvf,King:2016yvg} as an example. In this model, the light left-handed Majorana neutrino mass matrix is given by
+\textbf{FaSE-GloBES} can be used to study how model parameters are constrained by simulated neutrino oscillation experiments as we introduced in Sec.~\ref{sec:chi-squared}. We take \textit{the tri-direct littlest seesaw} (TDLS)~\cite{King:2013iva,King:2015dvf,King:2016yvg} as an example. In this model, the light left-handed Majorana neutrino mass matrix {\color{blue}in the flavor basis} is given by
 \begin{equation}
 \label{eq:mnu}  m_{\nu}=m_{a}\begin{pmatrix}
  1 &~ \omega  &~ \omega ^2 \\
@@ -260,7 +260,7 @@ where $x$, $\eta$, $m_a$, and the ratio $r\equiv m_s/m_a$ are four parameters to
 
 In left panel of Fig.~\ref{fig:constraint}, we study how parameters $x$ and $\eta$ can be constrained at $3\sigma$ by the MuOn-decay MEdium baseline NeuTrino beam experiment (MOMENT)~\cite{Cao:2014bea} and DUNE experiment. 
 %We input the model by giving model parameters as functions of standard oscillation parameters Eq.~(\ref{eq:modelofOSC}). 
-Parameters $r$ and $ma$ are varied with the prior that is given in standard oscillation parameters, according to the global-fit result NuFit4.0. 
+Parameters $r$ and $m_a$ are varied with the prior that is given in standard oscillation parameters, according to the global-fit result NuFit4.0. 
 %The code for this example is provided as \textbf{x\_eta.c} in the \textbf{FaSE} distribution.
 
 %\begin{figure}[!h]
@@ -326,7 +326,8 @@ With the progress of precision measurements in the neutrino experiments, and the
 %\textcolor{red}{In the references, the arXiv number is chopped by one digit. Could you please check the reason?}
 
 \acknowledgements{
-This work was supported in part by Guangdong Basic and Applied Basic Research Foundation under Grant No. 2019A1515012216, National Natural Science Foundation of China under Grant Nos. 11505301 and 11881240247, the university funding based on National SuperComputer Center-Guangzhou. Jian Tang acknowledge the support from the CAS Center for Excellence in Particle Physics (CCEPP). Tse-Chun Wang was supported in part by Postdoctoral recruitment program in Guangdong province.
+{\color{blue}We thank Gui-Jun Ding and Ye-Ling Zhou for helpful discussions.}
+This work was supported in part by Guangdong Basic and Applied Basic Research Foundation under Grant No. 2019A1515012216, National Natural Science Foundation of China under Grant Nos. 11505301 and 11881240247, the university funding based on National SuperComputer Center-Guangzhou. Jian Tang acknowledge the support from the CAS Center for Excellence in Particle Physics (CCEPP). Tse-Chun Wang was supported in part by Postdoctoral recruitment program in Guangdong province. 
 }
 
 % BIBLIOGRAPHY
