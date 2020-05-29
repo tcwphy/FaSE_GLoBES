@@ -102,8 +102,7 @@ As we are entering the era of precision measurements in the neutrino oscillation
 
 \section{Overview FASE-GloBES}\label{sec:overview}
 
-\textbf{FaSE-GLoBES} is written in the \texttt{c} language, and consists of two source codes \textbf{FASE\_GLoBES.c} and \textbf{model-input.c}. About these two \texttt{c}-codes, the user defines the correlations between model inputs and standard neutrino mixing parameters in \textbf{model-input.c}, while \textbf{FASE\_GLoBES.c} is an engine to perform analysis with user-specified experiments in a simulaton. Note that we define the standard neutrino mixing/oscillation parameters $\vec{\theta}_{OSC}$ ($\theta_{12}$, $\theta_{13}$, $\theta_{23}$, $\Delta m_{21}^2$, $\Delta m_{31}^2$, $\delta$) to separate from model parameters $\vec{\theta}_{Model}$ hereafter.
-
+\textbf{FaSE} is written in the \texttt{c} language, and consists of two source codes \textbf{FASE\_GLoBES.c} and \textbf{model-input.c}. About these two \texttt{c}-codes, the user defines the correlations between model inputs and standard neutrino mixing parameters in \textbf{model-input.c}, while \textbf{FASE\_GLoBES.c} is an engine to perform analysis with user-specified experiments in a simulaton. Note that we define the standard neutrino mixing/oscillation parameters $\vec{\theta}_{OSC}$ ($\theta_{12}$, $\theta_{13}$, $\theta_{23}$, $\Delta m_{21}^2$, $\Delta m_{31}^2$, $\delta$) to separate from model parameters $\vec{\theta}_{Model}$ hereafter. 
 \begin{figure}[!h]%
 \centering
 \includegraphics[width=7.5in]{Figs/FASE-chart_1_2.pdf}
@@ -111,12 +110,11 @@ As we are entering the era of precision measurements in the neutrino oscillation
 \label{fig:FASE}
 \end{figure}
 
-
-The concept of \textbf{FaSE-GLoBES} is shown in Fig.~\ref{fig:FASE}, in which three parts are shown: 1.~\textbf{the parameter translation}, 2.~\textbf{giving oscillation-parameter values}, and 3.~\textbf{the $\chi^2$-value calculation}. 
+{\color{blue}Combining \textbf{GLoBES} with \textbf{Fase} (we call it `\textbf{FaSE-GLoBES}'),  the user can analyse flavour symmetry models with the simulated experimental configuration.} The concept of \textbf{FaSE-GLoBES} is shown in Fig.~\ref{fig:FASE}, in which three parts are shown: 1.~\textbf{the parameter translation}, 2.~\textbf{giving oscillation-parameter values}, and 3.~\textbf{the $\chi^2$-value calculation}. 
 The idea behind this flow chart in Fig.~\ref{fig:FASE} is that given a set of model parameters, the corresponding values in standard oscillation parameters are obtained by a translation function, which is assigned by the user in \textbf{model-input.c}. And then, through \textbf{FASE\_GLoBES.c} these oscillation-parameter values are passed into \textbf{GLoBES} library to simulate the event spectra so that we can perform physics analysis in the newly-defined $\chi^2$. 
 
 
-Application Programming Interface (API) functions in \textbf{FaSE-GLoBES} are listed:
+Application Programming Interface (API) functions in \textbf{FaSE} are listed:
 \begin{enumerate}
 \item \texttt{MODEL\_init($N_{para}$)},
 \item  \texttt{FASE\_glb\_probability\_matrix},
@@ -154,12 +152,12 @@ or
  glbRegisterPriorFunction(FASE_prior_model,NULL,NULL,NULL);
 \end{verbatim}
 
-We note that except for setting the probability engine and the prior function, the other parts in the main code should follow with the GLoBES manual. 
+We note that except for setting the probability engine and the prior function, the other parts in the main code should follow with the \textbf{GLoBES} manual. 
 
 
 \section{Model setting}\label{sec:model_set}
 
-The function \texttt{MtoS} can do the translation from model parameters $\vec{\theta}_{Model}$ to oscillation parameters $\vec{\theta}_{OSC}$. After the user gives the array $\vec{\theta}_{Model}$ to the function \texttt{MtoS}, the output is the corresponding oscillation parameter $\vec{\theta}_{OSC}$, of which components are $\theta_{12}$, $\theta_{13}$, $\theta_{23}$, $\delta$, $\Delta m_{21}^2$, and $\Delta m_{31}^2$. For the first four components, values are given in the unit of \textbf{rad}, while the other two are in \textbf{eV$^2$}. These values will be passed into \textbf{FaSE\_GLoBES} to simulate experimental spectra and compute prior values.
+The function \texttt{MtoS} can do the translation from model parameters $\vec{\theta}_{Model}$ to oscillation parameters $\vec{\theta}_{OSC}$. After the user gives the array $\vec{\theta}_{Model}$ to the function \texttt{MtoS}, the output is the corresponding oscillation parameter $\vec{\theta}_{OSC}$, of which components are $\theta_{12}$, $\theta_{13}$, $\theta_{23}$, $\delta$, $\Delta m_{21}^2$, and $\Delta m_{31}^2$. For the first four components, values are given in the unit of \textbf{rad}, while the other two are in \textbf{eV$^2$}. These values will be passed into \textbf{FaSE\_GLoBES.c} to simulate experimental spectra and compute prior values.
 
 {\color{blue}There are three methods to translate from $\vec{\theta}_{Model}$ to $\vec{\theta}_{OSC}$ in \textbf{FaSE-GLoBES}:} 1).~the user can assign the correlation between the standard oscillation and model parameter sets{\color{blue}, 2).~give the mixing matrix in model parameter $U$}, or 3).~define the mass matrix in model parameters. 
 %The relation between the oscillation and model parameter sets can be derived out by the user, 
