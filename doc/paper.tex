@@ -78,8 +78,25 @@ As some well-known models such as $A_4$ and $S_4$ can realise the TB mixing, $G_
 %
 Though we do not discuss each of these models in detail, we still recommend the users, who are not familiar with these models, to visit these references.
  }
+
+\begin{table}[h!]
+\caption{\label{tab:exp}Summary of available AEDL files for some of most-discussed experiments.}
+\centering
+\begin{tabular}{l|c|r}
+exp.   & source & ref. \\\hline\hline
+T2K    &     T2K.glb on \cite{GLoBES}  &    \cite{Huber:2002mx}  \\
+NOvA   &     NOvA.glb on \cite{GLoBES}   &   \cite{Ambats:2004js}   \\
+T2HK   & sys-T2HK.glb on \cite{GLoBES}  &   \cite{Huber:2007xx}   \\
+DUNE   &    \cite{Alion:2016uaj}    &  \cite{Alion:2016uaj}    \\
+MOMENT &   on FaSE website    &     \cite{Cao:2014bea}
+\end{tabular}
+\end{table}
+
  
-It is relatively easy for model builders to check the validity of the neutrino mass model and constrain model parameters by the public NuFit results \cite{Esteban:2018azc}. However, there is no such a public toolkit to evaluate model predictions in future neutrino experiments. \textbf{G}eneral \textbf{Lo}ng \textbf{B}aseline \textbf{E}xperiment \textbf{S}imulator (\textbf{GLoBES}) \cite{Huber:2004ka,Huber:2007ji} is a convenient tool to simulate neutrino oscillation experiments via the Abstract Experiment Definition Language (AEDL) as one of the most popular and powerful tools in the community of neutrino oscillation physics. Some AEDL files to describe experiments are also available in \textbf{GLoBES} website, while the working group in the DUNE experiment also releases their neutrino flux information and detector descriptions in a AEDL file, provided in~\cite{Alion:2016uaj}. It is to be extended for the purpose of analysing flavour symmetry models in an universal way. 
+It is relatively easy for model builders to check the validity of the neutrino mass model and constrain model parameters by the public NuFit results \cite{Esteban:2018azc}. However, there is no such a public toolkit to evaluate model predictions in future neutrino experiments. \textbf{G}eneral \textbf{Lo}ng \textbf{B}aseline \textbf{E}xperiment \textbf{S}imulator (\textbf{GLoBES}) \cite{Huber:2004ka,Huber:2007ji} is a convenient tool to simulate neutrino oscillation experiments via the Abstract Experiment Definition Language (AEDL) as one of the most popular and powerful tools in the community of neutrino oscillation physics. Some AEDL files to describe experiments are also available in \textbf{GLoBES} website~\cite{GLoBES}, while the working group in the DUNE experiment also releases their neutrino flux information and detector descriptions in a AEDL file, provided in~\cite{Alion:2016uaj}. {\color{blue}We summarise AEDL files for some of most-discussed experiments in Table.~\ref{tab:exp}, including their source and reference.} It is to be extended for the purpose of analysing flavour symmetry models in an universal way. 
+
+
+
 
 As we are entering the era of precision measurements in the neutrino oscillations, recent works pay more attentions to how the future neutrino experiments can be used to test these flavour-symmetry neutrino mass models, \textit{e.g.}~Ref.~\cite{Ballett:2016yod,Chatterjee:2017xkb, Ding:2019zhn, Tang:2019edw, Blennow:2020snb}. In this work, we will present our simulation toolkit \textbf{F}l\textbf{a}vour \textbf{S}ymmetry \textbf{E}mbedded - \textbf{GLoBES} (\textbf{FaSE-GloBES}) in a C-library to facilitate the study in the flavour symmetry neutrino models. \textbf{FaSE} is a supplemental tool for GLoBES, written in \texttt{c/c++} language, and allows users to assign any flavour symmetry model and analyze how a flavour symmetry model is constrained by the simulated neutrino oscillation experiments.
 
