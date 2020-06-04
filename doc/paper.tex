@@ -305,15 +305,16 @@ The constraint of $\theta_\nu$ and $\phi_\nu$ for DUNE and MOMENT is presented i
 \begin{figure}[!h]
  \centering
 \includegraphics[width=0.48\textwidth]{Figs/TM1_th23_dCP.pdf}
-\includegraphics[width=0.48\textwidth]{Figs/SR_th23_dCP_WFS.pdf}
-\caption{\label{fig:th23_delta}Examples for using \textbf{FaSE-GLoBES} to obtain the 2-D exclusion contour at $99\%$ C.L. on the plane of true values of $\theta_{23}$ and $\delta$ for sub-models of TDLS (left) and of WFS (right) with DUNE and MOMENT. Two results are assumed the normal ordering. And, the dot (star) denotes the model prediction with NuFit4.0 results (best fit of NuFit4.0).}
+\includegraphics[width=0.48\textwidth]{Figs/OP_th23_dCP.pdf}
+\caption{\label{fig:th23_delta}Examples for using \textbf{FaSE-GLoBES} to obtain the 2-D exclusion contour at $99\%$ C.L. on the plane of true values of $\theta_{23}$ and $\delta$ for TM1 sum rule (left) and a $S_4\otimes H_\text{CP}$ model (right) with DUNE and MOMENT. }
 %\caption{\label{fig:th23_delta}The 2-D exclusion contour for sub-models of tri-direct littlest seesaw on the plane of two true standard parameters $\theta_{23}$ and $\delta$, from $1\sigma$ to $5\sigma$, for DUNE (dotted) and MOMENT (solid). The range for each parameter is taken according to the $3\sigma$ uncertainty in NuFit4.0 results. The black dot denotes the best fit of NuFit4.0 results ($(\theta_{12},~\theta_{13},~\theta_{23},~\delta,~\Delta m_{21}^2,~\Delta m_{31}^2)=(33.82^\circ,~8.61^\circ,~49.6^\circ,~215^\circ,~7.39\times10^{-5}~\text{eV}^2,~2.525\times10^{-3}~\text{eV}^2)$), while the star is the prediction by the tri-direct littlest seesaw model with NuFit4.0 results ($(\theta_{12},~\theta_{13},~\theta_{23},~\delta,~\Delta m_{21}^2,~\Delta m_{31}^2)\sim(36.25^\circ,~8.63^\circ,~47^\circ,~279^\circ,~7.39\times10^{-5}~\text{eV}^2,~2.525\times10^{-3}~\text{eV}^2)$).}
 \end{figure}
 
 {\color{blue}We can also study on how much a neutrino mass model  or a sum rule can be excluded, assuming different true values for oscillation parameters.}
-In this example, we present testing {\color{blue}atmospherical sum rule TM1~[cite] and a supersymmetric flavour model $\Gamma_3$~[cite]} in various true values of $\theta_{23}$ and $\delta$. We compute the minimal $\chi^2$ value for the model with $r$ and $m_a$, varied with the prior in Eq.~(\ref{eq:prior}) according to NuFit4.0 results. Two parameters $x$ and $\eta$ are fixed at the best fit. In addition, the studied statistics function is exactly given by Eq.~(\ref{eq:chi-squared}), but the true event rate $n_i$ is predicted by a set of oscillation parameters, which will be varied in the code. 
+In Fig.~\ref{fig:th23_delta}, we present testing {\color{blue}atmospherical sum rule TM1~[cite] (left) and a $S_4\otimes H_\text{CP}$ model broken to $G_e=Z_3$ and $G_\nu=Z_2\otimes H_{\text{CP}}$~[cite] (right)} in various true values of $\theta_{23}$ and $\delta$. 
+We compute the minimal $\chi^2$ value for the model, and allowed all model parameters varied. In the left panel, we include the prior in Eq.~(\ref{eq:prior}) according to NuFit4.0 results, while in the other one, we do not include priors.
+In addition, the studied statistics function is exactly given by Eq.~(\ref{eq:chi-squared}), but the true event rate $n_i$ is predicted by a set of oscillation parameters, which will be varied in the code. 
 %
-We present this result in the left panel of Fig.~\ref{fig:th23_delta}. We further show the generality of \textbf{FaSE-GLoBES} by demonstrating the similar result for another model -- WFS in Eq.~(\ref{eq:WFS}) for DUNE and MOMENT, in right panel of Fig.~\ref{fig:th23_delta}. In this result, two mass-squared differences are fixed at the true values. 
 %
 %{\color{blue}And, true values of the other oscillation parameters are fixed at the best fit of NuFit4.0, and this setup is different from the left panel, in which we fix the other oscillation parameters at the model prediction for the true value.}
 %
