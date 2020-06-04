@@ -1,0 +1,414 @@
+\begin{thebibliography}{59}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\expandafter\ifx\csname bibnamefont\endcsname\relax
+  \def\bibnamefont#1{#1}\fi
+\expandafter\ifx\csname bibfnamefont\endcsname\relax
+  \def\bibfnamefont#1{#1}\fi
+\expandafter\ifx\csname citenamefont\endcsname\relax
+  \def\citenamefont#1{#1}\fi
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{\texttt{#1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+\providecommand{\bibinfo}[2]{#2}
+\providecommand{\eprint}[2][]{\url{#2}}
+
+\bibitem[{\citenamefont{Pontecorvo}(1968)}]{Pontecorvo:1967fh}
+\bibinfo{author}{\bibfnamefont{B.}~\bibnamefont{Pontecorvo}},
+  \bibinfo{journal}{Sov. Phys. JETP} \textbf{\bibinfo{volume}{26}},
+  \bibinfo{pages}{984} (\bibinfo{year}{1968}), \bibinfo{note}{[Zh. Eksp. Teor.
+  Fiz.53,1717(1967)]}.
+
+\bibitem[{\citenamefont{Maki et~al.}(1962)\citenamefont{Maki, Nakagawa, and
+  Sakata}}]{Maki:1962mu}
+\bibinfo{author}{\bibfnamefont{Z.}~\bibnamefont{Maki}},
+  \bibinfo{author}{\bibfnamefont{M.}~\bibnamefont{Nakagawa}}, \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{S.}~\bibnamefont{Sakata}},
+  \bibinfo{journal}{Prog. Theor. Phys.} \textbf{\bibinfo{volume}{28}},
+  \bibinfo{pages}{870} (\bibinfo{year}{1962}), \bibinfo{note}{[,34(1962)]}.
+
+\bibitem[{\citenamefont{Pontecorvo}(1958)}]{Pontecorvo:1957qd}
+\bibinfo{author}{\bibfnamefont{B.}~\bibnamefont{Pontecorvo}},
+  \bibinfo{journal}{Sov. Phys. JETP} \textbf{\bibinfo{volume}{7}},
+  \bibinfo{pages}{172} (\bibinfo{year}{1958}), \bibinfo{note}{[Zh. Eksp. Teor.
+  Fiz.34,247(1957)]}.
+
+\bibitem[{\citenamefont{Esteban et~al.}(2019)\citenamefont{Esteban,
+  Gonzalez-Garcia, Hernandez-Cabezudo, Maltoni, and Schwetz}}]{Esteban:2018azc}
+\bibinfo{author}{\bibfnamefont{I.}~\bibnamefont{Esteban}},
+  \bibinfo{author}{\bibfnamefont{M.~C.} \bibnamefont{Gonzalez-Garcia}},
+  \bibinfo{author}{\bibfnamefont{A.}~\bibnamefont{Hernandez-Cabezudo}},
+  \bibinfo{author}{\bibfnamefont{M.}~\bibnamefont{Maltoni}}, \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{T.}~\bibnamefont{Schwetz}},
+  \bibinfo{journal}{JHEP} \textbf{\bibinfo{volume}{01}}, \bibinfo{pages}{106}
+  (\bibinfo{year}{2019}), \eprint{1811.05487}.
+
+\bibitem[{\citenamefont{Ayres et~al.}(2007)}]{Ayres:2007tu}
+\bibinfo{author}{\bibfnamefont{D.~S.} \bibnamefont{Ayres}} \bibnamefont{et~al.}
+  (\bibinfo{collaboration}{NOvA}) (\bibinfo{year}{2007}).
+
+\bibitem[{\citenamefont{Abe et~al.}(2011)}]{Abe:2011ks}
+\bibinfo{author}{\bibfnamefont{K.}~\bibnamefont{Abe}} \bibnamefont{et~al.}
+  (\bibinfo{collaboration}{T2K}), \bibinfo{journal}{Nucl. Instrum. Meth.}
+  \textbf{\bibinfo{volume}{A659}}, \bibinfo{pages}{106} (\bibinfo{year}{2011}),
+  \eprint{1106.1238}.
+
+\bibitem[{\citenamefont{Acciarri et~al.}(2015)}]{Acciarri:2015uup}
+\bibinfo{author}{\bibfnamefont{R.}~\bibnamefont{Acciarri}} \bibnamefont{et~al.}
+  (\bibinfo{collaboration}{DUNE}) (\bibinfo{year}{2015}), \eprint{1512.06148}.
+
+\bibitem[{\citenamefont{Abe et~al.}(2014)}]{Abe:2014oxa}
+\bibinfo{author}{\bibfnamefont{K.}~\bibnamefont{Abe}} \bibnamefont{et~al.}
+  (\bibinfo{collaboration}{Hyper-Kamiokande Working Group})
+  (\bibinfo{year}{2014}), \eprint{1412.4673}.
+
+\bibitem[{\citenamefont{Djurcic et~al.}(2015)}]{Djurcic:2015vqa}
+\bibinfo{author}{\bibfnamefont{Z.}~\bibnamefont{Djurcic}} \bibnamefont{et~al.}
+  (\bibinfo{collaboration}{JUNO}) (\bibinfo{year}{2015}), \eprint{1508.07166}.
+
+\bibitem[{\citenamefont{An et~al.}(2016)}]{An:2015jdp}
+\bibinfo{author}{\bibfnamefont{F.}~\bibnamefont{An}} \bibnamefont{et~al.}
+  (\bibinfo{collaboration}{JUNO}), \bibinfo{journal}{J. Phys.}
+  \textbf{\bibinfo{volume}{G43}}, \bibinfo{pages}{030401}
+  (\bibinfo{year}{2016}), \eprint{1507.05613}.
+
+\bibitem[{\citenamefont{Aghanim et~al.}(2018)}]{Aghanim:2018eyx}
+\bibinfo{author}{\bibfnamefont{N.}~\bibnamefont{Aghanim}} \bibnamefont{et~al.}
+  (\bibinfo{collaboration}{Planck}) (\bibinfo{year}{2018}),
+  \eprint{1807.06209}.
+
+\bibitem[{\citenamefont{Altarelli and Feruglio}(2010)}]{Altarelli:2010gt}
+\bibinfo{author}{\bibfnamefont{G.}~\bibnamefont{Altarelli}} \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{F.}~\bibnamefont{Feruglio}},
+  \bibinfo{journal}{Rev. Mod. Phys.} \textbf{\bibinfo{volume}{82}},
+  \bibinfo{pages}{2701} (\bibinfo{year}{2010}), \eprint{1002.0211}.
+
+\bibitem[{\citenamefont{Ishimori et~al.}(2010)\citenamefont{Ishimori,
+  Kobayashi, Ohki, Shimizu, Okada, and Tanimoto}}]{Ishimori:2010au}
+\bibinfo{author}{\bibfnamefont{H.}~\bibnamefont{Ishimori}},
+  \bibinfo{author}{\bibfnamefont{T.}~\bibnamefont{Kobayashi}},
+  \bibinfo{author}{\bibfnamefont{H.}~\bibnamefont{Ohki}},
+  \bibinfo{author}{\bibfnamefont{Y.}~\bibnamefont{Shimizu}},
+  \bibinfo{author}{\bibfnamefont{H.}~\bibnamefont{Okada}}, \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{M.}~\bibnamefont{Tanimoto}},
+  \bibinfo{journal}{Prog. Theor. Phys. Suppl.} \textbf{\bibinfo{volume}{183}},
+  \bibinfo{pages}{1} (\bibinfo{year}{2010}), \eprint{1003.3552}.
+
+\bibitem[{\citenamefont{King and Luhn}(2013)}]{King:2013eh}
+\bibinfo{author}{\bibfnamefont{S.~F.} \bibnamefont{King}} \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{C.}~\bibnamefont{Luhn}},
+  \bibinfo{journal}{Rept. Prog. Phys.} \textbf{\bibinfo{volume}{76}},
+  \bibinfo{pages}{056201} (\bibinfo{year}{2013}), \eprint{1301.1340}.
+
+\bibitem[{\citenamefont{King et~al.}(2014)\citenamefont{King, Merle, Morisi,
+  Shimizu, and Tanimoto}}]{King:2014nza}
+\bibinfo{author}{\bibfnamefont{S.~F.} \bibnamefont{King}},
+  \bibinfo{author}{\bibfnamefont{A.}~\bibnamefont{Merle}},
+  \bibinfo{author}{\bibfnamefont{S.}~\bibnamefont{Morisi}},
+  \bibinfo{author}{\bibfnamefont{Y.}~\bibnamefont{Shimizu}}, \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{M.}~\bibnamefont{Tanimoto}},
+  \bibinfo{journal}{New J. Phys.} \textbf{\bibinfo{volume}{16}},
+  \bibinfo{pages}{045018} (\bibinfo{year}{2014}), \eprint{1402.4271}.
+
+\bibitem[{\citenamefont{King}(2015{\natexlab{a}})}]{King:2015aea}
+\bibinfo{author}{\bibfnamefont{S.~F.} \bibnamefont{King}}, \bibinfo{journal}{J.
+  Phys.} \textbf{\bibinfo{volume}{G42}}, \bibinfo{pages}{123001}
+  (\bibinfo{year}{2015}{\natexlab{a}}), \eprint{1510.02091}.
+
+\bibitem[{\citenamefont{King}(2015{\natexlab{b}})}]{King:2015ata}
+\bibinfo{author}{\bibfnamefont{S.~F.} \bibnamefont{King}},
+  \bibinfo{journal}{Nucl. Part. Phys. Proc.}
+  \textbf{\bibinfo{volume}{265-266}}, \bibinfo{pages}{288}
+  (\bibinfo{year}{2015}{\natexlab{b}}).
+
+\bibitem[{\citenamefont{King}(2017)}]{King:2017guk}
+\bibinfo{author}{\bibfnamefont{S.~F.} \bibnamefont{King}},
+  \bibinfo{journal}{Prog. Part. Nucl. Phys.} \textbf{\bibinfo{volume}{94}},
+  \bibinfo{pages}{217} (\bibinfo{year}{2017}), \eprint{1701.04413}.
+
+\bibitem[{\citenamefont{Harrison et~al.}(2002)\citenamefont{Harrison, Perkins,
+  and Scott}}]{Harrison:2002er}
+\bibinfo{author}{\bibfnamefont{P.~F.} \bibnamefont{Harrison}},
+  \bibinfo{author}{\bibfnamefont{D.~H.} \bibnamefont{Perkins}},
+  \bibnamefont{and} \bibinfo{author}{\bibfnamefont{W.~G.} \bibnamefont{Scott}},
+  \bibinfo{journal}{Phys. Lett.} \textbf{\bibinfo{volume}{B530}},
+  \bibinfo{pages}{167} (\bibinfo{year}{2002}), \eprint{hep-ph/0202074}.
+
+\bibitem[{\citenamefont{Xing}(2002)}]{Xing:2002sw}
+\bibinfo{author}{\bibfnamefont{Z.-z.} \bibnamefont{Xing}},
+  \bibinfo{journal}{Phys. Lett. B} \textbf{\bibinfo{volume}{533}},
+  \bibinfo{pages}{85} (\bibinfo{year}{2002}), \eprint{hep-ph/0204049}.
+
+\bibitem[{\citenamefont{Fukugita et~al.}(1998)\citenamefont{Fukugita, Tanimoto,
+  and Yanagida}}]{Fukugita:1998vn}
+\bibinfo{author}{\bibfnamefont{M.}~\bibnamefont{Fukugita}},
+  \bibinfo{author}{\bibfnamefont{M.}~\bibnamefont{Tanimoto}}, \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{T.}~\bibnamefont{Yanagida}},
+  \bibinfo{journal}{Phys. Rev. D} \textbf{\bibinfo{volume}{57}},
+  \bibinfo{pages}{4429} (\bibinfo{year}{1998}), \eprint{hep-ph/9709388}.
+
+\bibitem[{\citenamefont{Barger et~al.}(1998)\citenamefont{Barger, Pakvasa,
+  Weiler, and Whisnant}}]{Barger:1998ta}
+\bibinfo{author}{\bibfnamefont{V.~D.} \bibnamefont{Barger}},
+  \bibinfo{author}{\bibfnamefont{S.}~\bibnamefont{Pakvasa}},
+  \bibinfo{author}{\bibfnamefont{T.~J.} \bibnamefont{Weiler}},
+  \bibnamefont{and} \bibinfo{author}{\bibfnamefont{K.}~\bibnamefont{Whisnant}},
+  \bibinfo{journal}{Phys. Lett. B} \textbf{\bibinfo{volume}{437}},
+  \bibinfo{pages}{107} (\bibinfo{year}{1998}), \eprint{hep-ph/9806387}.
+
+\bibitem[{\citenamefont{Davidson and King}(1998)}]{Davidson:1998bi}
+\bibinfo{author}{\bibfnamefont{S.}~\bibnamefont{Davidson}} \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{S.}~\bibnamefont{King}},
+  \bibinfo{journal}{Phys. Lett. B} \textbf{\bibinfo{volume}{445}},
+  \bibinfo{pages}{191} (\bibinfo{year}{1998}), \eprint{hep-ph/9808296}.
+
+\bibitem[{\citenamefont{Datta et~al.}(2003)\citenamefont{Datta, Ling, and
+  Ramond}}]{Datta:2003qg}
+\bibinfo{author}{\bibfnamefont{A.}~\bibnamefont{Datta}},
+  \bibinfo{author}{\bibfnamefont{F.-S.} \bibnamefont{Ling}}, \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{P.}~\bibnamefont{Ramond}},
+  \bibinfo{journal}{Nucl. Phys. B} \textbf{\bibinfo{volume}{671}},
+  \bibinfo{pages}{383} (\bibinfo{year}{2003}), \eprint{hep-ph/0306002}.
+
+\bibitem[{\citenamefont{Everett and Stuart}(2009)}]{Everett:2008et}
+\bibinfo{author}{\bibfnamefont{L.~L.} \bibnamefont{Everett}} \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{A.~J.} \bibnamefont{Stuart}},
+  \bibinfo{journal}{Phys. Rev. D} \textbf{\bibinfo{volume}{79}},
+  \bibinfo{pages}{085005} (\bibinfo{year}{2009}), \eprint{0812.1057}.
+
+\bibitem[{\citenamefont{Feruglio and Paris}(2011)}]{Feruglio:2011qq}
+\bibinfo{author}{\bibfnamefont{F.}~\bibnamefont{Feruglio}} \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{A.}~\bibnamefont{Paris}},
+  \bibinfo{journal}{JHEP} \textbf{\bibinfo{volume}{03}}, \bibinfo{pages}{101}
+  (\bibinfo{year}{2011}), \eprint{1101.0393}.
+
+\bibitem[{\citenamefont{King}(2008)}]{King:2007pr}
+\bibinfo{author}{\bibfnamefont{S.}~\bibnamefont{King}}, \bibinfo{journal}{Phys.
+  Lett. B} \textbf{\bibinfo{volume}{659}}, \bibinfo{pages}{244}
+  (\bibinfo{year}{2008}), \eprint{0710.0530}.
+
+\bibitem[{\citenamefont{Pakvasa et~al.}(2008)\citenamefont{Pakvasa, Rodejohann,
+  and Weiler}}]{Pakvasa:2007zj}
+\bibinfo{author}{\bibfnamefont{S.}~\bibnamefont{Pakvasa}},
+  \bibinfo{author}{\bibfnamefont{W.}~\bibnamefont{Rodejohann}},
+  \bibnamefont{and} \bibinfo{author}{\bibfnamefont{T.~J.}
+  \bibnamefont{Weiler}}, \bibinfo{journal}{Phys. Rev. Lett.}
+  \textbf{\bibinfo{volume}{100}}, \bibinfo{pages}{111801}
+  (\bibinfo{year}{2008}), \eprint{0711.0052}.
+
+\bibitem[{\citenamefont{Holthausen et~al.}(2013)\citenamefont{Holthausen,
+  Lindner, and Schmidt}}]{Holthausen:2012dk}
+\bibinfo{author}{\bibfnamefont{M.}~\bibnamefont{Holthausen}},
+  \bibinfo{author}{\bibfnamefont{M.}~\bibnamefont{Lindner}}, \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{M.~A.} \bibnamefont{Schmidt}},
+  \bibinfo{journal}{JHEP} \textbf{\bibinfo{volume}{04}}, \bibinfo{pages}{122}
+  (\bibinfo{year}{2013}), \eprint{1211.6953}.
+
+\bibitem[{\citenamefont{Feruglio et~al.}(2013)\citenamefont{Feruglio, Hagedorn,
+  and Ziegler}}]{Feruglio:2012cw}
+\bibinfo{author}{\bibfnamefont{F.}~\bibnamefont{Feruglio}},
+  \bibinfo{author}{\bibfnamefont{C.}~\bibnamefont{Hagedorn}}, \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{R.}~\bibnamefont{Ziegler}},
+  \bibinfo{journal}{JHEP} \textbf{\bibinfo{volume}{07}}, \bibinfo{pages}{027}
+  (\bibinfo{year}{2013}), \eprint{1211.5560}.
+
+\bibitem[{\citenamefont{Feruglio et~al.}(2014)\citenamefont{Feruglio, Hagedorn,
+  and Ziegler}}]{Feruglio:2013hia}
+\bibinfo{author}{\bibfnamefont{F.}~\bibnamefont{Feruglio}},
+  \bibinfo{author}{\bibfnamefont{C.}~\bibnamefont{Hagedorn}}, \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{R.}~\bibnamefont{Ziegler}},
+  \bibinfo{journal}{Eur. Phys. J. C} \textbf{\bibinfo{volume}{74}},
+  \bibinfo{pages}{2753} (\bibinfo{year}{2014}), \eprint{1303.7178}.
+
+\bibitem[{\citenamefont{Ding et~al.}(2013{\natexlab{a}})\citenamefont{Ding,
+  King, Luhn, and Stuart}}]{Ding:2013hpa}
+\bibinfo{author}{\bibfnamefont{G.-J.} \bibnamefont{Ding}},
+  \bibinfo{author}{\bibfnamefont{S.~F.} \bibnamefont{King}},
+  \bibinfo{author}{\bibfnamefont{C.}~\bibnamefont{Luhn}}, \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{A.~J.} \bibnamefont{Stuart}},
+  \bibinfo{journal}{JHEP} \textbf{\bibinfo{volume}{05}}, \bibinfo{pages}{084}
+  (\bibinfo{year}{2013}{\natexlab{a}}), \eprint{1303.6180}.
+
+\bibitem[{\citenamefont{Ding et~al.}(2013{\natexlab{b}})\citenamefont{Ding,
+  King, and Stuart}}]{Ding:2013bpa}
+\bibinfo{author}{\bibfnamefont{G.-J.} \bibnamefont{Ding}},
+  \bibinfo{author}{\bibfnamefont{S.~F.} \bibnamefont{King}}, \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{A.~J.} \bibnamefont{Stuart}},
+  \bibinfo{journal}{JHEP} \textbf{\bibinfo{volume}{12}}, \bibinfo{pages}{006}
+  (\bibinfo{year}{2013}{\natexlab{b}}), \eprint{1307.4212}.
+
+\bibitem[{\citenamefont{Ding et~al.}(2018)\citenamefont{Ding, King, and
+  Li}}]{Ding:2018fyz}
+\bibinfo{author}{\bibfnamefont{G.-J.} \bibnamefont{Ding}},
+  \bibinfo{author}{\bibfnamefont{S.~F.} \bibnamefont{King}}, \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{C.-C.} \bibnamefont{Li}},
+  \bibinfo{journal}{JHEP} \textbf{\bibinfo{volume}{12}}, \bibinfo{pages}{003}
+  (\bibinfo{year}{2018}), \eprint{1807.07538}.
+
+\bibitem[{\citenamefont{Ding et~al.}(2019{\natexlab{a}})\citenamefont{Ding,
+  King, and Li}}]{Ding:2018tuj}
+\bibinfo{author}{\bibfnamefont{G.-J.} \bibnamefont{Ding}},
+  \bibinfo{author}{\bibfnamefont{S.~F.} \bibnamefont{King}}, \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{C.-C.} \bibnamefont{Li}},
+  \bibinfo{journal}{Phys. Rev.} \textbf{\bibinfo{volume}{D99}},
+  \bibinfo{pages}{075035} (\bibinfo{year}{2019}{\natexlab{a}}),
+  \eprint{1811.12340}.
+
+\bibitem[{\citenamefont{King}(2005)}]{King:2005bj}
+\bibinfo{author}{\bibfnamefont{S.}~\bibnamefont{King}}, \bibinfo{journal}{JHEP}
+  \textbf{\bibinfo{volume}{08}}, \bibinfo{pages}{105} (\bibinfo{year}{2005}),
+  \eprint{hep-ph/0506297}.
+
+\bibitem[{\citenamefont{King and Ross}(2001)}]{King:2001uz}
+\bibinfo{author}{\bibfnamefont{S.}~\bibnamefont{King}} \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{G.~G.} \bibnamefont{Ross}},
+  \bibinfo{journal}{Phys. Lett. B} \textbf{\bibinfo{volume}{520}},
+  \bibinfo{pages}{243} (\bibinfo{year}{2001}), \eprint{hep-ph/0108112}.
+
+\bibitem[{\citenamefont{King and Ross}(2003)}]{King:2003rf}
+\bibinfo{author}{\bibfnamefont{S.}~\bibnamefont{King}} \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{G.~G.} \bibnamefont{Ross}},
+  \bibinfo{journal}{Phys. Lett. B} \textbf{\bibinfo{volume}{574}},
+  \bibinfo{pages}{239} (\bibinfo{year}{2003}), \eprint{hep-ph/0307190}.
+
+\bibitem[{\citenamefont{Feruglio}(2019)}]{Feruglio:2017spp}
+\bibinfo{author}{\bibfnamefont{F.}~\bibnamefont{Feruglio}},
+  \emph{\bibinfo{title}{{Are neutrino masses modular forms?}}}
+  (\bibinfo{year}{2019}), pp. \bibinfo{pages}{227--266}, \eprint{1706.08749}.
+
+\bibitem[{\citenamefont{Criado and Feruglio}(2018)}]{Criado:2018thu}
+\bibinfo{author}{\bibfnamefont{J.~C.} \bibnamefont{Criado}} \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{F.}~\bibnamefont{Feruglio}},
+  \bibinfo{journal}{SciPost Phys.} \textbf{\bibinfo{volume}{5}},
+  \bibinfo{pages}{042} (\bibinfo{year}{2018}), \eprint{1807.01125}.
+
+\bibitem[{\citenamefont{Penedo and Petcov}(2019)}]{Penedo:2018nmg}
+\bibinfo{author}{\bibfnamefont{J.}~\bibnamefont{Penedo}} \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{S.}~\bibnamefont{Petcov}},
+  \bibinfo{journal}{Nucl. Phys. B} \textbf{\bibinfo{volume}{939}},
+  \bibinfo{pages}{292} (\bibinfo{year}{2019}), \eprint{1806.11040}.
+
+\bibitem[{GLo()}]{GLoBES}
+\emph{\bibinfo{title}{{GLoBES website,
+  https://www.mpi-hd.mpg.de/personalhomes/globes/index.html}}},
+  \urlprefix\url{{(https://www.mpi-hd.mpg.de/personalhomes/globes/index.html)}}.
+
+\bibitem[{\citenamefont{Huber et~al.}(2002)\citenamefont{Huber, Lindner, and
+  Winter}}]{Huber:2002mx}
+\bibinfo{author}{\bibfnamefont{P.}~\bibnamefont{Huber}},
+  \bibinfo{author}{\bibfnamefont{M.}~\bibnamefont{Lindner}}, \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{W.}~\bibnamefont{Winter}},
+  \bibinfo{journal}{Nucl. Phys.} \textbf{\bibinfo{volume}{B645}},
+  \bibinfo{pages}{3} (\bibinfo{year}{2002}), \eprint{hep-ph/0204352}.
+
+\bibitem[{\citenamefont{Ambats et~al.}(2004)}]{Ambats:2004js}
+\bibinfo{author}{\bibfnamefont{I.}~\bibnamefont{Ambats}} \bibnamefont{et~al.}
+  (\bibinfo{collaboration}{NOvA}) (\bibinfo{year}{2004}),
+  \eprint{hep-ex/0503053}.
+
+\bibitem[{\citenamefont{Huber et~al.}()\citenamefont{Huber, Mezzetto, and
+  Schwetz}}]{Huber:2007xx}
+\bibinfo{author}{\bibfnamefont{P.}~\bibnamefont{Huber}},
+  \bibinfo{author}{\bibfnamefont{M.}~\bibnamefont{Mezzetto}}, \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{T.}~\bibnamefont{Schwetz}} (????).
+
+\bibitem[{\citenamefont{Alion et~al.}(2016)}]{Alion:2016uaj}
+\bibinfo{author}{\bibfnamefont{T.}~\bibnamefont{Alion}} \bibnamefont{et~al.}
+  (\bibinfo{collaboration}{DUNE}) (\bibinfo{year}{2016}), \eprint{1606.09550}.
+
+\bibitem[{\citenamefont{Cao et~al.}(2014)}]{Cao:2014bea}
+\bibinfo{author}{\bibfnamefont{J.}~\bibnamefont{Cao}} \bibnamefont{et~al.},
+  \bibinfo{journal}{Phys. Rev. ST Accel. Beams} \textbf{\bibinfo{volume}{17}},
+  \bibinfo{pages}{090101} (\bibinfo{year}{2014}), \eprint{1401.8125}.
+
+\bibitem[{\citenamefont{Huber et~al.}(2005)\citenamefont{Huber, Lindner, and
+  Winter}}]{Huber:2004ka}
+\bibinfo{author}{\bibfnamefont{P.}~\bibnamefont{Huber}},
+  \bibinfo{author}{\bibfnamefont{M.}~\bibnamefont{Lindner}}, \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{W.}~\bibnamefont{Winter}},
+  \bibinfo{journal}{Comput. Phys. Commun.} \textbf{\bibinfo{volume}{167}},
+  \bibinfo{pages}{195} (\bibinfo{year}{2005}), \eprint{hep-ph/0407333}.
+
+\bibitem[{\citenamefont{Huber et~al.}(2007)\citenamefont{Huber, Kopp, Lindner,
+  Rolinec, and Winter}}]{Huber:2007ji}
+\bibinfo{author}{\bibfnamefont{P.}~\bibnamefont{Huber}},
+  \bibinfo{author}{\bibfnamefont{J.}~\bibnamefont{Kopp}},
+  \bibinfo{author}{\bibfnamefont{M.}~\bibnamefont{Lindner}},
+  \bibinfo{author}{\bibfnamefont{M.}~\bibnamefont{Rolinec}}, \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{W.}~\bibnamefont{Winter}},
+  \bibinfo{journal}{Comput. Phys. Commun.} \textbf{\bibinfo{volume}{177}},
+  \bibinfo{pages}{432} (\bibinfo{year}{2007}), \eprint{hep-ph/0701187}.
+
+\bibitem[{\citenamefont{Ballett et~al.}(2017)\citenamefont{Ballett, King,
+  Pascoli, Prouse, and Wang}}]{Ballett:2016yod}
+\bibinfo{author}{\bibfnamefont{P.}~\bibnamefont{Ballett}},
+  \bibinfo{author}{\bibfnamefont{S.~F.} \bibnamefont{King}},
+  \bibinfo{author}{\bibfnamefont{S.}~\bibnamefont{Pascoli}},
+  \bibinfo{author}{\bibfnamefont{N.~W.} \bibnamefont{Prouse}},
+  \bibnamefont{and} \bibinfo{author}{\bibfnamefont{T.}~\bibnamefont{Wang}},
+  \bibinfo{journal}{JHEP} \textbf{\bibinfo{volume}{03}}, \bibinfo{pages}{110}
+  (\bibinfo{year}{2017}), \eprint{1612.01999}.
+
+\bibitem[{\citenamefont{Chatterjee et~al.}(2017)\citenamefont{Chatterjee,
+  Pasquini, and Valle}}]{Chatterjee:2017xkb}
+\bibinfo{author}{\bibfnamefont{S.~S.} \bibnamefont{Chatterjee}},
+  \bibinfo{author}{\bibfnamefont{P.}~\bibnamefont{Pasquini}}, \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{J.}~\bibnamefont{Valle}},
+  \bibinfo{journal}{Phys. Lett. B} \textbf{\bibinfo{volume}{771}},
+  \bibinfo{pages}{524} (\bibinfo{year}{2017}), \eprint{1702.03160}.
+
+\bibitem[{\citenamefont{Ding et~al.}(2019{\natexlab{b}})\citenamefont{Ding, Li,
+  Tang, and Wang}}]{Ding:2019zhn}
+\bibinfo{author}{\bibfnamefont{G.-J.} \bibnamefont{Ding}},
+  \bibinfo{author}{\bibfnamefont{Y.-F.} \bibnamefont{Li}},
+  \bibinfo{author}{\bibfnamefont{J.}~\bibnamefont{Tang}}, \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{T.-C.} \bibnamefont{Wang}},
+  \bibinfo{journal}{Phys. Rev.} \textbf{\bibinfo{volume}{D100}},
+  \bibinfo{pages}{055022} (\bibinfo{year}{2019}{\natexlab{b}}),
+  \eprint{1905.12939}.
+
+\bibitem[{\citenamefont{Tang and Wang}(2020)}]{Tang:2019edw}
+\bibinfo{author}{\bibfnamefont{J.}~\bibnamefont{Tang}} \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{T.}~\bibnamefont{Wang}},
+  \bibinfo{journal}{Nucl.\ Phys.\ B} \textbf{\bibinfo{volume}{952}},
+  \bibinfo{pages}{114915} (\bibinfo{year}{2020}), \eprint{1907.01371}.
+
+\bibitem[{\citenamefont{Blennow et~al.}(2020)\citenamefont{Blennow, Ghosh,
+  Ohlsson, and Titov}}]{Blennow:2020snb}
+\bibinfo{author}{\bibfnamefont{M.}~\bibnamefont{Blennow}},
+  \bibinfo{author}{\bibfnamefont{M.}~\bibnamefont{Ghosh}},
+  \bibinfo{author}{\bibfnamefont{T.}~\bibnamefont{Ohlsson}}, \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{A.}~\bibnamefont{Titov}}
+  (\bibinfo{year}{2020}), \eprint{2004.00017}.
+
+\bibitem[{\citenamefont{Wilks}(1938)}]{Wilks:1938dza}
+\bibinfo{author}{\bibfnamefont{S.~S.} \bibnamefont{Wilks}},
+  \bibinfo{journal}{Annals Math. Statist.} \textbf{\bibinfo{volume}{9}},
+  \bibinfo{pages}{60} (\bibinfo{year}{1938}).
+
+\bibitem[{\citenamefont{King}(2013)}]{King:2013iva}
+\bibinfo{author}{\bibfnamefont{S.~F.} \bibnamefont{King}},
+  \bibinfo{journal}{JHEP} \textbf{\bibinfo{volume}{07}}, \bibinfo{pages}{137}
+  (\bibinfo{year}{2013}), \eprint{1304.6264}.
+
+\bibitem[{\citenamefont{King}(2016)}]{King:2015dvf}
+\bibinfo{author}{\bibfnamefont{S.~F.} \bibnamefont{King}},
+  \bibinfo{journal}{JHEP} \textbf{\bibinfo{volume}{02}}, \bibinfo{pages}{085}
+  (\bibinfo{year}{2016}), \eprint{1512.07531}.
+
+\bibitem[{\citenamefont{King and Luhn}(2016)}]{King:2016yvg}
+\bibinfo{author}{\bibfnamefont{S.~F.} \bibnamefont{King}} \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{C.}~\bibnamefont{Luhn}},
+  \bibinfo{journal}{JHEP} \textbf{\bibinfo{volume}{09}}, \bibinfo{pages}{023}
+  (\bibinfo{year}{2016}), \eprint{1607.05276}.
+
+\bibitem[{\citenamefont{Chen et~al.}(2016)\citenamefont{Chen, Ding, Rojas,
+  Vaquera-Araujo, and Valle}}]{Chen:2015jta}
+\bibinfo{author}{\bibfnamefont{P.}~\bibnamefont{Chen}},
+  \bibinfo{author}{\bibfnamefont{G.-J.} \bibnamefont{Ding}},
+  \bibinfo{author}{\bibfnamefont{A.~D.} \bibnamefont{Rojas}},
+  \bibinfo{author}{\bibfnamefont{C.}~\bibnamefont{Vaquera-Araujo}},
+  \bibnamefont{and} \bibinfo{author}{\bibfnamefont{J.}~\bibnamefont{Valle}},
+  \bibinfo{journal}{JHEP} \textbf{\bibinfo{volume}{01}}, \bibinfo{pages}{007}
+  (\bibinfo{year}{2016}), \eprint{1509.06683}.
+
+\end{thebibliography}
