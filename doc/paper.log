@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  5 JUN 2020 14:31
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  5 JUN 2020 22:07
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -901,13 +901,13 @@ Package pdftex.def Info: Figs/TM1_th23_dCP.pdf used on input line 306.
 (pdftex.def)             Requested size: 224.638pt x 168.4804pt.
 
 
-pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./Figs/OP_th23_dCP.pdf): PDF
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./Figs/MM_th23_dCP.pdf): PDF
  inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<Figs/OP_th23_dCP.pdf, id=295, 341.42905pt x 256.07178pt>
-File: Figs/OP_th23_dCP.pdf Graphic file (type pdf)
+<Figs/MM_th23_dCP.pdf, id=295, 341.42905pt x 256.07178pt>
+File: Figs/MM_th23_dCP.pdf Graphic file (type pdf)
 
-<use Figs/OP_th23_dCP.pdf>
-Package pdftex.def Info: Figs/OP_th23_dCP.pdf used on input line 307.
+<use Figs/MM_th23_dCP.pdf>
+Package pdftex.def Info: Figs/MM_th23_dCP.pdf used on input line 307.
 (pdftex.def)             Requested size: 224.638pt x 168.4804pt.
 
 
@@ -926,7 +926,7 @@ dy used, duplicate ignored
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
 l.361 
-       <./Figs/TM1_th23_dCP.pdf> <./Figs/OP_th23_dCP.pdf>] (./paper.bbl
+       <./Figs/TM1_th23_dCP.pdf> <./Figs/MM_th23_dCP.pdf>] (./paper.bbl
 [13] [14]
 Underfull \hbox (badness 10000) in paragraph at lines 292--294
 []\T1/cmr/m/it/10.95 GLoBES web-site, https://www.mpi-hd.mpg.de/personalhomes/g
@@ -982,7 +982,7 @@ e/2016/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/
 /texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb></usr/local/texlive/2016/t
 exmf-dist/fonts/type1/public/cm-super/sftt1095.pfb></usr/local/texlive/2016/tex
 mf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on paper.pdf (16 pages, 1255847 bytes).
+Output written on paper.pdf (16 pages, 1254600 bytes).
 PDF statistics:
  545 PDF objects out of 1000 (max. 8388607)
  448 compressed objects within 5 object streams
