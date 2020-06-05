@@ -301,18 +301,52 @@ The constraint of $\theta_\nu$ and $\phi_\nu$ for DUNE and MOMENT is presented i
 
 
 \section{Model testing}
-{\color{blue}[changing models for demo]}
 \begin{figure}[!h]
  \centering
 \includegraphics[width=0.48\textwidth]{Figs/TM1_th23_dCP.pdf}
 \includegraphics[width=0.48\textwidth]{Figs/OP_th23_dCP.pdf}
-\caption{\label{fig:th23_delta}Examples for using \textbf{FaSE-GLoBES} to obtain the 2-D exclusion contour at $99\%$ C.L. on the plane of true values of $\theta_{23}$ and $\delta$ for TM1 sum rule (left) and a $S_4\otimes H_\text{CP}$ model (right) with DUNE and MOMENT. }
-%\caption{\label{fig:th23_delta}The 2-D exclusion contour for sub-models of tri-direct littlest seesaw on the plane of two true standard parameters $\theta_{23}$ and $\delta$, from $1\sigma$ to $5\sigma$, for DUNE (dotted) and MOMENT (solid). The range for each parameter is taken according to the $3\sigma$ uncertainty in NuFit4.0 results. The black dot denotes the best fit of NuFit4.0 results ($(\theta_{12},~\theta_{13},~\theta_{23},~\delta,~\Delta m_{21}^2,~\Delta m_{31}^2)=(33.82^\circ,~8.61^\circ,~49.6^\circ,~215^\circ,~7.39\times10^{-5}~\text{eV}^2,~2.525\times10^{-3}~\text{eV}^2)$), while the star is the prediction by the tri-direct littlest seesaw model with NuFit4.0 results ($(\theta_{12},~\theta_{13},~\theta_{23},~\delta,~\Delta m_{21}^2,~\Delta m_{31}^2)\sim(36.25^\circ,~8.63^\circ,~47^\circ,~279^\circ,~7.39\times10^{-5}~\text{eV}^2,~2.525\times10^{-3}~\text{eV}^2)$).}
+\caption{\label{fig:th23_delta}Examples for using \textbf{FaSE-GLoBES} to obtain the 2-D exclusion contour at $99\%$ C.L. on the plane of true values of $\theta_{23}$ and $\delta$ for TM1 sum rule (left) and a $S_4$ modular symmetry model (right) with DUNE and MOMENT. }
 \end{figure}
 
 {\color{blue}We can also study on how much a neutrino mass model  or a sum rule can be excluded, assuming different true values for oscillation parameters.}
-In Fig.~\ref{fig:th23_delta}, we present testing {\color{blue}atmospherical sum rule TM1~[cite] (left) and a $S_4\otimes H_\text{CP}$ model broken to $G_e=Z_3$ and $G_\nu=Z_2\otimes H_{\text{CP}}$~[cite] (right)} in various true values of $\theta_{23}$ and $\delta$. 
-We compute the minimal $\chi^2$ value for the model, and allowed all model parameters varied. In the left panel, we include the prior in Eq.~(\ref{eq:prior}) according to NuFit4.0 results, while in the other one, we do not include priors.
+In Fig.~\ref{fig:th23_delta}, we present testing {\color{blue}trimaximal mixing TM1~\cite{Albright:2008rp} (left) and a $S_4$ modular symmetry model~\cite{deMedeirosVarzielas:2019cyj} (right) in various true values of $\theta_{23}$ and $\delta$. TM1 implies three equivalent relations between $\theta_{12}$ and $\theta_{13}$~\cite{Albright:2008rp} :
+\begin{eqnarray}\label{eq:TM1}
+\tan\theta_{12}=\frac{1}{2}\sqrt{1-3s^2_{13}},&\sin\theta_{12}=\frac{1}{3}\frac{\sqrt{1-3s_{13}^2}}{c_13},&\text{or}~\cos\theta_{12}=\sqrt{\frac{2}{3}}\frac{1}{c_{13}}.
+\end{eqnarray}
+and also the dependence of $\delta$ on $\theta_{13}$ and $\theta_{23}$:
+\begin{eqnarray}\label{eq:TM1_dCP}
+\cos\delta=-\frac{\cot 2\theta_{23}(1-5s_{13}^2)}{2\sqrt{2}s_{13}\sqrt{1-3s_{13}^2}}.
+\end{eqnarray}
+The other model, we use for demonstration, is based on three moduli with finite modular symmetries $S_4^A$, $S_4^B$, and $S_4^C$, associated with two right-handed neutrinos and the charged lepton sector, respectively~\cite{deMedeirosVarzielas:2019cyj}. This model predicts the neutrino mass matrix: 
+\begin{eqnarray}
+m_\nu=&(\mu_1\hat{c}_R^2+\mu_2\hat{s}_R^{*2})\left(
+\begin{array}{ccc}
+1& -2\omega^2& -2\omega\\
+-2\omega^2&4\omega&4\\
+-2\omega&4&4\omega^2
+\end{array}
+\right)+
+(\mu_1\hat{s}^2_R+\mu_2\hat{c}_R^{*2})\left(
+\begin{array}{ccc}
+0& 0& 0\\
+0&1&-1\\
+0&-1&1
+\end{array}
+\right) \nonumber \\
+&+(\mu_1\hat{c}_R\hat{s}_R-\mu_2\hat{c}^*_R\hat{s}_R^*)\left(
+\begin{array}{ccc}
+0& -1& 1\\
+-1&4\omega^2&2i\sqrt{3}\\
+1&2i\sqrt{3}&-4\omega
+\end{array}
+\right),
+\end{eqnarray}
+where $\hat{c}_R$ and $\hat{s}_R$ are $\cos\theta_R\times \mathrm{e}^{i\alpha_2}$ and $\sin\theta_R\times \mathrm{e}^{i\alpha_3}$, respectively. As $\omega$ is fixed at $-\frac{1}{2}+i\frac{\sqrt{3}}{2}$, this model has 5 model parameters: $\mu_1,~\mu_2,~\theta_R,~\alpha_2,~\alpha_3$.
+}
+
+
+We compute the minimal $\chi^2$ value for the model, and allowed all model parameters varied, with the prior in Eq.~(\ref{eq:prior}) according to NuFit4.0 results.
+%In the left panel, we include the prior in Eq.~(\ref{eq:prior}) according to NuFit4.0 results, while in the other one, we do not include priors.
 In addition, the studied statistics function is exactly given by Eq.~(\ref{eq:chi-squared}), but the true event rate $n_i$ is predicted by a set of oscillation parameters, which will be varied in the code. 
 %
 %

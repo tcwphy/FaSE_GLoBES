@@ -1,4 +1,4 @@
-\begin{thebibliography}{59}
+\begin{thebibliography}{61}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \expandafter\ifx\csname bibnamefont\endcsname\relax
   \def\bibnamefont#1{#1}\fi
@@ -410,5 +410,20 @@
   \bibnamefont{and} \bibinfo{author}{\bibfnamefont{J.}~\bibnamefont{Valle}},
   \bibinfo{journal}{JHEP} \textbf{\bibinfo{volume}{01}}, \bibinfo{pages}{007}
   (\bibinfo{year}{2016}), \eprint{1509.06683}.
+
+\bibitem[{\citenamefont{Albright and Rodejohann}(2009)}]{Albright:2008rp}
+\bibinfo{author}{\bibfnamefont{C.~H.} \bibnamefont{Albright}} \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{W.}~\bibnamefont{Rodejohann}},
+  \bibinfo{journal}{Eur. Phys. J. C} \textbf{\bibinfo{volume}{62}},
+  \bibinfo{pages}{599} (\bibinfo{year}{2009}), \eprint{0812.0436}.
+
+\bibitem[{\citenamefont{de~Medeiros~Varzielas
+  et~al.}(2020)\citenamefont{de~Medeiros~Varzielas, King, and
+  Zhou}}]{deMedeirosVarzielas:2019cyj}
+\bibinfo{author}{\bibfnamefont{I.}~\bibnamefont{de~Medeiros~Varzielas}},
+  \bibinfo{author}{\bibfnamefont{S.~F.} \bibnamefont{King}}, \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{Y.-L.} \bibnamefont{Zhou}},
+  \bibinfo{journal}{Phys. Rev. D} \textbf{\bibinfo{volume}{101}},
+  \bibinfo{pages}{055033} (\bibinfo{year}{2020}), \eprint{1906.02208}.
 
 \end{thebibliography}

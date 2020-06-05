@@ -4,47 +4,47 @@ The top-level auxiliary file: paper.aux
 The style file: apsrev.bst
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: FAS-GLoBES.bib.bib
-Unbalanced braces---line 9 of file FAS-GLoBES.bib.bib
+Unbalanced braces---line 37 of file FAS-GLoBES.bib.bib
  :                 experiments
  :                            }",
 I'm skipping whatever remains of this entry
-Repeated entry---line 505 of file FAS-GLoBES.bib.bib
+Repeated entry---line 533 of file FAS-GLoBES.bib.bib
  : @article{Chatterjee:2017xkb
  :                            ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 602 of file FAS-GLoBES.bib.bib
+Repeated entry---line 630 of file FAS-GLoBES.bib.bib
  : @article{King:2016yvg
  :                      ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 617 of file FAS-GLoBES.bib.bib
+Repeated entry---line 645 of file FAS-GLoBES.bib.bib
  : @article{King:2015dvf
  :                      ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 631 of file FAS-GLoBES.bib.bib
+Repeated entry---line 659 of file FAS-GLoBES.bib.bib
  : @article{King:2013iva
  :                      ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 676 of file FAS-GLoBES.bib.bib
+Repeated entry---line 704 of file FAS-GLoBES.bib.bib
  : @article{King:2013eh
  :                     ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 1259 of file FAS-GLoBES.bib.bib
+Repeated entry---line 1287 of file FAS-GLoBES.bib.bib
  : @article{Maki:1962mu
  :                     ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 1660 of file FAS-GLoBES.bib.bib
+Repeated entry---line 1688 of file FAS-GLoBES.bib.bib
  : @article{Cao:2014bea
  :                     ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 1868 of file FAS-GLoBES.bib.bib
+Repeated entry---line 1896 of file FAS-GLoBES.bib.bib
  : @article{Huber:2004ka
  :                      ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 1884 of file FAS-GLoBES.bib.bib
+Repeated entry---line 1912 of file FAS-GLoBES.bib.bib
  : @article{Huber:2007ji
  :                      ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 2314 of file FAS-GLoBES.bib.bib
+Repeated entry---line 2342 of file FAS-GLoBES.bib.bib
  : @article{Wilks:1938dza
  :                       ,
 I'm skipping whatever remains of this entry
@@ -54,45 +54,45 @@ Warning--empty booktitle in Abe:2014oxa
 Warning--can't use both author and editor fields in Feruglio:2017spp
 Warning--missing publisher in Feruglio:2017spp
 Warning--empty year in Huber:2007xx; set to ????
-You've used 59 entries,
+You've used 61 entries,
             3411 wiz_defined-function locations,
-            1570 strings with 19228 characters,
-and the built_in function-call counts, 38617 in all, are:
-= -- 2287
-> -- 1192
-< -- 170
-+ -- 941
-- -- 292
-* -- 5233
-:= -- 4288
-add.period$ -- 59
-call.type$ -- 59
-change.case$ -- 240
-chr.to.int$ -- 56
-cite$ -- 65
-duplicate$ -- 3505
-empty$ -- 3323
-format.name$ -- 766
-if$ -- 7329
+            1583 strings with 19593 characters,
+and the built_in function-call counts, 40004 in all, are:
+= -- 2371
+> -- 1234
+< -- 176
++ -- 973
+- -- 302
+* -- 5426
+:= -- 4438
+add.period$ -- 61
+call.type$ -- 61
+change.case$ -- 248
+chr.to.int$ -- 58
+cite$ -- 67
+duplicate$ -- 3628
+empty$ -- 3441
+format.name$ -- 794
+if$ -- 7595
 int.to.chr$ -- 4
-int.to.str$ -- 60
-missing$ -- 537
-newline$ -- 192
-num.names$ -- 174
-pop$ -- 925
+int.to.str$ -- 62
+missing$ -- 556
+newline$ -- 198
+num.names$ -- 180
+pop$ -- 956
 preamble$ -- 1
-purify$ -- 236
+purify$ -- 244
 quote$ -- 0
-skip$ -- 1433
+skip$ -- 1485
 stack$ -- 0
-substring$ -- 1250
-swap$ -- 2702
-text.length$ -- 137
+substring$ -- 1301
+swap$ -- 2801
+text.length$ -- 142
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 352
+type$ -- 364
 warning$ -- 4
-while$ -- 167
+while$ -- 173
 width$ -- 0
-write$ -- 638
+write$ -- 660
 (There were 11 error messages)
