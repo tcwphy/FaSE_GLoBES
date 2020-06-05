@@ -83,4 +83,3 @@ double glbChiSpectrumTilt3(int exp, int rule, int n_params, double *x, double *e
                            void *user_data);
 double FASE_prior_OSC(const glb_params in, void* user_data);
 double FASE_prior_model(const glb_params in, void* user_data);
-double TD_prior_NUFIT4(const glb_params in, void* user_data);

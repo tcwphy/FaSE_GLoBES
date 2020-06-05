@@ -1,31 +1,12 @@
-#if HAVE_CONFIG_H   /* config.h should come before any other includes */
-#  include "config.h"
-#endif
-
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
 #include <complex.h>
 #include <float.h>
-
-/*
-#include <gsl/gsl_complex.h>
-#include <gsl/gsl_complex_math.h>
-#include <gsl/gsl_matrix.h>
-#include <gsl/gsl_blas.h>
-#include <gsl/gsl_statistics.h>
-#include <gsl/gsl_rng.h>
-#include <gsl/gsl_randist.h>
-#include <gsl/gsl_cblas.h>
-#include <gsl/gsl_eigen.h>
-#include <gsl/gsl_vector.h>
-*/
 #include <gsl/gsl_cdf.h>
 #include <globes/globes.h>   /* GLoBES library */
 #include "FASE_GLoBES.h"
-//#include "model-input_diag.h"
 #include "model-input.h"
 
 /***************************************************************************
@@ -37,9 +18,8 @@ int main(int argc, char *argv[])
     /* Initialize libglobes */
     glbInit(argv[0]);
     glbInitExperiment("exp/DUNE_GLoBES.glb",&glb_experiment_list[0],&glb_num_of_exps);
-//    glbInitExperiment("exp/MOMENT_FIX_FLUX_150KM_addATM_NC.glb",&glb_experiment_list[0],&glb_num_of_exps);
     /*Initialize FASE*/
-    MODEL_init(5);
+    MODEL_init(4);
     
     /* Register non-standard probability engine. This has to be done
      * before any calls to glbAllocParams() or glbAllocProjections() */
@@ -62,11 +42,6 @@ int main(int argc, char *argv[])
     glb_params test_values = glbAllocParams();
     glb_params input_errors = glbAllocParams();
     glb_params centers = glbAllocParams();
-    double osc_para[6];
-    double M_para[5];
-    M_para[0]=0; M_para[1]=0; M_para[2]=dCP_true; M_para[3]=DM21_true; M_para[4]=DM31_true;
-    MtoS(osc_para, M_para);
-    /*define model parameter: true_values( x, eta, r, ma)*/
     glbDefineParams(test_values,th13_true,th23_true,DM21_true,DM31_true,-1,0);
     glbSetDensityParams(true_values,1.0,GLB_ALL);
     int i;
@@ -95,12 +70,9 @@ int main(int argc, char *argv[])
     UPPER_prior[3]=392*degree;    LOWER_prior[3]=125*degree;     Central_prior[3]=215*degree;
     UPPER_prior[4]=8.01e-5;       LOWER_prior[4]=6.79e-5;        Central_prior[4]=7.39e-5;
     UPPER_prior[5]=2.625e-3;      LOWER_prior[5]=2.427e-3;       Central_prior[5]=2.525e-3;
-    
-    
     for (i=0;i<6;i++) {UPPER_prior[i]=fabs(UPPER_prior[i]-Central_prior[i])/3;
         LOWER_prior[i]=fabs(LOWER_prior[i]-Central_prior[i])/3;}
-
-//        for (i=0;i<6;i++) {UPPER_prior[i]=0; LOWER_prior[i]=0;}
+    
     /* centers and input_errors will not be used, but need to be given in for central values
     and prior width. Otherwise, GLoBES will complain. */
     for (i=0; i<6; i++) glbSetOscParams(centers,0.1,i); glbSetDensityParams(centers,1.0,GLB_ALL); glbCopyParams(centers,input_errors);
@@ -109,7 +81,7 @@ int main(int argc, char *argv[])
     
     /*two loops for chi^2(x,eta)*/
     float th23,dCP,dth23,ddCP,lower_th23,upper_th23,lower_dCP,upper_dCP;
-    FILE* File=fopen("data/TM1_th23_dCP(DUNE).dat", "w");
+    FILE* File=fopen("data/TM1_th23_dCP(MOMENT).dat", "w");
     lower_th23=40; upper_th23=52.5; lower_dCP=125; upper_dCP=395;
     dth23=(upper_th23-lower_th23)/100; ddCP=(upper_dCP-lower_dCP)/100;
     int dof=2;
@@ -137,7 +109,8 @@ int main(int argc, char *argv[])
     /* Destroy parameter and projection vector(s) */
     glbFreeParams(true_values);
     glbFreeParams(test_values); 
-    glbFreeParams(input_errors); 
+    glbFreeParams(input_errors);
+    glbFreeParams(centers); 
     glbFreeProjection(free);
     exit(0);
 }

@@ -50,11 +50,9 @@ local_LTLDFLAGS:=$(shell $(globesconf) --ltlibs)
 
 
 
-BIN = example-tour example-static example1 example2 example3 example4 example5 example6\
-theta_phi th23_dCP
+BIN = theta_phi
 
-OBJ = example-tour.o example-tour-s.o example1.o example2.o example3.o example4.o \
-      example5.o example6.o theta_phi.o th23_dCP.o myio.o
+OBJ = theta_phi.o FASE_GLoBES.o model-input.o
 
 FaSE = FASE_GLoBES.o model-input.o
 
@@ -63,8 +61,6 @@ FaSE = FASE_GLoBES.o model-input.o
 theta_phi: theta_phi.o $(FaSE)
 	gcc theta_phi.o $(FaSE) -o theta_phi  $(LDFLAGS) $(local_LDFLAGS)
 
-th23_dCP: th23_dCP_WFS.o  $(FaSE)
-	gcc th23_dCP_WFS.o $(FaSE) -o th23_dCP  $(LDFLAGS) $(local_LDFLAGS)
 
 
 %.o : %.c

@@ -4,23 +4,16 @@
 #include <string.h>
 #include <complex.h>
 #include <float.h>
-
 #include <gsl/gsl_math.h>
 #include <gsl/gsl_complex.h>
 #include <gsl/gsl_complex_math.h>
 #include <gsl/gsl_matrix.h>
 #include <gsl/gsl_blas.h>
-//#include <gsl/gsl_statistics.h>
-//#include <gsl/gsl_rng.h>
-//#include <gsl/gsl_randist.h>
 #include <gsl/gsl_cblas.h>
 #include <gsl/gsl_eigen.h>
 #include <gsl/gsl_vector.h>
-
-
 #include <globes/globes.h>   /* GLoBES library */
 #include"FASE_GLoBES.h"
-//#include"model-input_diag.h"
 #include"model-input.h"
 
 extern char **glb_param_names;
@@ -91,8 +84,6 @@ int STAN_OSC(double complex M[], double out[6])
     cblas_zgemm (CblasRowMajor, CblasConjTrans, CblasNoTrans, 3, 3, 3, &alpha, M, 3, M, 3, &beta, MMsquare, 3); //eq 4.5 page 107 Giunti
     
     
-    
-    
     gsl_matrix_complex *MM = gsl_matrix_complex_alloc(3, 3);
     int i,j;
     for(i=0;i<3;i++)
@@ -144,39 +135,32 @@ int STAN_OSC(double complex M[], double out[6])
     
     
     out[0]=the12; out[1]=the13; out[2]=the23;
-    out[3]=dCP;   out[4]=m2*m2-m1*m1;
-    out[5]=m3*m3-m1*m1;
+    out[3]=dCP;   out[4]=gsl_vector_get(eval,1)-gsl_vector_get(eval,0);
+    out[5]=gsl_vector_get(eval,1)-gsl_vector_get(eval,0);
     
     return 0;
 }
 
 
-
-int ModelTO( double OSC_PARAMS[6],double M_para[])
+int STAN_OSC_U(double complex U[], double out[4])
 {
     
+    double s13 = cabs(U[2]);       double the13=asin(s13);
+    double t12 = cabs(U[1])/cabs(U[0]);           double the12=atan(t12);
+    double t23 = cabs(U[5])/cabs(U[8]);           double the23=atan(t23);
     
-    //for the 2 heavy sterile case keep these zero.
-    double alpha = 0.0;
-    double mc = 0.0;
-    double gamma = 0.0;
+    double s12=sin(the12);
+    double c12=cos(the12);
+    double s23=sin(the23);
+    double c13=cos(the13);
+    double dCP=carg(U[1]*conj(U[2])*conj(U[4])*U[5]+s12*s12*s13*s13*c13*c13*s23*s23);
     
-    
-    
-    double x=M_para[0];
-    double eta=M_para[1];
-    double r=M_para[2];
-    double ma=M_para[3];
-    
-    double ms=ma*r;
-    
-    double complex Mass_Matrix[] = {ma+ms*(cos(eta) + I*sin(eta)), ma*(cos(6.6666e-1*M_PI) + I*sin(6.6666e-1*M_PI))+x*ms*(cos(eta) + I*sin(eta)), ma*(cos(6.6666e-1*M_PI) + I*sin(6.6666e-1*M_PI))*(cos(6.6666e-1*M_PI) + I*sin(6.6666e-1*M_PI))+x*ms*(cos(eta) + I*sin(eta)), ma*(cos(6.6666e-1*M_PI) + I*sin(6.6666e-1*M_PI))+x*ms*(cos(eta) + I*sin(eta)), ma*(cos(6.6666e-1*M_PI) + I*sin(6.6666e-1*M_PI))*(cos(6.6666e-1*M_PI) + I*sin(6.6666e-1*M_PI))+x*x*ms*(cos(eta) + I*sin(eta)), ma+x*x*ms*(cos(eta) + I*sin(eta)), ma*(cos(6.6666e-1*M_PI) + I*sin(6.6666e-1*M_PI))*(cos(6.6666e-1*M_PI) + I*sin(6.6666e-1*M_PI))+x*ms*(cos(eta) + I*sin(eta)), ma+x*x*ms*(cos(eta) + I*sin(eta)), ma*(cos(6.6666e-1*M_PI) + I*sin(6.6666e-1*M_PI))+x*x*ms*(cos(eta) + I*sin(eta))};
-    
-    double out[6];
-    STAN_OSC(Mass_Matrix,OSC_PARAMS);
+    out[0]=the12; out[1]=the13; out[2]=the23;
+    out[3]=dCP;
     
     return 0;
 }
+
 
 
 inline double square(double x)
@@ -999,101 +983,3 @@ double FASE_prior_model(const glb_params in, void* user_data)
     glbFreeParams(input_errors);
     return pv;
 }
-
-double TD_prior_NUFIT4(const glb_params in, void* user_data) /*the prior is always used in the standard parameterisation*/
-{
-    glb_params central_values = glbAllocParams();
-    glb_params input_errors = glbAllocParams();
-    glb_projection p = glbAllocProjection();
-    /*glbGetOscillationParameters(central_values);*/
-    glbGetCentralValues(central_values);
-    glbGetInputErrors(input_errors);
-    glbGetProjection(p);
-    int i;
-    double x,eta,r,ma;
-    double central_STAN[6];
-    double pv = 0.0;
-    double fitvalue,centralvalue,inputerror;
-    /* Add oscillation parameter priors */
-    r=.1; ma=.1;
-    if(PARA==MODEL){
-        x   = glbGetOscParams(in,0);
-        eta = glbGetOscParams(in,1);
-        r   = glbGetOscParams(in,2);
-        ma  = glbGetOscParams(in,3);
-        //        printf("x=%f  eta=%f  r=%f  ma=%f ");
-        glbSetOscParams(in,TDth12(x,eta,r, ma),0);
-        glbSetOscParams(in,TDth13(x,eta,r, ma),1);
-        glbSetOscParams(in,TDth23(x,eta,r, ma),2);
-        glbSetOscParams(in,TDdCP(x,eta,r, ma) ,3);
-        glbSetOscParams(in,TDdm21(x,eta,r, ma),4);
-        glbSetOscParams(in,TDdm31(x,eta,r, ma),5);
-        
-        if(ma<0) {return 1e8;}
-        if(r<0) {return 1e8;}
-        
-    }
-    
-    
-    
-    
-    i=0; fitvalue=glbGetOscParams(in,i); centralvalue=glbGetOscParams(central_values,i); inputerror=glbGetOscParams(input_errors,i);
-    if(inputerror>1e-12) { if(fitvalue>centralvalue) {inputerror=(36.27-33.82)*M_PI/3/180;}
-        else {inputerror=(33.82-31.61)*M_PI/3/180;}
-        pv+=square((centralvalue-fitvalue)/inputerror);
-    }
-    
-    i=1; fitvalue=glbGetOscParams(in,i); centralvalue=glbGetOscParams(central_values,i); inputerror=glbGetOscParams(input_errors,i);
-    if(inputerror>1e-12) { if(fitvalue>centralvalue) {inputerror=(8.99-8.61)*M_PI/3/180;}
-        else {inputerror=(8.61-8.22)*M_PI/3/180;}
-        pv+=square((centralvalue-fitvalue)/inputerror);
-    }
-    
-    
-    i=2; fitvalue=glbGetOscParams(in,i); centralvalue=glbGetOscParams(central_values,i); inputerror=glbGetOscParams(input_errors,i);
-    if(inputerror>1e-12) { if(fitvalue>centralvalue) {inputerror=(52.4-49.6)*M_PI/3/180;}
-        else {inputerror=(49.6-40.3)*M_PI/3/180;}
-        pv+=square((centralvalue-fitvalue)/inputerror);
-    }
-    
-    
-    i=3; fitvalue=glbGetOscParams(in,i); centralvalue=glbGetOscParams(central_values,i); inputerror=glbGetOscParams(input_errors,i);
-    if(fitvalue>2*M_PI){int run; run=fitvalue/2/M_PI; fitvalue=fitvalue-run*2*M_PI;}
-    else if(fitvalue<0){int run; run=-fitvalue/2/M_PI; run=run+1; fitvalue=fitvalue+run*2*M_PI;}
-    if(inputerror>1e-12) { if(fitvalue>centralvalue) {inputerror=(392-215)*M_PI/3/180;}
-        else {inputerror=(215-125)*M_PI/3/180;}
-
-        pv+=square((centralvalue-fitvalue)/inputerror);
-    }
-//    else{ printf("not in\n");}
-    
-    i=4; fitvalue=glbGetOscParams(in,i); centralvalue=glbGetOscParams(central_values,i); inputerror=glbGetOscParams(input_errors,i);
-    if(inputerror>1e-12) { if(fitvalue>centralvalue) {inputerror=(8.01e-5-7.39e-5)/3;}
-        else {inputerror=(7.39e-5-6.79e-5)/3;}
-        pv+=square((centralvalue-fitvalue)/inputerror);
-    }
-    
-    i=5; fitvalue=glbGetOscParams(in,i); centralvalue=glbGetOscParams(central_values,i); inputerror=glbGetOscParams(input_errors,i);
-    if(inputerror>1e-12) { if(fitvalue>centralvalue) {inputerror=(2.625e-3-2.525e-3)/3;}
-        else {inputerror=(2.525e-3-2.427e-3)/3;}
-        pv+=square((centralvalue-fitvalue)/inputerror);
-    }
-    
-    
-    //    printf("\n");
-    /* Add matter parameter priors */
-    for(i=0;i<glb_num_of_exps;i++){
-        if(glbGetDensityProjectionFlag(p,i)==GLB_FREE)
-        {
-            fitvalue=glbGetDensityParams(in,i);
-            centralvalue=1.0;
-            inputerror=glbGetDensityParams(input_errors,i);
-            if(inputerror>1e-12)
-            pv+=square((centralvalue-fitvalue)/inputerror);
-        }}
-    glbFreeParams(central_values);
-    glbFreeParams(input_errors);
-    glbFreeProjection(p);
-    return pv;
-}
-

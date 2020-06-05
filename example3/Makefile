@@ -49,60 +49,11 @@ local_LTLDFLAGS:=$(shell $(globesconf) --ltlibs)
 FaSE = FASE_GLoBES.o model-input.o
 
 
-BIN = example-tour example-static example1 example2 example3 example4 example5 example6
-OBJ = example-tour.o example-tour-s.o example1.o example2.o example3.o example4.o \
-      example5.o example6.o myio.o
+BIN = th23_dCP
+OBJ = th23_dCP.o FASE_GLoBES.o model-input.o
 
 all: $(BIN)
 
-example-tour: example-tour.o
-	gcc example-tour.o -o example-tour $(LDFLAGS) $(local_LDFLAGS)
-
-example-static: example-tour.o
-	gcc example-tour.o -o example-static -static $(LDFLAGS) $(local_LDFLAGS) 
-
-example1: example1.o myio.o
-	gcc example1.o myio.o -o example1  $(LDFLAGS) $(local_LDFLAGS)
-
-example2: example2.o myio.o
-	gcc  example2.o myio.o -o example2  $(LDFLAGS) $(local_LDFLAGS)
-
-example3: example3.o myio.o
-	gcc example3.o myio.o -o example3  $(LDFLAGS) $(local_LDFLAGS)
-
-example4: example4.o myio.o
-	gcc example4.o myio.o -o example4  $(LDFLAGS) $(local_LDFLAGS)
-
-example5: example5.o myio.o
-	gcc example5.o myio.o -o example5  $(LDFLAGS) $(local_LDFLAGS)
-
-example6: example6.o myio.o
-	gcc example6.o myio.o -o example6  $(LDFLAGS) $(local_LDFLAGS)
-
-
-test: model_constrain_xxx_v1.o FASE_GLoBES.o model-input.o
-	gcc model_constrain_xxx_v1.o FASE_GLoBES.o model-input.o -o test  $(LDFLAGS) $(local_LDFLAGS)
-
-
-T_2: contour_x_eta.o FASE_GLoBES.o model-input.o
-	gcc contour_x_eta.o FASE_GLoBES.o model-input.o -o T_2  $(LDFLAGS) $(local_LDFLAGS)
-
-model_contour: model_contour.o
-	gcc model_contour.o -o model_contour  $(LDFLAGS) $(local_LDFLAGS)
-
-model_contour_v2: model_contour_v2.o FASE_GLoBES.o model-input_diag.o
-	gcc model_contour_v2.o FASE_GLoBES.o model-input_diag.o -o model_contour_v2  $(LDFLAGS) $(local_LDFLAGS)
-
-
-model_contour_v3: model_contour_v3.o model-input_diag.o
-	gcc model_contour_v3.o  model-input_diag.o -o model_contour_v3  $(LDFLAGS) $(local_LDFLAGS)
-
-
-compare: contour_x_eta.o tri_direct_PE_v3.o
-	gcc contour_x_eta.o tri_direct_PE_v3.o -o compare  $(LDFLAGS) $(local_LDFLAGS)
-
-theta_phi: theta_phi.o  FASE_GLoBES.o model-input.o
-	gcc theta_phi.o  FASE_GLoBES.o model-input.o -o theta_phi  $(LDFLAGS) $(local_LDFLAGS)
 
 th23_dCP: th23_dCP.o  $(FaSE)
 	gcc th23_dCP.o  $(FaSE) -o th23_dCP  $(LDFLAGS) $(local_LDFLAGS)

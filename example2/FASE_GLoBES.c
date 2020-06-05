@@ -49,6 +49,8 @@ struct glb_projection_type {
     glb_density_proj_type *density;
 };
 
+//typedef struct OSC_PARAMS { double theta12; double theta13; double theta23; double delta; double alpha21; double alpha31; double Dm21; double Dm31; double m3; double m2; double m1; } OSC_PARAMS;
+
 /* Interface for non-standard implementations of the probability engine */
 int glb_oscp;
 glb_probability_matrix_function glb_hook_probability_matrix;
@@ -81,12 +83,14 @@ int STAN_OSC(double complex M[], double out[6])
     
     cblas_zgemm (CblasRowMajor, CblasConjTrans, CblasNoTrans, 3, 3, 3, &alpha, M, 3, M, 3, &beta, MMsquare, 3); //eq 4.5 page 107 Giunti
     
+    
     gsl_matrix_complex *MM = gsl_matrix_complex_alloc(3, 3);
     int i,j;
     for(i=0;i<3;i++)
     {
         for(j=0;j<3;j++)
         {
+            //            gsl_matrix_complex_set(MM, i, j, gsl_complex_rect(creal(M[i*3+j]),cimag(M[i*3+j])));
             gsl_matrix_complex_set(MM, i, j, gsl_complex_rect(creal(MMsquare[i*3+j]),cimag(MMsquare[i*3+j])));
         }
     }
@@ -131,11 +135,33 @@ int STAN_OSC(double complex M[], double out[6])
     
     
     out[0]=the12; out[1]=the13; out[2]=the23;
-    out[3]=dCP;   out[4]=m2*m2-m1*m1;
-    out[5]=m3*m3-m1*m1;
+    out[3]=dCP;   out[4]=gsl_vector_get(eval,1)-gsl_vector_get(eval,0);
+    out[5]=gsl_vector_get(eval,1)-gsl_vector_get(eval,0);
     
     return 0;
 }
+
+
+int STAN_OSC_U(double complex U[], double out[4])
+{
+    
+    double s13 = cabs(U[2]);       double the13=asin(s13);
+    double t12 = cabs(U[1])/cabs(U[0]);           double the12=atan(t12);
+    double t23 = cabs(U[5])/cabs(U[8]);           double the23=atan(t23);
+    
+    double s12=sin(the12);
+    double c12=cos(the12);
+    double s23=sin(the23);
+    double c13=cos(the13);
+    double dCP=carg(U[1]*conj(U[2])*conj(U[4])*U[5]+s12*s12*s13*s13*c13*c13*s23*s23);
+    
+    out[0]=the12; out[1]=the13; out[2]=the23;
+    out[3]=dCP;
+    
+    return 0;
+}
+
+
 
 inline double square(double x)
 {
@@ -547,11 +573,15 @@ int zheevh3(double complex A[3][3], double complex Q[3][3], double w[3])
 
 
 
-int FASE_glb_set_oscillation_parameters(glb_params p, void *user_data)
+int FASE_glb_set_oscillation_parameters(glb_params p, void *user_data)  /*Mark2*/
 {
     double complex (*_U)[GLB_NU_FLAVOURS]
     = (double complex (*)[GLB_NU_FLAVOURS]) gsl_matrix_complex_ptr(U, 0, 0);
     int i;
+    /*printf("set\n");*/
+    /* Copy parameters */
+    /*PARA_in=p->osc->osc_params[5];*/
+    /*if (PARA_in==CSDN)*/
     if (PARA==MODEL)
         
     {
@@ -560,6 +590,8 @@ int FASE_glb_set_oscillation_parameters(glb_params p, void *user_data)
         
         for(i=0;i<N_M;i++) M_para[i] = p->osc->osc_params[i];
         
+        //        printf("in MODEL x %g eta %g r %g ma %g\n",x_in,eta_in,r_in,ma_in);
+        //      find_CSND(N_in,ma_in,mb_in,eta_in,OSC_PARAMS_CSDN);
         
         MtoS(osc_para, M_para);
         
@@ -570,6 +602,9 @@ int FASE_glb_set_oscillation_parameters(glb_params p, void *user_data)
         mq[0] = fabs(osc_para[5]);
         mq[1] = fabs(osc_para[5])+osc_para[4];
         mq[2] = fabs(osc_para[5])+osc_para[5];
+//        printf("in CSDN %g %g %g %g %g %g\n",th12*180/M_PI,th13*180/M_PI,th23*180/M_PI,delta*180/M_PI,mq[1]-mq[0],mq[2]-mq[0]);
+        /*printf("in CSDN %g %g %g %g %g %g\n",th12*180/M_PI,th13*180/M_PI,th23*180/M_PI,delta*180/M_PI,mq[1]-mq[0],mq[2]-mq[0]);*/
+        
     }
     else if (PARA==STAN)
         
@@ -581,7 +616,13 @@ int FASE_glb_set_oscillation_parameters(glb_params p, void *user_data)
         mq[0] = fabs(p->osc->osc_params[5]);
         mq[1] = fabs(p->osc->osc_params[5]) + p->osc->osc_params[4];
         mq[2] = fabs(p->osc->osc_params[5]) + p->osc->osc_params[5];
+        //        printf("in PMNS %g %g %g %g %g %g\n",th12,th13,th23,delta,mq[1]-mq[0],mq[2]-mq[0]);
+        
     }
+    
+    //        printf("in MODEL x %g eta %g r %g ma %g\n",x_in,eta_in,r_in,ma_in);
+    //        printf("in PMNS %g %g %g %g %g %g\n",th12,th13,th23,delta,mq[1]-mq[0],mq[2]-mq[0]);
+    //        printf("%g %g %g %g %g %g %g %g %g %g\n",x_in,eta_in,r_in,ma_in,th12,th13,th23,delta,mq[1]-mq[0],mq[2]-mq[0]);
     /* Compute vacuum mixing matrix */
     _U[0][0] = cos(th12)*cos(th13);
     _U[0][1] = sin(th12)*cos(th13);
@@ -610,9 +651,10 @@ int FASE_glb_set_oscillation_parameters(glb_params p, void *user_data)
     return 0;
 }
 
-int FASE_glb_get_oscillation_parameters(glb_params p, void *user_data)
+int FASE_glb_get_oscillation_parameters(glb_params p, void *user_data) /*Mark2*/
 {
-    if (PARA==STAN) glbDefineParams(p, th12, th13, th23, delta, mq[1] - mq[0], mq[2] - mq[0]);
+    /*printf("get\n");*/
+    if (PARA==STAN) glbDefineParams(p, th12, th13, th23, delta, mq[1] - mq[0], mq[2] - mq[0]); /*to read the corresponding oscaillation parameters*/
     else if (PARA==MODEL) glbDefineParams(p, x_in, eta_in, r_in, ma_in, 0, 0);
     
     return 0;
@@ -861,15 +903,27 @@ double FASE_prior_OSC(const glb_params in, void* user_data) /*the prior is alway
     double fitvalue,centralvalue,inputerror;
     double osc_para[6];
     double M_para[N_M];
+//         FILE* File_in=fopen("data/for_prior.dat", "w");
     /* Add oscillation parameter priors */
     if(PARA==MODEL){
+/*
+        x   = glbGetOscParams(in,0);
+        eta = glbGetOscParams(in,1);
+        r   = glbGetOscParams(in,2);
+        ma  = glbGetOscParams(in,3);*/
+        
+//        for(i=0;i<N_M;i++) M_para[i] = in->osc->osc_params[i];
         for(i=0;i<N_M;i++) M_para[i] = glbGetOscParams(in,i);
+//        printf("in OSC %g %g %g %g\n",M_para[0],M_para[1],M_para[2],M_para[3]);
+ 
         MtoS(osc_para, M_para);
+//         printf("in OSC %g %g %g %g %g %g\n",osc_para[0],osc_para[1],osc_para[2],osc_para[3],osc_para[4],osc_para[5]);
+//        printf("")
             if (model_restriction(M_para)==1) return 1e8;
         
        }
     else{for(i=0;i<6;i++) osc_para[i] = glbGetOscParams(in,i);}
-    
+
     for(i=0;i<6;i++){
         fitvalue=osc_para[i]; centralvalue=Central_prior[i];
         if(i==3){
@@ -877,8 +931,12 @@ double FASE_prior_OSC(const glb_params in, void* user_data) /*the prior is alway
             else if(fitvalue<0){int run; run=-fitvalue/2/M_PI; run=run+1; fitvalue=fitvalue+run*2*M_PI;}}
          if(fitvalue>centralvalue) {inputerror=UPPER_prior[i];} else {inputerror=LOWER_prior[i];}
            if(inputerror>1e-12) { pv+=square((centralvalue-fitvalue)/inputerror);
+//        fprintf(File_in,"%i %g %g %g %g\n",i,fitvalue,centralvalue,inputerror,pv);
+//        printf("in\n");
         }
+    
     }
+//    printf("in M pv %g\n",pv);
     /* Add matter parameter priors */
     for(i=0;i<glb_num_of_exps;i++){
         if(glbGetDensityProjectionFlag(p,i)==GLB_FREE)
@@ -890,6 +948,7 @@ double FASE_prior_OSC(const glb_params in, void* user_data) /*the prior is alway
         }}
     glbFreeProjection(p);
     glbFreeParams(input_errors);
+//    printf("in M pv %g\n",pv);
     return pv;
 }
 
@@ -924,4 +983,3 @@ double FASE_prior_model(const glb_params in, void* user_data)
     glbFreeParams(input_errors);
     return pv;
 }
-

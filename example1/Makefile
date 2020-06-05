@@ -47,17 +47,13 @@ local_LDFLAGS:=$(shell $(globesconf) --libs)
 local_LTLDFLAGS:=$(shell $(globesconf) --ltlibs)
 
 
-BIN = x_eta.o th23_dCP.o
-OBJ = x_eta.o th23_dCP.o FASE_GLoBES.o model-input.o
+BIN = x_eta.o 
+OBJ = x_eta.o FASE_GLoBES.o model-input.o
 
 all: $(BIN)
 
 x_eta: x_eta_NT.o  $(FaSE)
 	gcc x_eta_NT.o  $(FaSE) -o x_eta  $(LDFLAGS) $(local_LDFLAGS)
-
-th23_dCP: th23_dCP.o  $(FaSE)
-	gcc th23_dCP.o  $(FaSE) -o th23_dCP  $(LDFLAGS) $(local_LDFLAGS)
-
 
 
 %.o : %.c

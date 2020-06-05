@@ -17,9 +17,6 @@
 #include <gsl/gsl_eigen.h>
 #include <gsl/gsl_vector.h>
 #include "FASE_GLoBES.h"
-/* Macros */
-//#define SQR(x)          ((x)*(x))                       /*x^2*/
-//#define SQR_ABS(x)      (SQR(creal(x))+SQR(cimag(x)))   /*|x|^2*/
 int N_M;
 
 double MODEL_init(int N) /*initialise the model-input*/
@@ -32,12 +29,8 @@ double MODEL_init(int N) /*initialise the model-input*/
 double MtoS(double osc_para[6], double M_para[])
 /*revert model parameters to
  the standard oscillation parameters */
-{// set up for normal ordering according to arXiv:1509.06683
-    /*example: atmospheric sum rule
-     Lambda=1 TM1
-     Lambda=2 TM2 */
-    double Lambda= 1;
-    double a0=0;
+{// set up for normal ordering according to arXiv:1904.06660v3
+    /*example: atmospheric sum rule TM1 */
     
     double th13          = M_para[0]; //
     double th23          = M_para[1];
@@ -62,23 +55,11 @@ double MtoS(double osc_para[6], double M_para[])
     osc_para[3]=dCP;
     osc_para[4]=sdm;
     osc_para[5]=ldm;
-    
- 
-    
-    
-//    printf("in model %g %g %g %g %g\n",M_para[0],M_para[1],M_para[2]*180/M_PI,M_para[3],M_para[4]);
-//    printf("%g %g %g\n",s12,s13,s23);
-
-//    printf("in %g %g %g %g %g %g\n",osc_para[0]*180/M_PI,osc_para[1]*180/M_PI,osc_para[2]*180/M_PI,osc_para[3]*180/M_PI,osc_para[4],osc_para[5]);
     return 0;
 }
 
 double model_restriction(double M_para [])
-{// set up for normal ordering according to arXiv:1509.06683
-    
-    double Lambda= 1;
-    double a0=0;
-
+{// set up for normal ordering according to arXiv:1904.06660v3
     double th13          = M_para[0];
     double th23          = M_para[1];
     double s13=sin(th13);
@@ -90,14 +71,6 @@ double model_restriction(double M_para [])
     double cosd=-ct223*(1-5*ssq13)/(2*sqrt(2)*s13*sqrt(1-3*ssq13));
     
     if ((s12>1)||(s12<0)||(cosd>1)||(cosd<0)) return 1;
-    
-    /*
-    if(r<0)     {return 1;}
-    if(r>0.22)  {return 1;}
-    if(s<-0.11) {return 1;}
-    if(s>0.04)  {return 1;}
-    if(a>0.13)  {return 1;}
-    if(a<-0.12) {return 1;}*/
     
     return 0;
 }

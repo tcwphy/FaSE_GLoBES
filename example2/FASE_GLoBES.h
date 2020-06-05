@@ -13,8 +13,20 @@
 #include <gsl/gsl_vector.h>
 #include "model-input.h"
 
+/*#define GLB_NU_FLAVOURS 3*/
+#define GLB_SIGMA_E 6        /* Index of non-standard parameter sigma_E */
+#define GLB_ETA 0
+#define GLB_MA 1
+#define GLB_MB 2
 #define STAN 0
 #define MODEL -100
+#define DUNE_nu 0
+#define DUNE_anu 1
+#define DUNE_app 0
+#define DUNE_disapp 1
+#define T2HK 2
+#define RAM 100
+#define    top_bin_number 10000
 #define SQR(x)      ((x)*(x))                        /* x^2   */
 #define SQR_ABS(x)  (SQR(creal(x)) + SQR(cimag(x)))  /* |x|^2 */
 #define GLB_NU_FLAVOURS 3
@@ -23,8 +35,10 @@
 #define GLB_Ne_MANTLE       0.5        /* Effective electron numbers for calculation */
 #define GLB_Ne_CORE         0.468      /*   of MSW potentials                        */
 #define V_THRESHOLD 0.001*GLB_V_FACTOR*GLB_Ne_MANTLE  /* The minimum matter potential below */
+/* which vacuum algorithms are used   */
 #define M_SQRT3  1.73205080756887729352744634151      /* sqrt(3) */
 
+/* Interface for non-standard implementations of the probability engine */
 double th12;
 double th13;
 double th23;
@@ -39,8 +53,8 @@ int    PARA,PARA_in,ran,ran_in,n_ram,FIT,PRIOR;
 double x_in,eta_in,r_in,ma_in;
 
 double UPPER_prior[6],LOWER_prior[6],Central_prior[6];
-
 int STAN_OSC(double complex M[], double output[6]);
+int STAN_OSC_U(double complex U[], double out[6]);
 inline double square(double x);
 int sinsq(double complex U[], double * a);
 int glb_free_probability_engine();
