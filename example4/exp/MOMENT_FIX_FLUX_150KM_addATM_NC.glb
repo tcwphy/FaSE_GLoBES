@@ -1,0 +1,255 @@
+%!GLoBES
+
+$version="3.0.0"
+
+/*
+##############	Update records		############################
+This file is initialized on May, 20, 2017 by Yibing Zhang.
+
+##############	Preliminary Information	############################
+SF: scale factor to adjust the normalization factor.
+*/
+
+SF=1E-11
+
+/* ####### Beam flux ####### */
+
+nuflux(#MOMENT)<
+//	@flux_file = "NURAN.dat"
+    @flux_file = "exp/NURAN.dat"
+	@time = 5	/* years */
+  	@norm = 1.0e+8*1.0e-3*SF	/* The normalization factor comes from the comparisons with Miao's table */
+>
+
+nuflux(#ANTIMOMENT)<
+//	@flux_file = "ANURAN.dat"
+    @flux_file = "exp/ANURAN.dat"
+	@time = 5	/* years */
+  	@norm = 1.0e+8*1.0e-3*SF 	/* The normalization factor comes from the comparisons with Miao's table */
+>
+
+nuflux(#atm_bckg)<
+//	@flux_file = "AtmBckg_100.dat"
+    @flux_file = "exp/AtmBckg_100.dat"
+	@time = 5	/* years */
+        @norm = 33.1654
+	@power = 5.8 	/* corresponds to the number of useful He6 decays 
+			   per year in units of 10^18 */
+>
+/* ####### Detector settings ####### */
+
+$target_mass = 	        500.	/* kt (fiducial mass) */
+
+
+/* ####### Energy window ####### */
+
+$sampling_points = 20
+$sampling_min = 0.010	/* GeV */
+$sampling_max = 0.800	/* GeV */
+
+$bins = 		20
+$emin = 	        0.010	/* GeV */
+$emax = 	        0.800	/* GeV */
+
+
+/* ######## Baseline setting ######## */
+
+$profiletype = 		3 
+$densitytab = 		{2.7}
+$lengthtab = 	{150}	/* km */
+
+
+/* ######## Technical information ######## */
+
+$filter_state = 0 
+$filter_value = 1000000 
+
+
+/* ####### Energy resolution ####### */
+/*energy(#ERES)<
+	@type = 1
+	@sigma_e = {0.0,0.0,0.085}
+>
+*/
+
+energy(#ERES)<
+	@type = 1
+	@sigma_function = #standard
+	@sigma_e = {0.12, 0, 0}
+>
+
+energy(#EATM)<
+	@type = 1
+	@sigma_e = {0.0,0.0,0.00085}
+>
+
+/*
+energy(#ERES)<
+	@type = 1
+	@sigma_function = #standard
+	@sigma_e = {0.05, 0, 0}
+>
+*/
+
+/* ####### Cross sections ####### */
+
+cross(#CC)<
+//	@cross_file = "XCC.dat"
+    @cross_file = "exp/XCC.dat"
+>
+
+cross(#Null)<
+//	@cross_file = "Null.dat"
+    @cross_file = "exp/Null.dat"
+>
+
+cross(#NC)<
+//	@cross_file = "XNC.dat"
+    @cross_file = "exp/XNC.dat"
+>
+
+/* ####### Channel definitions ####### */
+
+channel(#nu_e_bar_appearance)<
+	@channel = 	#MOMENT:	-:	m:	e:	#CC:	#ERES
+>
+
+channel(#nu_mu_bar_disappearance)<
+	@channel = 	#MOMENT:	-:	m:	m:	#CC:	#ERES
+>
+
+channel(#nu_e_disappearance)<
+	@channel = 	#MOMENT:	+:	e:	e:	#CC:	#ERES
+>
+
+channel(#nu_mu_appearance)<
+	@channel = 	#MOMENT:	+:	e:	m:	#CC:	#ERES
+>
+
+channel(#anti_nu_e_bar_disappearance)<
+	@channel = 	#ANTIMOMENT:	-:	e:	e:	#CC:	#ERES
+>
+
+channel(#anti_nu_mu_bar_appearance)<
+	@channel = 	#ANTIMOMENT:	-:	e:	m:	#CC:	#ERES
+>
+
+channel(#anti_nu_mu_disappearance)<
+	@channel = 	#ANTIMOMENT:	+:	m:	m:	#CC:	#ERES
+>
+
+channel(#anti_nu_e_appearance)<
+	@channel = 	#ANTIMOMENT:	+:	m:	e:	#CC:	#ERES
+>
+
+channel(#neutrinomode_numubar_NC_bckg)<
+	@channel = 	#MOMENT:	-:	NOSC_m:	NOSC_m:	#NC:	#ERES
+>
+
+channel(#neutrinomode_nue_NC_bckg)<
+	@channel = 	#MOMENT:	+:	NOSC_e:	NOSC_e:	#NC:	#ERES
+>
+
+channel(#antimode_nuebar_NC_bckg)<
+	@channel = 	#ANTIMOMENT:	-:	NOSC_e:	NOSC_e:	#NC:	#ERES
+>
+
+channel(#antimode_numu_NC_bckg)<
+	@channel = 	#ANTIMOMENT:	+:	NOSC_m:	NOSC_m:	#NC:	#ERES
+>
+
+channel(#Atm_bck)<
+	@channel = 	#atm_bckg:	+:	NOSC_e:	NOSC_e:	#Null:	#EATM
+>
+
+/* ####### Setting the rules ####### */
+
+rule(#NU_E_BAR_Appearance)<
+	@signal = 0.4@#nu_e_bar_appearance
+	@signalerror = 0.025 : 0.0001
+
+	@background = 0.003@#nu_e_disappearance : 1.@#Atm_bck : 0.0025@#neutrinomode_numubar_NC_bckg : 0.0025@#neutrinomode_nue_NC_bckg
+	@backgrounderror = 0.05 : 0.0001
+
+	@sys_on_function = "chiSpectrumTilt"
+	@sys_off_function = "chiNoSysSpectrum"
+>
+
+rule(#NU_MU_BAR_Disappearance)<
+	@signal = 0.5@#nu_mu_bar_disappearance
+	@signalerror = 0.05 : 0.0001
+
+	@background = 0.003@#nu_mu_appearance : 1.@#Atm_bck : 0.0025@#neutrinomode_numubar_NC_bckg : 0.0025@#neutrinomode_nue_NC_bckg
+	@backgrounderror = 0.05 : 0.0001
+
+	@sys_on_function = "chiSpectrumTilt"
+	@sys_off_function = "chiNoSysSpectrum"
+>
+
+rule(#NU_E_Disappearance)<
+	@signal = 0.4@#nu_e_disappearance
+	@signalerror = 0.05 : 0.0001
+
+	@background = 0.003@#nu_e_bar_appearance : 1.@#Atm_bck : 0.0025@#neutrinomode_numubar_NC_bckg : 0.0025@#neutrinomode_nue_NC_bckg
+	@backgrounderror = 0.05 : 0.0001
+
+	@sys_on_function = "chiSpectrumTilt"
+	@sys_off_function = "chiNoSysSpectrum"
+>
+
+rule(#NU_MU_Appearance)<
+	@signal = 0.5@#nu_mu_appearance
+	@signalerror = 0.025 : 0.0001
+
+	@background = 0.003@#nu_mu_bar_disappearance : 1.@#Atm_bck : 0.0025@#neutrinomode_numubar_NC_bckg : 0.0025@#neutrinomode_nue_NC_bckg
+	@backgrounderror = 0.05 : 0.0001
+
+	@sys_on_function = "chiSpectrumTilt"
+	@sys_off_function = "chiNoSysSpectrum"
+>
+
+rule(#ANTI_NU_E_BAR_Disappearance)<
+	@signal = 0.4@#anti_nu_e_bar_disappearance
+	@signalerror = 0.05 : 0.0001
+
+	@background = 0.003@#anti_nu_e_appearance : 1.@#Atm_bck : 0.0025@#antimode_nuebar_NC_bckg : 0.0025@#antimode_numu_NC_bckg
+	@backgrounderror = 0.05 : 0.0001
+
+	@sys_on_function = "chiSpectrumTilt"
+	@sys_off_function = "chiNoSysSpectrum"
+>
+
+rule(#ANTI_NU_MU_BAR_Appearance)<
+	@signal = 0.5@#anti_nu_mu_bar_appearance
+	@signalerror = 0.025 : 0.0001
+
+	@background = 0.003@#anti_nu_mu_disappearance : 1.@#Atm_bck : 0.0025@#antimode_nuebar_NC_bckg : 0.0025@#antimode_numu_NC_bckg
+	@backgrounderror = 0.05 : 0.0001
+
+	@sys_on_function = "chiSpectrumTilt"
+	@sys_off_function = "chiNoSysSpectrum"
+>
+
+rule(#ANTI_NU_MU_Disappearance)<
+	@signal = 0.5@#anti_nu_mu_disappearance
+	@signalerror = 0.05 : 0.0001
+
+	@background = 0.003@#anti_nu_mu_bar_appearance : 1.@#Atm_bck : 0.0025@#antimode_nuebar_NC_bckg : 0.0025@#antimode_numu_NC_bckg
+	@backgrounderror = 0.05 : 0.0001
+
+	@sys_on_function = "chiSpectrumTilt"
+	@sys_off_function = "chiNoSysSpectrum"
+>
+
+rule(#ANTI_NU_E_Appearance)<
+	@signal = 0.4@#anti_nu_e_appearance
+	@signalerror = 0.025 : 0.0001
+
+	@background = 0.003@#anti_nu_e_bar_disappearance : 1.@#Atm_bck : 0.0025@#antimode_nuebar_NC_bckg : 0.0025@#antimode_numu_NC_bckg
+	@backgrounderror = 0.05 : 0.0001
+
+	@sys_on_function = "chiSpectrumTilt"
+	@sys_off_function = "chiNoSysSpectrum"
+>
+
+/**************************END**************************/

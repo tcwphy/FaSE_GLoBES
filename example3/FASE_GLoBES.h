@@ -13,7 +13,6 @@
 #include <gsl/gsl_vector.h>
 #include "model-input.h"
 
-/*#define GLB_NU_FLAVOURS 3*/
 #define GLB_SIGMA_E 6        /* Index of non-standard parameter sigma_E */
 #define GLB_ETA 0
 #define GLB_MA 1
@@ -31,7 +30,6 @@
 #define SQR_ABS(x)  (SQR(creal(x)) + SQR(cimag(x)))  /* |x|^2 */
 #define GLB_NU_FLAVOURS 3
 #define GLB_V_FACTOR        7.5e-14   /* Conversion factor for matter potentials */
-//#define GLB_Ne_MANTLE       0.497      /* Effective electron numbers for calculation */
 #define GLB_Ne_MANTLE       0.5        /* Effective electron numbers for calculation */
 #define GLB_Ne_CORE         0.468      /*   of MSW potentials                        */
 #define V_THRESHOLD 0.001*GLB_V_FACTOR*GLB_Ne_MANTLE  /* The minimum matter potential below */

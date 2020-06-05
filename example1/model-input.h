@@ -34,10 +34,5 @@ double TDdm31(double x, double eta, double r, double Ma);
 /*******************************************************************/
 
 double MODEL_init();
-/********************************************diagonaliser ********/
-//int STAN_OSC(double complex M[], double output[6]);
-//int ModelTO( double OSC_PARAMS[6],double M_para[]);
-/*******************************************************************/
-
 double MtoS(double osc_para[6], double M_para[]);
 double model_restriction(double model []);

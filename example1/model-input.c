@@ -17,9 +17,6 @@
 #include <gsl/gsl_eigen.h>
 #include <gsl/gsl_vector.h>
 #include "FASE_GLoBES.h"
-/* Macros */
-//#define SQR(x)          ((x)*(x))                       /*x^2*/
-//#define SQR_ABS(x)      (SQR(creal(x))+SQR(cimag(x)))   /*|x|^2*/
 int N_M;
 
 /*Define the formula (5) in the working note provided by Ding.*/
@@ -206,111 +203,6 @@ double MODEL_init(int N) /*initialise the model-input*/
     return 0;
 }
 
-/*
-int STAN_OSC(double complex M[], double out[6])
-{
-    //https://github.com/daviddoria/Examples/blob/master/c%2B%2B/GSL/Test1/Test1.cpp
-    //http://linux.math.tifr.res.in/manuals/html/gsl-ref-html/gsl-ref_14.html
-    
-    
-    double complex MMsquare[] = { 1.0 + 0.0*I, 10.0 + 0.0*I, 3.0 + 0.0*I,
-        0.0 + 0.0*I, 2.0 + 0.0*I, 100.0 + 0.0*I,
-        1.0 + 0.0*I, 5.0 + 0.0*I, 3.0 + 0.0*I };
-    
-    
-    double complex beta = 0.0 + 0.0*I;
-    double complex alpha = 1.0 + 0.0*I;
-    
-    cblas_zgemm (CblasRowMajor, CblasConjTrans, CblasNoTrans, 3, 3, 3, &alpha, M, 3, M, 3, &beta, MMsquare, 3); //eq 4.5 page 107 Giunti
-    
-    
-    
-    
-    gsl_matrix_complex *MM = gsl_matrix_complex_alloc(3, 3);
-    int i,j;
-    for(i=0;i<3;i++)
-    {
-        for(j=0;j<3;j++)
-        {
-            //            gsl_matrix_complex_set(MM, i, j, gsl_complex_rect(creal(M[i*3+j]),cimag(M[i*3+j])));
-            gsl_matrix_complex_set(MM, i, j, gsl_complex_rect(creal(MMsquare[i*3+j]),cimag(MMsquare[i*3+j])));
-        }
-    }
-    
-    
-    gsl_eigen_hermv_workspace * w = gsl_eigen_hermv_alloc(3);
-    
-    gsl_vector *eval = gsl_vector_alloc(3);
-    gsl_matrix_complex  *evec = gsl_matrix_complex_alloc(3, 3);
-    
-    gsl_eigen_hermv (MM, eval, evec, w);
-    gsl_eigen_hermv_sort(eval, evec, GSL_EIGEN_SORT_VAL_ASC);
-    
-    double complex U[] = { 0.0 + 0.0*I, 0.0 + 0.0*I, 0.0 + 0.0*I,
-        0.0 + 0.0*I, 0.0 + 0.0*I, 0.0 + 0.0*I,
-        0.0 + 0.0*I, 0.0 + 0.0*I, 0.0 + 0.0*I };
-
-    int n = 0;
-    for(i=0;i<3;i++)
-    { for(j=0;j<3;j++) {
-        gsl_vector_complex_view outcol = gsl_matrix_complex_column (evec, i);
-        gsl_complex z = gsl_vector_complex_get (&outcol.vector, j);
-        U[j*3+n] = GSL_REAL(z) + GSL_IMAG(z)*I;} n+=1;
-    }
-    
-    double s13 = cabs(U[2]);       double the13=asin(s13);
-    double t12 = cabs(U[1])/cabs(U[0]);           double the12=atan(t12);
-    double t23 = cabs(U[5])/cabs(U[8]);           double the23=atan(t23);
-    
-    
-    
-    double s12=sin(the12);
-    double c12=cos(the12);
-    double s23=sin(the23);
-    double c13=cos(the13);
-    double dCP=carg(U[1]*conj(U[2])*conj(U[4])*U[5]+s12*s12*s13*s13*c13*c13*s23*s23);
-
-    
-    double m1=   sqrt(gsl_vector_get(eval,0));
-    double m2=   sqrt(gsl_vector_get(eval,1));
-    double m3=   sqrt(gsl_vector_get(eval,2));
-    
-    
-    out[0]=the12; out[1]=the13; out[2]=the23;
-    out[3]=dCP;   out[4]=m2*m2-m1*m1;
-    out[5]=m3*m3-m1*m1;
-    
-    return 0;
-}
-
-
-
-int ModelTO( double OSC_PARAMS[6],double M_para[])
-{
-    
-    
-    //for the 2 heavy sterile case keep these zero.
-    double alpha = 0.0;
-    double mc = 0.0;
-    double gamma = 0.0;
-    
-    
-    
-    double x=M_para[0];
-    double eta=M_para[1];
-    double r=M_para[2];
-    double ma=M_para[3];
-    
-    double ms=ma*r;
-    
-    double complex Mass_Matrix[] = {ma+ms*(cos(eta) + I*sin(eta)), ma*(cos(6.6666e-1*M_PI) + I*sin(6.6666e-1*M_PI))+x*ms*(cos(eta) + I*sin(eta)), ma*(cos(6.6666e-1*M_PI) + I*sin(6.6666e-1*M_PI))*(cos(6.6666e-1*M_PI) + I*sin(6.6666e-1*M_PI))+x*ms*(cos(eta) + I*sin(eta)), ma*(cos(6.6666e-1*M_PI) + I*sin(6.6666e-1*M_PI))+x*ms*(cos(eta) + I*sin(eta)), ma*(cos(6.6666e-1*M_PI) + I*sin(6.6666e-1*M_PI))*(cos(6.6666e-1*M_PI) + I*sin(6.6666e-1*M_PI))+x*x*ms*(cos(eta) + I*sin(eta)), ma+x*x*ms*(cos(eta) + I*sin(eta)), ma*(cos(6.6666e-1*M_PI) + I*sin(6.6666e-1*M_PI))*(cos(6.6666e-1*M_PI) + I*sin(6.6666e-1*M_PI))+x*ms*(cos(eta) + I*sin(eta)), ma+x*x*ms*(cos(eta) + I*sin(eta)), ma*(cos(6.6666e-1*M_PI) + I*sin(6.6666e-1*M_PI))+x*x*ms*(cos(eta) + I*sin(eta))};
-    
-    double out[6];
-    STAN_OSC(Mass_Matrix,OSC_PARAMS);
-    
-    return 0;
-}
- */
 double MtoS(double osc_para[6], double M_para[])
 /*revert model parameters to
  the standard oscillation parameters */
@@ -350,9 +242,6 @@ double model_restriction(double model [])
     
     if(ma<0) {return 1;}
     if(r<0.) {return 1;}
-//    if(eta>1.4*M_PI){return 1;}
-//    if(eta<.9*M_PI){return 1;}
-//    if(x<-6) {return 1;}
     return 0;
 }
 
