@@ -4,84 +4,80 @@ The top-level auxiliary file: FAS-GLoBES.aux
 The style file: apsrev.bst
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: FAS-GLoBES.bib.bib
-Repeated entry---line 151 of file FAS-GLoBES.bib.bib
- : @article{Chatterjee:2017xkb
- :                            ,
+Unbalanced braces---line 37 of file FAS-GLoBES.bib.bib
+ :                 experiments
+ :                            }",
 I'm skipping whatever remains of this entry
-Repeated entry---line 248 of file FAS-GLoBES.bib.bib
+Repeated entry---line 630 of file FAS-GLoBES.bib.bib
  : @article{King:2016yvg
  :                      ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 263 of file FAS-GLoBES.bib.bib
+Repeated entry---line 645 of file FAS-GLoBES.bib.bib
  : @article{King:2015dvf
  :                      ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 277 of file FAS-GLoBES.bib.bib
+Repeated entry---line 659 of file FAS-GLoBES.bib.bib
  : @article{King:2013iva
  :                      ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 905 of file FAS-GLoBES.bib.bib
- : @article{Maki:1962mu
- :                     ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1306 of file FAS-GLoBES.bib.bib
+Repeated entry---line 1688 of file FAS-GLoBES.bib.bib
  : @article{Cao:2014bea
  :                     ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 1514 of file FAS-GLoBES.bib.bib
+Repeated entry---line 1896 of file FAS-GLoBES.bib.bib
  : @article{Huber:2004ka
  :                      ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 1530 of file FAS-GLoBES.bib.bib
+Repeated entry---line 1912 of file FAS-GLoBES.bib.bib
  : @article{Huber:2007ji
  :                      ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 1960 of file FAS-GLoBES.bib.bib
+Repeated entry---line 2342 of file FAS-GLoBES.bib.bib
  : @article{Wilks:1938dza
  :                       ,
 I'm skipping whatever remains of this entry
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
-Warning--empty booktitle in Abe:2014oxa
-You've used 32 entries,
+Warning--empty year in Huber:2007xx; set to ????
+You've used 18 entries,
             3411 wiz_defined-function locations,
-            1394 strings with 15145 characters,
-and the built_in function-call counts, 20995 in all, are:
-= -- 1244
-> -- 639
-< -- 91
-+ -- 505
-- -- 158
-* -- 2825
-:= -- 2352
-add.period$ -- 32
-call.type$ -- 32
-change.case$ -- 131
-chr.to.int$ -- 31
-cite$ -- 33
-duplicate$ -- 1904
-empty$ -- 1811
-format.name$ -- 413
-if$ -- 3988
-int.to.chr$ -- 2
-int.to.str$ -- 33
-missing$ -- 295
-newline$ -- 111
-num.names$ -- 96
-pop$ -- 481
+            1282 strings with 12977 characters,
+and the built_in function-call counts, 11431 in all, are:
+= -- 668
+> -- 367
+< -- 50
++ -- 294
+- -- 90
+* -- 1533
+:= -- 1282
+add.period$ -- 18
+call.type$ -- 18
+change.case$ -- 73
+chr.to.int$ -- 18
+cite$ -- 21
+duplicate$ -- 1040
+empty$ -- 980
+format.name$ -- 233
+if$ -- 2150
+int.to.chr$ -- 1
+int.to.str$ -- 19
+missing$ -- 154
+newline$ -- 69
+num.names$ -- 51
+pop$ -- 289
 preamble$ -- 1
-purify$ -- 128
+purify$ -- 72
 quote$ -- 0
-skip$ -- 795
+skip$ -- 425
 stack$ -- 0
-substring$ -- 694
-swap$ -- 1463
-text.length$ -- 70
+substring$ -- 339
+swap$ -- 780
+text.length$ -- 41
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 192
+type$ -- 108
 warning$ -- 1
-while$ -- 91
+while$ -- 47
 width$ -- 0
-write$ -- 353
-(There were 9 error messages)
+write$ -- 199
+(There were 8 error messages)

@@ -17,6 +17,7 @@ int main(int argc, char *argv[])
 {
     /* Initialize libglobes */
     glbInit(argv[0]);
+//    glbInitExperiment("exp/DUNE_GLoBES.glb",&glb_experiment_list[0],&glb_num_of_exps);
     glbInitExperiment("exp/MOMENT_FIX_FLUX_150KM_addATM_NC.glb",&glb_experiment_list[0],&glb_num_of_exps);
     /*Initialize FASE*/
     MODEL_init(5);
@@ -37,8 +38,8 @@ int main(int argc, char *argv[])
     double dCP_true=215*degree;
     double DM21_true=7.39e-5;
     double DM31_true=2.525e-3;
-    double mu1=0.00633;
-    double mu2=0.0114;
+    double mu1=0.006;
+    double mu2=0.015;
     double theta_R=43.01*degree;
     double alpha1=64.53*degree;
     double alpha2=20.38*degree;
@@ -47,7 +48,8 @@ int main(int argc, char *argv[])
     glb_params test_values = glbAllocParams();
     glb_params input_errors = glbAllocParams();
     glb_params centers = glbAllocParams();
-
+    glb_params out = glbAllocParams();
+    glb_params out2 = glbAllocParams();
     /*define model parameter*/
     glbDefineParams(test_values,mu1,mu2,theta_R,alpha1,alpha2,0);
     glbSetDensityParams(test_values,1.0,GLB_ALL);
@@ -81,7 +83,7 @@ int main(int argc, char *argv[])
     
     for (i=0;i<6;i++) {UPPER_prior[i]=fabs(UPPER_prior[i]-Central_prior[i])/3;
         LOWER_prior[i]=fabs(LOWER_prior[i]-Central_prior[i])/3;}
-
+    
     /* centers and input_errors will not be used, but need to be given in for central values
     and prior width. Otherwise, GLoBES will complain. */
     for (i=0; i<6; i++) glbSetOscParams(centers,0.1,i); glbSetDensityParams(centers,1.0,GLB_ALL); glbCopyParams(centers,input_errors);
@@ -91,9 +93,10 @@ int main(int argc, char *argv[])
     /*two loops for chi^2(x,eta)*/
     
     float th23,dCP,dth23,ddCP,lower_th23,upper_th23,lower_dCP,upper_dCP;
-    FILE* File=fopen("data/S4_th23_dCP(MOMENT).dat", "w");
+FILE* File=fopen("data/S4Modular_th23_dCP(MOMENT).dat", "w");
     lower_th23=40; upper_th23=52.5; lower_dCP=125; upper_dCP=395;
-    dth23=(upper_th23-lower_th23)/100; ddCP=(upper_dCP-lower_dCP)/100;
+    dth23=(upper_th23-lower_th23)/50; ddCP=(upper_dCP-lower_dCP)/50;
+
     int dof=1;
     glbSetProjection(free);
     for (th23=lower_th23;th23<=upper_th23;th23=th23+dth23){
@@ -105,17 +108,38 @@ int main(int argc, char *argv[])
     glbSetRates();
     PARA=MODEL;
         
-        float res=glbChiNP(test_values,NULL,GLB_ALL);
+        glbDefineParams(test_values,mu1,mu2,theta_R,alpha1,alpha2,0);
+        float res=glbChiNP(test_values,out,GLB_ALL);
+        
+        /*find degeneracy solutions*/
+        for(double alpha2_test=25; alpha2_test<400; alpha2_test=alpha2_test+300){
+            glbSetOscParams(test_values,alpha2_test*degree,4);
+
+        
+       for(double alpha1_test=60; alpha1_test<400; alpha1_test=alpha1_test+300){
+       glbSetOscParams(test_values,alpha1_test*degree,3);
+            
+       glbSetOscParams(test_values,40*degree,2);
+       float res2=glbChiNP(test_values,out2,GLB_ALL);
+        if(res>res2) res=res2; glbCopyParams(out2,out);
+           
+       glbSetOscParams(test_values,20*degree,2);
+       res2=glbChiNP(test_values,out2,GLB_ALL);
+        if(res>res2) res=res2; glbCopyParams(out2,out);
+       }}
+ 
         fprintf(File,"%f %f %f\n",th23,dCP,gsl_cdf_chisq_Qinv(gsl_cdf_chisq_Q(fabs(res),dof),1));
          } fprintf(File,"\n");
     }
-
+    
 
     /* Destroy parameter and projection vector(s) */
     glbFreeParams(true_values);
     glbFreeParams(test_values); 
     glbFreeParams(input_errors);
-    glbFreeParams(centers); 
+    glbFreeParams(centers);
+    glbFreeParams(out);
+    glbFreeParams(out2);
     glbFreeProjection(free);
     exit(0);
 }
