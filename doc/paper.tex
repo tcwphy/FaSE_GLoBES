@@ -32,7 +32,7 @@
 ,epsfig}
 
 
-
+\newcommand{\jt}[1]{\textcolor{red}{#1}}
 
 
 %\fontsize{3}{5}\selectfont
@@ -47,7 +47,7 @@
 \affiliation{$^1$School of Physics, Sun Yat-Sen University, Guangzhou 510275, China}
 
 \begin{abstract}
-Neutrino models based on flavour symmetries provide the natural way to explain the origin of tiny neutrino masses. At the dawn of precision measurements of neutrino mixing parameters, neutrino mass models can be constrained and examined by on-going and up-coming neutrino experiments. We present a supplemental tool \textbf{F}l\textbf{a}vour \textbf{S}ymmetry \textbf{E}mbedded (\textbf{FaSE}) for \textbf{G}eneral \textbf{Lo}ng \textbf{B}aseline \textbf{E}xperiment \textbf{S}imulator (\textbf{GLoBES}). It can translate the neutrino mass model {\color{blue}parameters} to standard neutrino oscillation parameters, and offers prior functions in a user-friendly way. We demonstrate the robustness of \textbf{FaSE-GLoBE} with two examples on how the model parameters can be constrained and even whether the model is excluded by an experiment or not. We wish that this toolkit will facilitate the study of new neutrino mass models in an effecient and effective manner.\\
+Neutrino models based on flavour symmetries provide the natural way to explain the origin of tiny neutrino masses. At the dawn of precision measurements of neutrino mixing parameters, neutrino mass models can be constrained and examined by on-going and up-coming neutrino experiments. We present a supplemental tool \textbf{F}l\textbf{a}vour \textbf{S}ymmetry \textbf{E}mbedded (\textbf{FaSE}) for \textbf{G}eneral \textbf{Lo}ng \textbf{B}aseline \textbf{E}xperiment \textbf{S}imulator (\textbf{GLoBES}) \jt{(website?)}. It can translate the neutrino mass model {\color{blue}parameters} to standard neutrino oscillation parameters, and offers prior functions in a user-friendly way. We demonstrate the robustness of \textbf{FaSE-GLoBE} with four examples on how the model parameters can be constrained and even whether the model is excluded by an experiment or not. We wish that this toolkit will facilitate the study of new neutrino mass models in an effecient and effective manner.\\
 \textbf{Keywords:} Neutrino Oscillations, Leptonic Flavour Symmetry 
 \end{abstract} 
 
@@ -58,23 +58,23 @@ Neutrino models based on flavour symmetries provide the natural way to explain t
 The discovery of neutrino oscillations points out the fact that neutrinos have mass, and provides an evidence beyond the Standard Model (BSM). This phenomenon is successfully described by a theoretical framework with the help of three neutrino mixing angles ($\theta_{12}$, $\theta_{13}$, $\theta_{23}$), two mass-square splittings ($\Delta m_{21}^2$, $\Delta m_{31}^2$), and one Dirac CP phase ($\delta$) \cite{Pontecorvo:1967fh,Maki:1962mu,Pontecorvo:1957qd,Esteban:2018azc}. Thanks to the great efforts in the past two decades, we almost have a complete understanding of such a neutrino oscillation framework. Nevertheless, more efforts in the neutrino oscillation experiments are needed to determine the sign of $\Delta m_{31}^2$, to measure the value of $\sin\theta_{23}$ more precisely, to discover the potential CP violation in the leptonic sector and even to constrain the size of $\delta$ \cite{Esteban:2018azc}. For these purposes, the on-going long baseline experiments (LBLs), such as the NuMI Off-axis $\nu_e$ Appearance experiment (NO$\nu$A)~\cite{Ayres:2007tu} and the Tokai-to-Kamioka experiment (T2K)~\cite{Abe:2011ks}, can answer these questions with the statistical significance $\gtrsim 3\sigma$ in most of the parameter space. Based on the analysis in T2K and NO$\nu$A, the normal mass ordering ($\Delta m_{31}^2>0$), the higher $\theta_{23}$ octant ($\theta_{23}>45^\circ$), and $\delta\sim270^\circ$ are preferred so far~\cite{Esteban:2018azc}. The future LBLs, Deep Underground Neutrino Experiment (DUNE)~\cite{Acciarri:2015uup}, Tokai to Hyper-Kamiokande (T2HK)~\cite{Abe:2014oxa}, and the medium baseline reactor experiment, the Jiangmen Underground Neutrino Observatory (JUNO)~\cite{Djurcic:2015vqa,An:2015jdp} will further complete our knowledge of neutrino oscillations.
 
 {\color{blue}
-The mass of neutrinos is still a mystery in particle physics.  
-Though the last cosmological result shows the smallness of neutrino mass $\sum m_\nu<0.12$~eV~\cite{Aghanim:2018eyx}, the mass of each neutrinos is not clear.
-In addition, the true theory that explains the origin of neutrino mass is waiting to be determined. 
+\jt{The generation mechanism of neutrino masses} is still a mystery in particle physics.  
+Though the latest cosmological result shows the smallness of neutrino mass $\sum m_\nu<0.12$~eV~\cite{Aghanim:2018eyx}, the mass of each neutrino is not clear.
+In addition, the true theory that explains the origin of neutrino mass is waiting to be determined. \jt{[Not clear to me.]}
 %It is clear that neutrinos carry the peculiar mass smaller than $\mathcal{O}(1)$ eV among elementary particles, although the absolute value of each neutrino mass is unknown. 
 %In addition, one of the fundamental questions with regards to neutrino properties is how neutrino masses are generated naturally. 
 %The seesaw mechanism has been used to explain such a tiny mass in the neutrino sector with the help of neutrino flavor mixings. 
-One of these models, the seesaw mechanism has been used to explain such a tiny mass in the neutrino sector.}
+One of these models, the seesaw mechanism has been used to explain such a tiny mass in the neutrino sector.\jt{[Seesaw mechanism is not a model, isn't it?]}}
 %Anyhow new particles have to be introduced in such a mechanism. 
 %More degrees of freedom in a theoretical model, the less predictivity of observables in experiments. 
 Furthermore, flavour symmetries are employed to reduce degrees of freedom in the neutrino mass model. These models can explain the origin of the neutrino mixing, and predict correlations of oscillation parameters (some of recent review articles are~\cite{Altarelli:2010gt,Ishimori:2010au,King:2013eh,King:2014nza,King:2015aea,King:2015ata,King:2017guk}). {\color{blue}
-Several neutrino mixing patterns have been proposed, such as tribimaximal (TB)~\cite{Harrison:2002er,Xing:2002sw}, bimaximal (BM)~\cite{Fukugita:1998vn,Barger:1998ta,Davidson:1998bi}, and golden ratio (GR)~\cite{Datta:2003qg,Everett:2008et,Feruglio:2011qq} mixings. After the measurement of non-zero $\theta_{13}$, which excludes TB, BM, GR mixings, the surviving extension of TB mixing is mainly discussed~\cite{Harrison:2002er,King:2007pr,Pakvasa:2007zj}.
+Several neutrino mixing patterns have been proposed, such as tribimaximal mixings(TB)~\cite{Harrison:2002er,Xing:2002sw}, \jt{democratic mixings}~\cite{Fritzsch:1995dj}, bimaximal mixings(BM)~\cite{Fukugita:1998vn,Barger:1998ta,Davidson:1998bi}, golden ratio mixings(GR)~\cite{Datta:2003qg,Kajiyama:2007gx,Everett:2008et,Feruglio:2011qq}, and \jt{hexogonal mixings}~\cite{Albright:2010ap}. After the measurement of non-zero $\theta_{13}$, which almost excluded TB, BM, GR mixings, the surviving extension of TB mixing is mainly discussed~\cite{Harrison:2002er,King:2007pr,Pakvasa:2007zj}.
 %\begin{equation*}
 %\sin\theta_{12}=(1+s)/\sqrt{3},~\sin\theta_{13}=r/\sqrt{2},~\text{and}~\sin\theta_{23}=(1+a)/\sqrt{2}.
 %\end{equation*}
 %As some well-known models, such as non-Abelian discrete symmetries $A_4$ and $S_4$, can realise the TB mixing, the high-energy symmetry $G_f$ contains these symmetries. To explain the Dirac CP phase in the neutrino sector, $G_f$ is together with a non-commuting CP $H_{CP}$.
 While the high energy symmetry $G_f$ is slightly broken in the lower energy, the mixing pattern is realised, and the size of CP phase $\delta$ is predicted. 
-As some well-known models such as $A_4$ and $S_4$ can realise the TB mixing, $G_f$ contains at least one of these symmetries. There are several approaches for the breaking from the high energy: direct~(\textit{e.g.}~Ref.~\cite{King:2013eh}), indirect~(\textit{e.g.}~Ref.~\cite{King:2013eh}), semi-direct(\textit{e.g.}~Ref.~\cite{Holthausen:2012dk,Feruglio:2012cw,Feruglio:2013hia,Ding:2013hpa,Ding:2013bpa}), tri-direct~(\textit{e.g.}~Ref.~\cite{Ding:2018fyz,Ding:2018tuj}) models. All of they can explain the current data well, and predict the size of $\delta$, which will be measured with the high precision. Moreover, there are also different theories explaining the origin of the symmetry $G_f$ as well: continuous non-Abelian gauge theories \textit{such as} $SO(3)$ (\textit{e.g.}~Ref.~\cite{King:2005bj}) or $SU(3)$ (\textit{e.g.}~Ref.~\cite{King:2001uz,King:2003rf}), and the discrete symmetry from extra dimensions (\textit{e.g.}~Ref.~\cite{Feruglio:2017spp,Criado:2018thu,Penedo:2018nmg}).
+As some well-known models such as $A_4$ and $S_4$ can realise the TB mixing, $G_f$ contains at least one of these symmetries. There are several approaches for the \jt{symmetry} breaking from the high energy: direct~(\textit{e.g.}~Ref.~\cite{King:2013eh}), indirect~(\textit{e.g.}~Ref.~\cite{King:2013eh}), semi-direct(\textit{e.g.}~Ref.~\cite{Holthausen:2012dk,Feruglio:2012cw,Feruglio:2013hia,Ding:2013hpa,Ding:2013bpa}), tri-direct~(\textit{e.g.}~Ref.~\cite{Ding:2018fyz,Ding:2018tuj}) models. All of \jt{them} can explain the current data, and predict the size of $\delta$, which will be measured at the high precision in the upcoming neutrino experiments. Moreover, there are also different theories explaining the origin of the symmetry $G_f$ as well: continuous non-Abelian gauge theories \textit{such as} $SO(3)$ (\textit{e.g.}~Ref.~\cite{King:2005bj}) or $SU(3)$ (\textit{e.g.}~Ref.~\cite{King:2001uz,King:2003rf}), and the discrete symmetry from extra dimensions (\textit{e.g.}~Ref.~\cite{Feruglio:2017spp,Criado:2018thu,Penedo:2018nmg}).
 %
 Though we do not discuss each of these models in detail, we still recommend the users, who are not familiar with these models, to visit these references.
  }
@@ -86,19 +86,19 @@ Though we do not discuss each of these models in detail, we still recommend the 
 exp.   & source & ref. \\\hline\hline
 T2K    &     T2K.glb on \cite{GLoBES}  &    \cite{Huber:2002mx}  \\
 NOvA   &     NOvA.glb on \cite{GLoBES}   &   \cite{Ambats:2004js}   \\
-T2HK   & sys-T2HK.glb on \cite{GLoBES}  &   \cite{Huber:2007xx}   \\
+T2HK   & sys-T2HK.glb on \cite{GLoBES}  &   \cite{Huber:2007em}   \\
 DUNE   &    \cite{Alion:2016uaj}    &  \cite{Alion:2016uaj}    \\
 MOMENT &   on FaSE website    &     \cite{Cao:2014bea}
 \end{tabular}
 \end{table}
 
  
-It is relatively easy for model builders to check the validity of the neutrino mass model and constrain model parameters by the public NuFit results \cite{Esteban:2018azc}. However, there is no such a public toolkit to evaluate model predictions in future neutrino experiments. \textbf{G}eneral \textbf{Lo}ng \textbf{B}aseline \textbf{E}xperiment \textbf{S}imulator (\textbf{GLoBES}) \cite{Huber:2004ka,Huber:2007ji} is a convenient tool to simulate neutrino oscillation experiments via the Abstract Experiment Definition Language (AEDL) as one of the most popular and powerful tools in the community of neutrino oscillation physics. Some AEDL files to describe experiments are also available in \textbf{GLoBES} website~\cite{GLoBES}, while the working group in the DUNE experiment also releases their neutrino flux information and detector descriptions in a AEDL file, provided in~\cite{Alion:2016uaj}. {\color{blue}We summarise AEDL files for some of most-discussed experiments in Table.~\ref{tab:exp}, including their source and reference.} It is to be extended for the purpose of analysing flavour symmetry models in an universal way. 
+It is relatively easy for model builders to check the validity of the neutrino mass model and constrain model parameters by the public NuFit results \cite{Esteban:2018azc}. However, there is no such a public toolkit to evaluate model predictions in future neutrino experiments. \textbf{G}eneral \textbf{Lo}ng \textbf{B}aseline \textbf{E}xperiment \textbf{S}imulator (\textbf{GLoBES}) \cite{Huber:2004ka,Huber:2007ji} is a convenient tool to simulate neutrino oscillation experiments via the Abstract Experiment Definition Language (AEDL) as one of the most popular and powerful tools in the community of neutrino oscillation physics. Some AEDL files to describe experiments are also available in \textbf{GLoBES} website~\cite{GLoBES}, while the working group in the DUNE experiment also releases their neutrino flux information and detector descriptions in a AEDL file, provided in~\cite{Alion:2016uaj}. {\color{blue}We summarise AEDL files for some of \jt{the most interesting} experiments in Table.~\ref{tab:exp}, including their source and reference.} It is to be extended for the purpose of analysing flavour symmetry models in an universal way. 
 
 
 
 
-As we are entering the era of precision measurements in the neutrino oscillations, recent works pay more attentions to how the future neutrino experiments can be used to test these flavour-symmetry neutrino mass models, \textit{e.g.}~Ref.~\cite{Ballett:2016yod,Chatterjee:2017xkb, Ding:2019zhn, Tang:2019edw, Blennow:2020snb}. In this work, we will present our simulation toolkit \textbf{F}l\textbf{a}vour \textbf{S}ymmetry \textbf{E}mbedded - \textbf{GLoBES} (\textbf{FaSE-GloBES}) in a C-library to facilitate the study in the flavour symmetry neutrino models. \textbf{FaSE} is a supplemental tool for GLoBES, written in \texttt{c/c++} language, and allows users to assign any flavour symmetry model and analyze how a flavour symmetry model is constrained by the simulated neutrino oscillation experiments.
+As we are entering the era of precision measurements in the neutrino oscillations, recent works pay more attentions to how the future neutrino experiments can be used to test these flavour-symmetry neutrino mass models, \textit{e.g.}~Ref.~\cite{Ballett:2016yod,Chatterjee:2017xkb, Ding:2019zhn, Tang:2019edw, Blennow:2020snb}. In this work, we will present our simulation toolkit \textbf{F}l\textbf{a}vour \textbf{S}ymmetry \textbf{E}mbedded - \textbf{GLoBES} (\textbf{FaSE-GloBES}) in a C-library to facilitate the study in the flavour symmetry neutrino models \jt{(website???)}. \textbf{FaSE} is a supplemental tool for GLoBES, written in \texttt{c/c++} language, and allows users to assign any flavour symmetry model and analyze how a flavour symmetry model is constrained by the simulated neutrino oscillation experiments.
 
 \section{Overview FASE-GloBES}\label{sec:overview}
 
@@ -110,7 +110,7 @@ As we are entering the era of precision measurements in the neutrino oscillation
 \label{fig:FASE}
 \end{figure}
 
-{\color{blue}Combining \textbf{GLoBES} with \textbf{Fase} (we call it `\textbf{FaSE-GLoBES}'),  the user can analyse flavour symmetry models with the simulated experimental configuration.} The concept of \textbf{FaSE-GLoBES} is shown in Fig.~\ref{fig:FASE}, in which three parts are shown: 1.~\textbf{the parameter translation}, 2.~\textbf{giving oscillation-parameter values}, and 3.~\textbf{the $\chi^2$-value calculation}. 
+{\color{blue}Combining \textbf{GLoBES} with \textbf{Fase} (we call it `\textbf{FaSE-GLoBES}'),  the user can analyse flavour symmetry models with the simulated experimental configurations.} The concept of \textbf{FaSE-GLoBES} is shown in Fig.~\ref{fig:FASE}, in which three parts are shown: 1.~\textbf{the parameter translation}, 2.~\textbf{giving oscillation-parameter values}, and 3.~\textbf{the $\chi^2$-value calculation}. 
 The idea behind this flow chart in Fig.~\ref{fig:FASE} is that given a set of model parameters, the corresponding values in standard oscillation parameters are obtained by a translation function, which is assigned by the user in \textbf{model-input.c}. And then, through \textbf{FASE\_GLoBES.c} these oscillation-parameter values are passed into \textbf{GLoBES} library to simulate the event spectra so that we can perform physics analysis in the newly-defined $\chi^2$. 
 
 
@@ -159,17 +159,16 @@ We note that except for setting the probability engine and the prior function, t
 
 The function \texttt{MtoS} can do the translation from model parameters $\vec{\theta}_{Model}$ to oscillation parameters $\vec{\theta}_{OSC}$. After the user gives the array $\vec{\theta}_{Model}$ to the function \texttt{MtoS}, the output is the corresponding oscillation parameter $\vec{\theta}_{OSC}$, of which components are $\theta_{12}$, $\theta_{13}$, $\theta_{23}$, $\delta$, $\Delta m_{21}^2$, and $\Delta m_{31}^2$. For the first four components, values are given in the unit of \textbf{rad}, while the other two are in \textbf{eV$^2$}. These values will be passed into \textbf{FaSE\_GLoBES.c} to simulate experimental spectra and compute prior values.
 
-{\color{blue}There are three methods to translate from $\vec{\theta}_{Model}$ to $\vec{\theta}_{OSC}$ in \textbf{FaSE-GLoBES}:} 1.~the user can assign the correlation between the standard oscillation and model parameter sets{\color{blue}, 2.~give the mixing matrix in model parameter $U$}, or 3.~define the mass matrix in model parameters. 
-%The relation between the oscillation and model parameter sets can be derived out by the user, 
-In the way of directly giving the relation between oscillation and model parameter sets, the user needs to provide
-{\color{blue}
-\begin{equation}
+{\color{blue}There are three methods to translate from $\vec{\theta}_{Model}$ to $\vec{\theta}_{OSC}$ in \textbf{FaSE-GLoBES} as follows.} 
+\jt{
+\begin{enumerate}
+ \item {Assign the correlation between the standard oscillation and model parameter sets. In the way of directly giving the relation between oscillation and model parameter sets, the user needs to provide
+ \begin{equation}
 \vec{\theta}_{Model}=\vec{f}(\vec{\theta}_{OSC}), 
 \end{equation}
-in the function \texttt{MtoS}. }
-%
-
-{\color{blue}When the user give the mixing matrix $U$ in model parameters, the corresponding mixing angles can be obtained through relations,
+in the function \texttt{MtoS}.
+}
+ \item {Give the mixing matrix in model parameter $U$. When the user give the mixing matrix $U$ in model parameters, the corresponding mixing angles can be obtained through relations,
 \begin{eqnarray}\label{eq:U_angle}
 \tan\theta_{12}=\left|\frac{U_{e2}}{U_{e1}}\right|,&  \sin\theta_{13}=|U_{e3}|,& \tan\theta_{23} = \left|\frac{U_{\mu 3}}{U_{\tau 3}}\right|.
 \end{eqnarray}
@@ -179,12 +178,13 @@ J_{CP}=c_{12}s_{12}c_{23}s_{23}c_{13}^2s_{13}\sin\delta,
 \end{equation}
 where $c_{ij}$ and $s_{ij}$ are $\cos \theta_{ij}$ and $\sin\theta_{ij}$, respectively. In \texttt{MtoS}, the user can pass the mixing matrix $U$ to the function  \texttt{STAN\_OSC\_U}, and can obtain the corresponding mixing matrix and the CP phase. 
 }
-
-The oscillation parameters can also be obtained in the way based on
+ \item {Define the mass matrix in model parameters. The oscillation parameters can also be obtained in the way based on
 \begin{equation}\label{eq:MM}
 U^\dagger\mathcal{M}\mathcal{M}^\dagger U = \mathbf{M}^2,~\text{where}~\mathbf{M}^2_{\alpha\beta}=m_\alpha^2\delta_{\alpha\beta},
 \end{equation}
-where $\mathcal{M}$ ($\mathbf{M}$) is the neutrino mass matrix in the flavour (mass) state. The matrix $\mathcal{M}$ is given by the user with model parameters $\vec{\theta}_{Model}$. The mixing matrix $U$ can be used to get mixing angles and the CP phase, as Eqs. (\ref{eq:U_angle}) and (\ref{eq:U_phase}). The difference between any two diagonal elements of $\textbf{M}$ ($\textbf{M}_{ii}-\textbf{M}_{jj}=m_i^2-m_j^2$) is the mass-squared difference ($\Delta m_{ij}^2$). This diagnolisation in Eq.~(\ref{eq:MM}) can be done by the function \texttt{STAN\_OSC}, which needs to be called in \texttt{MtoS} with outputs of the vector $\vec{\theta}_{OSC}$. {\color{blue}We note that with non-diagonal mass matrix for charged leptons, this translation method is not suggested.}
+where $\mathcal{M}$ ($\mathbf{M}$) is the neutrino mass matrix in the flavour (mass) state. The matrix $\mathcal{M}$ is given by the user with model parameters $\vec{\theta}_{Model}$. The mixing matrix $U$ can be used to get mixing angles and the CP phase, as Eqs. (\ref{eq:U_angle}) and (\ref{eq:U_phase}). The difference between any two diagonal elements of $\textbf{M}$ ($\textbf{M}_{ii}-\textbf{M}_{jj}=m_i^2-m_j^2$) is the mass-squared difference ($\Delta m_{ij}^2$). This diagnolisation in Eq.~(\ref{eq:MM}) can be done by the function \texttt{STAN\_OSC}, which needs to be called in \texttt{MtoS} with outputs of the vector $\vec{\theta}_{OSC}$. {\color{blue}We note that with non-diagonal mass matrix for charged leptons, this translation method is not suggested.}}
+\end{enumerate}
+}
 
 
 \section{Prior setting}\label{sec:prior}
@@ -345,9 +345,9 @@ where $\hat{c}_R$ and $\hat{s}_R$ are $\cos\theta_R\times \mathrm{e}^{i\alpha_2}
 }
 
 
-We compute the minimal $\chi^2$ value for the model, and allowed all model parameters varied, with the prior in Eq.~(\ref{eq:prior}) according to NuFit4.0 results.
+We compute the minimal $\chi^2$ value for the model, and allowed all model parameters varied \jt{within} the prior \jt{defined} in Eq.~(\ref{eq:prior}) according to NuFit4.0 results.
 %In the left panel, we include the prior in Eq.~(\ref{eq:prior}) according to NuFit4.0 results, while in the other one, we do not include priors.
-In addition, the studied statistics function is exactly given by Eq.~(\ref{eq:chi-squared}), but the true event rate $n_i$ is predicted by a set of oscillation parameters, which will be varied in the code.
+In addition, the studied statistics function is exactly given by Eq.~(\ref{eq:chi-squared}), but the true event rate $n_i$ is predicted by a set of oscillation parameters, which will be varied in the code. \jt{Explanations are note clear to me???}
 %
 %
 %{\color{blue}And, true values of the other oscillation parameters are fixed at the best fit of NuFit4.0, and this setup is different from the left panel, in which we fix the other oscillation parameters at the model prediction for the true value.}
@@ -356,7 +356,7 @@ In addition, the studied statistics function is exactly given by Eq.~(\ref{eq:ch
 %{\color{blue}`The assumed true theory' here means that the oscillation parameters assumed for predicting the true event spectrum.} \textcolor{red}{[JT: what is the meaning of the true theory?]} 
 %Here the number \texttt{dof} is $2$. 
 %And that is our output: \texttt{gsl\_cdf\_chisq\_Qinv(gsl\_cdf\_chisq\_Q(fabs(res),dof),1)}. \textcolor{red}{[I don't understand this sentence.]} 
-More details are presented in the user manual. 
+More details are presented in the user manual. \jt{(Website to download the manual???)}
 %The code for this example is provided as \textbf{th23\_delta.c} in the \textbf{FaSE} distribution.
 
 
@@ -376,7 +376,7 @@ More details are presented in the user manual.
 
 \section{Summary and conclusions}
 
-With the progress of precision measurements in the neutrino experiments, and the success of numerous flavour symmetry theories to explain tiny neutrino masses, there are strong motivations to test and discriminate theoretical models by the next-generation neutrino oscillation experiments. We have presented a simulation toolkit \textbf{FaSE-GLoBES} to study the leptonic flavour symmetry models with neutrino oscillation experiments in a user-friendly way. \textbf{FaSE-GLoBES} contains two \texttt{c}-codes: \textbf{model-input.c} and \textbf{FASE\_GLoBES.c}. While \textbf{FASE\_GLoBES.c} works as a bridge between models and standard neutrino mixings, all inputs from the user need to be given in \textbf{model-input.c}. With the help of two main functions provided by \textbf{FaSE}, it is convenient to assign a flavour symmetry model and include Gaussian priors associated with oscillation or model parameters. Users are able to study how a flavour model can be studied by the simulated experimental configuration in various perspectives, \textit{e.g.} model parameter constraints, hypothesis testing. \textbf{FaSE-GLoBES} will contribute to the selection and screening of underlying neutrino mass models by oscillation experiments. Further improvements and extensions can be envisioned as more requests are made by users.
+With the progress of precision measurements in the neutrino experiments, and the success of numerous flavour symmetry theories to explain tiny neutrino masses, there are strong motivations to test and discriminate theoretical models by the next-generation neutrino oscillation experiments. We have presented a simulation toolkit \textbf{FaSE-GLoBES} to study the leptonic flavour symmetry models with neutrino oscillation experiments in a user-friendly way. \textbf{FaSE-GLoBES} contains two \texttt{c}-codes: \textbf{model-input.c} and \textbf{FASE\_GLoBES.c}. While \textbf{FASE\_GLoBES.c} works as a bridge between models and standard neutrino mixings, all inputs from the user need to be given in \textbf{model-input.c}. With the help of two main functions provided by \textbf{FaSE-GLoBES}, it is convenient to assign a flavour symmetry model and include Gaussian priors associated with oscillation or model parameters. Users are able to study how a flavour model can be examined by the simulated experimental configurations in various perspectives, \textit{e.g.} model parameter constraints, hypothesis testing. \textbf{FaSE-GLoBES} will contribute to the selection and screening of underlying neutrino mass models by oscillation experiments. Further improvements and extensions can be envisioned \jt{as more requests come up in model buildings and phenomenology}.
 
 
 %\textcolor{red}{In the references, the arXiv number is chopped by one digit. Could you please check the reason?}
