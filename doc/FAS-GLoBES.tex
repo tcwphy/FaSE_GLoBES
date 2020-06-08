@@ -17,7 +17,7 @@
 %\usepackage{underscore}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
-
+\usepackage{hyperref}
 \usepackage[nottoc]{tocbibind}
 
 \usepackage{hyperref}
@@ -124,14 +124,17 @@ MOMENT &   on FaSE website    &     \cite{Cao:2014bea}
 \end{tabular}
 \end{table}
 
-In the following, we give more details about using \textbf{FASE-GLoBES}. In Sec.~\ref{sec:download}, we will give the instruction to download and install \textbf{GLoBES} and \textbf{FASE}. Then, in Sec.~\ref{sec:compile}, we will introduce how to compile and run the code. More complicated is setting the model, and the way to do this will be described in Sec.~\ref{sec:model_set}. Finally, we will discuss how to set up the prior in Sec.~\ref{sec:prior}.
+In the following, we give more details about using \textbf{FASE-GLoBES}. In Sec.~\ref{sec:compile}, we will give the instruction to download and install \textbf{GLoBES} and \textbf{FASE}, and we will introduce how to compile and run the code. More complicated is setting the model, and the way to do this will be described in Sec.~\ref{sec:model_set}. Finally, we will discuss how to set up the prior in Sec.~\ref{sec:prior}.
 
+\subsection{Download, compile and run}\label{sec:compile}
+{\color{blue}
 
-\subsection{Download and Installation}\label{sec:download}
-\textbf{download and install GLoBES and FASE-GLoBES}\\
-{\color{red}[will fill in after the code ready on Github]}
+The user can download \textbf{FaSE} simply from \url{https://github.com/tcwphy/FASE_GLoBES.git} directly. Or, the user can also download it with 
+\begin{verbatim}
+git clone https://github.com/tcwphy/FASE_GLoBES.git
+\end{verbatim}
+}
 
-\subsection{Compile and Run}\label{sec:compile}
 As \textbf{FaSE} works based on \textbf{GLoBES}, the user should use the \textbf{GLoBES} \texttt{Makefile}, but include the binary file of \textbf{FaSE}. To do so, we include the script in the \texttt{Makefile},\vspace{0.2cm}\\
 \texttt{\{makefile\_execution\}: my\_program.o  FASE\_GLoBES.o model-input.o\\
 	gcc my\_program.o  FASE\_GLoBES.o model-input.o -o my\_executable  \$(LDFLAGS) \$(local\_LDFLAGS)}\vspace{0.2cm}\\	
@@ -146,6 +149,7 @@ And, the execution is also in the same way: \texttt{./my\_executable}.\\
 
 Finally we need to initialize \textbf{FaSE} by giving $N_{para}$ which is the number of model parameters. To do so, we need to include the following script in the main code.\\
 \texttt{    MODEL\_init($N_{para}$); }\vspace{0.2cm}\\ 
+We note that $N_{para}$ should not be larger than the number of standard oscillation parameters, $6$.
 
 \subsection{Model setting}\label{sec:model_set}
 
@@ -292,8 +296,21 @@ m_\nu=&(\mu_1\hat{c}_R^2+\mu_2\hat{s}_R^{*2})\left(
 where $\hat{c}_R$ and $\hat{s}_R$ are $\cos\theta_R\times \mathrm{e}^{i\alpha_2}$ and $\sin\theta_R\times \mathrm{e}^{i\alpha_3}$, respectively. As $\omega$ is fixed at $-\frac{1}{2}+i\frac{\sqrt{3}}{2}$, this model has 5 model parameters: $\mu_1,~\mu_2,~\theta_R,~\alpha_2,~\alpha_3$.
 }
 
-{\color{blue}In the following, all examples are mainly presented for TDLS, except for Sec.~\ref{sec:ex_MT}. However, we remind the user that though we use TDLS as an example, \textbf{FaSE-GLoBES} should not be limited in any flavor model. We therefore in the \textbf{FaSE} distribution, show the warped flavor symmetry (WSF)~\cite{Chen:2015jta}, trimaximal mixing sum rule (TM1)~\cite{Albright:2008rp}  as examples, which will not be further introduced in this manual.
+{\color{blue}In the following, all examples are mainly presented for TDLS, except for Sec.~\ref{sec:ex_MT}. However, we remind the user that though we use TDLS as an example, \textbf{FaSE-GLoBES} should not be limited in any flavor model. We therefore in the \textbf{FaSE} distribution, show the warped flavor symmetry (WSF)~\cite{Chen:2015jta}, trimaximal mixing sum rule (TM1)~\cite{Albright:2008rp} as examples, which will not be further introduced in this manual. We summarise our examples for \textbf{FaSE-GLoBES} and references for those theoretical models in Tabl~\ref{tab:examples}. And in the rest of this section, we demonstrate the \textbf{example 1} and \textbf{example 4}. 
 }
+
+
+\begin{table}[h!]
+\caption{\label{tab:examples}Summary of available AEDL files for some of most-discussed experiments.}
+\centering
+\begin{tabular}{c|c|c|c}
+example   & model & application & reference \\\hline\hline
+\textbf{example1}    &  TDLS  & parameter constraint & \cite{King:2013iva,King:2015dvf,King:2016yvg} \\
+\textbf{example2}    &  WSF  & parameter constraint & \cite{Chen:2015jta} \\
+\textbf{example3}    &  TM1 sum rule  & model testing & \cite{Albright:2008rp} \\
+\textbf{example4}    &  $S_4$ modular  & model testing &\cite{deMedeirosVarzielas:2019cyj}  \\
+\end{tabular}
+\end{table}
 
 \subsection{Setup for a model}\label{sec:ex_set_model}
 
