@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  5 JUN 2020 22:07
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  8 JUN 2020 14:55
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -817,7 +817,7 @@ File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
 l.102 
-      ] <Figs/FASE-chart_1_2.pdf, id=173, 1027.84pt x 770.88pt>
+      ] <Figs/FASE-chart_1_2.pdf, id=174, 1027.84pt x 770.88pt>
 File: Figs/FASE-chart_1_2.pdf Graphic file (type pdf)
 
 <use Figs/FASE-chart_1_2.pdf>
@@ -836,8 +836,8 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.145 \begin{verbatim}
-                       <./Figs/FASE-chart_1_2.pdf>] [6] [7]
+l.139 \end{verbatim}
+                     <./Figs/FASE-chart_1_2.pdf>] [6] [7]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 209.
@@ -863,7 +863,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 218--221
 
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./Figs/x_eta.pdf): PDF inclu
 sion: found PDF version <1.7>, but at most version <1.5> allowed
-<Figs/x_eta.pdf, id=277, 341.42905pt x 256.07178pt>
+<Figs/x_eta.pdf, id=278, 341.42905pt x 256.07178pt>
 File: Figs/x_eta.pdf Graphic file (type pdf)
  <use Figs/x_eta.pdf>
 Package pdftex.def Info: Figs/x_eta.pdf used on input line 274.
@@ -872,7 +872,7 @@ Package pdftex.def Info: Figs/x_eta.pdf used on input line 274.
 
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./Figs/theta_phi.pdf): PDF i
 nclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<Figs/theta_phi.pdf, id=278, 341.42905pt x 256.07178pt>
+<Figs/theta_phi.pdf, id=279, 341.42905pt x 256.07178pt>
 File: Figs/theta_phi.pdf Graphic file (type pdf)
 
 <use Figs/theta_phi.pdf>
@@ -893,7 +893,7 @@ e right
 
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./Figs/TM1_th23_dCP.pdf): PD
 F inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<Figs/TM1_th23_dCP.pdf, id=294, 341.42905pt x 256.07178pt>
+<Figs/TM1_th23_dCP.pdf, id=295, 341.42905pt x 256.07178pt>
 File: Figs/TM1_th23_dCP.pdf Graphic file (type pdf)
 
 <use Figs/TM1_th23_dCP.pdf>
@@ -903,7 +903,7 @@ Package pdftex.def Info: Figs/TM1_th23_dCP.pdf used on input line 306.
 
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./Figs/MM_th23_dCP.pdf): PDF
  inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<Figs/MM_th23_dCP.pdf, id=295, 341.42905pt x 256.07178pt>
+<Figs/MM_th23_dCP.pdf, id=296, 341.42905pt x 256.07178pt>
 File: Figs/MM_th23_dCP.pdf Graphic file (type pdf)
 
 <use Figs/MM_th23_dCP.pdf>
@@ -982,10 +982,10 @@ e/2016/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/
 /texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb></usr/local/texlive/2016/t
 exmf-dist/fonts/type1/public/cm-super/sftt1095.pfb></usr/local/texlive/2016/tex
 mf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on paper.pdf (16 pages, 1254600 bytes).
+Output written on paper.pdf (16 pages, 1255682 bytes).
 PDF statistics:
- 545 PDF objects out of 1000 (max. 8388607)
- 448 compressed objects within 5 object streams
+ 546 PDF objects out of 1000 (max. 8388607)
+ 449 compressed objects within 5 object streams
  114 named destinations out of 1000 (max. 500000)
  122 words of extra memory for PDF output out of 10000 (max. 10000000)
 
