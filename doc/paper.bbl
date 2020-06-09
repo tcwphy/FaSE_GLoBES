@@ -1,4 +1,4 @@
-\begin{thebibliography}{61}
+\begin{thebibliography}{64}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \expandafter\ifx\csname bibnamefont\endcsname\relax
   \def\bibnamefont#1{#1}\fi
@@ -138,6 +138,12 @@
   \bibinfo{journal}{Phys. Lett. B} \textbf{\bibinfo{volume}{533}},
   \bibinfo{pages}{85} (\bibinfo{year}{2002}), \eprint{hep-ph/0204049}.
 
+\bibitem[{\citenamefont{Fritzsch and Xing}(1996)}]{Fritzsch:1995dj}
+\bibinfo{author}{\bibfnamefont{H.}~\bibnamefont{Fritzsch}} \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{Z.-Z.} \bibnamefont{Xing}},
+  \bibinfo{journal}{Phys. Lett. B} \textbf{\bibinfo{volume}{372}},
+  \bibinfo{pages}{265} (\bibinfo{year}{1996}), \eprint{hep-ph/9509389}.
+
 \bibitem[{\citenamefont{Fukugita et~al.}(1998)\citenamefont{Fukugita, Tanimoto,
   and Yanagida}}]{Fukugita:1998vn}
 \bibinfo{author}{\bibfnamefont{M.}~\bibnamefont{Fukugita}},
@@ -169,6 +175,14 @@
   \bibinfo{journal}{Nucl. Phys. B} \textbf{\bibinfo{volume}{671}},
   \bibinfo{pages}{383} (\bibinfo{year}{2003}), \eprint{hep-ph/0306002}.
 
+\bibitem[{\citenamefont{Kajiyama et~al.}(2007)\citenamefont{Kajiyama, Raidal,
+  and Strumia}}]{Kajiyama:2007gx}
+\bibinfo{author}{\bibfnamefont{Y.}~\bibnamefont{Kajiyama}},
+  \bibinfo{author}{\bibfnamefont{M.}~\bibnamefont{Raidal}}, \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{A.}~\bibnamefont{Strumia}},
+  \bibinfo{journal}{Phys. Rev. D} \textbf{\bibinfo{volume}{76}},
+  \bibinfo{pages}{117301} (\bibinfo{year}{2007}), \eprint{0705.4559}.
+
 \bibitem[{\citenamefont{Everett and Stuart}(2009)}]{Everett:2008et}
 \bibinfo{author}{\bibfnamefont{L.~L.} \bibnamefont{Everett}} \bibnamefont{and}
   \bibinfo{author}{\bibfnamefont{A.~J.} \bibnamefont{Stuart}},
@@ -180,6 +194,14 @@
   \bibinfo{author}{\bibfnamefont{A.}~\bibnamefont{Paris}},
   \bibinfo{journal}{JHEP} \textbf{\bibinfo{volume}{03}}, \bibinfo{pages}{101}
   (\bibinfo{year}{2011}), \eprint{1101.0393}.
+
+\bibitem[{\citenamefont{Albright et~al.}(2010)\citenamefont{Albright, Dueck,
+  and Rodejohann}}]{Albright:2010ap}
+\bibinfo{author}{\bibfnamefont{C.~H.} \bibnamefont{Albright}},
+  \bibinfo{author}{\bibfnamefont{A.}~\bibnamefont{Dueck}}, \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{W.}~\bibnamefont{Rodejohann}},
+  \bibinfo{journal}{Eur. Phys. J. C} \textbf{\bibinfo{volume}{70}},
+  \bibinfo{pages}{1099} (\bibinfo{year}{2010}), \eprint{1004.2798}.
 
 \bibitem[{\citenamefont{King}(2008)}]{King:2007pr}
 \bibinfo{author}{\bibfnamefont{S.}~\bibnamefont{King}}, \bibinfo{journal}{Phys.
@@ -305,11 +327,13 @@
   (\bibinfo{collaboration}{NOvA}) (\bibinfo{year}{2004}),
   \eprint{hep-ex/0503053}.
 
-\bibitem[{\citenamefont{Huber et~al.}()\citenamefont{Huber, Mezzetto, and
-  Schwetz}}]{Huber:2007xx}
+\bibitem[{\citenamefont{Huber et~al.}(2008)\citenamefont{Huber, Mezzetto, and
+  Schwetz}}]{Huber:2007em}
 \bibinfo{author}{\bibfnamefont{P.}~\bibnamefont{Huber}},
   \bibinfo{author}{\bibfnamefont{M.}~\bibnamefont{Mezzetto}}, \bibnamefont{and}
-  \bibinfo{author}{\bibfnamefont{T.}~\bibnamefont{Schwetz}} (????).
+  \bibinfo{author}{\bibfnamefont{T.}~\bibnamefont{Schwetz}},
+  \bibinfo{journal}{JHEP} \textbf{\bibinfo{volume}{03}}, \bibinfo{pages}{021}
+  (\bibinfo{year}{2008}), \eprint{0711.2950}.
 
 \bibitem[{\citenamefont{Alion et~al.}(2016)}]{Alion:2016uaj}
 \bibinfo{author}{\bibfnamefont{T.}~\bibnamefont{Alion}} \bibnamefont{et~al.}
