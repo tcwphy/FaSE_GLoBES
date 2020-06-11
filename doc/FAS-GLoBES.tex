@@ -29,6 +29,7 @@
 ,epsfig}
 
 
+\newcommand{\jt}[1]{\textcolor{red}{#1}}
 
 %JHEP%
 %\title{\boldmath  flavor Symmetry Embedded - GLoBES (FaSE-GLoBES)}
@@ -156,27 +157,35 @@ We note that $N_{para}$ should not be larger than the number of standard oscilla
 
 \subsection{Model setting}\label{sec:model_set}
 
-The function \texttt{MtoS} can do the {\color{blue}translation} from model parameters $\vec{\theta}_{Model}$ to oscillation parameters $\vec{\theta}_{OSC}$. After the user gives the array $\vec{\theta}_{Model}$ to the function \texttt{MtoS}, the output is the corresponding oscillation parameter $\vec{\theta}_{OSC}$, of which components are $\theta_{12}$, $\theta_{13}$, $\theta_{23}$, $\delta$, $\Delta m_{21}^2$, and $\Delta m_{31}^2$. For the first four components, values are given in the unit of \textbf{rad}, while the other two are in \textbf{eV$^2$}. These values will be passed in to \textbf{FaSE\_GLoBES} to simulate 
-the experimental spectra and compute the prior value.
+The function \texttt{MtoS} can do the translation from model parameters $\vec{\theta}_{Model}$ to oscillation parameters $\vec{\theta}_{OSC}$. After the user gives the array $\vec{\theta}_{Model}$ to the function \texttt{MtoS}, the output is the corresponding oscillation parameter $\vec{\theta}_{OSC}$, of which components are $\theta_{12}$, $\theta_{13}$, $\theta_{23}$, $\delta$, $\Delta m_{21}^2$, and $\Delta m_{31}^2$. For the first four components, values are given in the unit of \textbf{rad}, while the other two are in \textbf{eV$^2$}. These values will be passed into \textbf{FaSE\_GLoBES.c} to simulate experimental spectra and compute prior values.
 
-
-To do the translation from $\vec{\theta}_{Model}$ to $\vec{\theta}_{OSC}$, the user can assign the relation between the oscillation and model parameter sets, or define the mass matrix in model parameters, which will be diagonalised by the function \texttt{STAN\_OSC} to obtain the corresponding oscillation-parameter values. 
-%The relation between the oscillation and model parameter sets can be derived out by the user, 
-In the way of directly giving the relation between oscillation and model parameter sets, the user needs to provide
-\begin{equation}\label{eq:modelofOSC}
-\vec{\theta}_{Model}=\vec{f}(\vec{\theta}_{OSC})
+{\color{blue}There are three methods to translate from $\vec{\theta}_{Model}$ to $\vec{\theta}_{OSC}$ in \textbf{FaSE-GLoBES} as follows.} 
+\jt{
+\begin{enumerate}
+ \item {Assign the correlation between the standard oscillation and model parameter sets. In the way of directly giving the relation between oscillation and model parameter sets, the user needs to provide
+ \begin{equation}
+\vec{\theta}_{Model}=\vec{f}(\vec{\theta}_{OSC}), 
 \end{equation}
- in the function \texttt{MtoS}.
-%
-
-The oscillation parameters can also be obtained in the way based on
+in the function \texttt{MtoS}.
+}
+ \item {Give the mixing matrix in model parameter $U$. When the user give{\color{blue}s} the mixing matrix $U$ in model parameters, the corresponding mixing angles can be obtained through relations,
+\begin{eqnarray}\label{eq:U_angle}
+\tan\theta_{12}=\left|\frac{U_{e2}}{U_{e1}}\right|,&  \sin\theta_{13}=|U_{e3}|,& \tan\theta_{23} = \left|\frac{U_{\mu 3}}{U_{\tau 3}}\right|.
+\end{eqnarray}
+After getting these mixing angles, we can easily get the Dirac CP phase $\delta$ with the Jarlskog invariant $J_{CP}$,\
+\begin{equation}\label{eq:U_phase}
+J_{CP}=c_{12}s_{12}c_{23}s_{23}c_{13}^2s_{13}\sin\delta,
+\end{equation}
+where $c_{ij}$ and $s_{ij}$ are $\cos \theta_{ij}$ and $\sin\theta_{ij}$, respectively. In \texttt{MtoS}, the user can pass the mixing matrix $U$ to the function  \texttt{STAN\_OSC\_U} to obtain the corresponding mixing {\color{blue} angles} and the CP phase. 
+}
+ \item {Define the mass matrix in model parameters. The oscillation parameters can also be obtained in the way based on
 \begin{equation}\label{eq:MM}
 U^\dagger\mathcal{M}\mathcal{M}^\dagger U = \mathbf{M}^2,~\text{where}~\mathbf{M}^2_{\alpha\beta}=m_\alpha^2\delta_{\alpha\beta},
 \end{equation}
-where $\mathcal{M}$ ($\mathbf{M}$) is the neutrino mass matrix in the flavor (mass) state. The matrix $\mathcal{M}$ is given by user with model parameters $\vec{\theta}_{Model}$. The matrix $U$ is the neutrino mixing matrix, and can be used for getting mixing angles. The difference between any two diagonal elements of $\textbf{M}$ ($\textbf{M}_{ii}-\textbf{M}_{jj}=m_i^2-m_j^2$) is the mass-squared difference ($\Delta m_{ij}^2$). This diagnolisation Eq.~(\ref{eq:MM}) can be done with the function \texttt{STAN\_OSC}, which outputs directly the vector $\vec{\theta}_{OSC}$. 
-The user needs to call it in \texttt{MtoS} with\vspace{0.2cm}\\
-\texttt{STAN\_OSC(\{}$M$\texttt{\},\{}$\vec{\theta}_{OSC}$\texttt{\});},\\
-where \texttt{\{}$M$\texttt{\}} and \texttt{\{}$\vec{\theta}_{OSC}$\texttt{\}} are the input neutrino mass matrix and the output array of oscillation parameter values, respectively. More details about how to assign a model will be introduced in Sec.~\ref{sec:ex_set_model}.
+where $\mathcal{M}$ ($\mathbf{M}$) is the neutrino mass matrix in the flavour (mass) state. The matrix $\mathcal{M}$ is given by the user with model parameters $\vec{\theta}_{Model}$. The mixing matrix $U$ can be used to get mixing angles and the CP phase, as Eqs. (\ref{eq:U_angle}) and (\ref{eq:U_phase}). The difference between any two diagonal elements of $\textbf{M}$ ($\textbf{M}_{ii}-\textbf{M}_{jj}=m_i^2-m_j^2$) is the mass-squared difference ($\Delta m_{ij}^2$). This diagnolisation in Eq.~(\ref{eq:MM}) can be done by the function \texttt{STAN\_OSC}, which needs to be called in \texttt{MtoS} with outputs of the vector $\vec{\theta}_{OSC}$. {\color{blue}We note that with non-diagonal mass matrix for charged leptons, this translation method is not suggested.}}
+\end{enumerate}
+}
+More details about how to assign a model will be introduced in Sec.~\ref{sec:ex_set_model}.
 
 \subsection{Prior setting}\label{sec:prior}
 Given a set of values for model parameters, \textbf{FASE\_GLoBES.c} will obtain the corresponding oscillation-parameter values from \textbf{model-input.c}, and will pass these values to simulate event spectra and to compute the prior value. Two gaussian prior functions are provided in \textbf{FaSE}: \texttt{FASE\_prior\_OSC} and \texttt{FASE\_prior\_model}. These two functions are for different purposes. If the user give the prior in oscillation (model) parameters, the user should register \texttt{FASE\_prior\_OSC} (\texttt{FASE\_prior\_model}) with the \textbf{GLoBES} function \texttt{glbRegisterPriorFunction}, as we introduced in the beginning of this section. The user also needs to assign the parameter \texttt{PARA=STAN} (\texttt{PARA=Model}), when the user prefers to give the prior in oscillation (model) parameters. The Gaussian prior is 

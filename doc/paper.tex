@@ -102,16 +102,19 @@ As we are entering the era of precision measurements in the neutrino oscillation
 
 \section{Overview FASE-GloBES}\label{sec:overview}
 
-\textbf{FaSE} is written in the \texttt{c} language, and consists of two source codes \textbf{FASE\_GLoBES.c} and \textbf{model-input.c}{\color{blue}, and is available on \url{https://github.com/tcwphy/FASE_GLoBES.git}}. About these two \texttt{c}-codes, the user defines the correlations between model inputs and standard neutrino mixing parameters in \textbf{model-input.c}, while \textbf{FASE\_GLoBES.c} is an engine to perform analysis with user-specified experiments in a simulaton. Note that we define the standard neutrino mixing/oscillation parameters $\vec{\theta}_{OSC}$ ($\theta_{12}$, $\theta_{13}$, $\theta_{23}$, $\Delta m_{21}^2$, $\Delta m_{31}^2$, $\delta$) to separate from model parameters $\vec{\theta}_{Model}$ hereafter. 
+\textbf{FaSE} is written in \texttt{c}, and consists of two source codes \textbf{FASE\_GLoBES.c} and \textbf{model-input.c}{\color{blue}, and is available on \url{https://github.com/tcwphy/FASE_GLoBES.git}}. About these two \texttt{c}-codes, the user defines the correlations between model inputs and standard neutrino mixing parameters in \textbf{model-input.c}, while \textbf{FASE\_GLoBES.c} is an engine to perform analysis with user-specified experiments in a simulaton. Note that we define the standard neutrino mixing/oscillation parameters $\vec{\theta}_{OSC}$ ($\theta_{12}$, $\theta_{13}$, $\theta_{23}$, $\Delta m_{21}^2$, $\Delta m_{31}^2$, $\delta$) to separate from model parameters $\vec{\theta}_{Model}$ hereafter. 
 \begin{figure}[!h]%
 \centering
 \includegraphics[width=5.in]{Figs/FASE-chart_1_2.pdf}
-\caption{A scheme to correlate the model parameters with standard neutrino oscillation parameters. The error propagation is implemented in the simulation code up to the spectra analysis.}%
+\caption{%A scheme to correlate the model parameters with standard neutrino oscillation parameters. The error propagation is implemented in the simulation code up to the spectra analysis.
+%{\color{blue}A sketch for the concept of \textbf{FaSE-GLoBES}. Upper of this sketch presents the translation from model $\vec{\theta}^{hyp}_{Model}$ to oscillation parameters $\vec{\theta}_{OSC}$ in \textbf{model-input.c}. In the middle, \textbf{FASE\_GLoBES.c} passes the oscillation parameters to simulate the spectra and compute the prior value. Then, the rest of work is be done in \textbf{GLoBES} to out put $\Delta\chi^2$ value for the hypothesis $\vec{\theta}^{hyp}_{Model}$.} 
+{\color{blue}A sketch for the concept of \textbf{FaSE-GLoBES}. From top to down, this sketch shows three parts: 1.~\textbf{the parameter translation} (\textbf{model-input.c}), 2.~\textbf{giving oscillation-parameter values} (\textbf{FASE\_GLoBES.c}), and 3.~\textbf{the $\chi^2$-value calculation} (\textbf{GLoBES}).}
+}%
 \label{fig:FASE}
 \end{figure}
 
 {\color{blue}Combining \textbf{GLoBES} with \textbf{FaSE} (we call it `\textbf{FaSE-GLoBES}'),  the user can analyse flavour symmetry models with the simulated experimental configurations.} The concept of \textbf{FaSE-GLoBES} is shown in Fig.~\ref{fig:FASE}, in which three parts are shown: 1.~\textbf{the parameter translation}, 2.~\textbf{giving oscillation-parameter values}, and 3.~\textbf{the $\chi^2$-value calculation}. 
-The idea behind this flow chart in Fig.~\ref{fig:FASE} is that given a set of model parameters, the corresponding values in standard oscillation parameters are obtained by a translation function, which is assigned by the user in \textbf{model-input.c}. And then, through \textbf{FASE\_GLoBES.c} these oscillation-parameter values are passed into \textbf{GLoBES} library to simulate the event spectra so that we can perform physics analysis in the newly-defined $\chi^2$. 
+The idea behind this flow chart in Fig.~\ref{fig:FASE} is that given a set of model parameters {\color{blue}$\vec{\theta}^{hyp}_{Model}$ as a hypothese}, the corresponding values in standard oscillation parameters {\color{blue}$\vec{\theta}_{OSC}$} are obtained by a translation function, which is assigned by the user in \textbf{model-input.c}. And then, through \textbf{FASE\_GLoBES.c} these oscillation-parameter values are passed into \textbf{GLoBES} library to simulate the event spectra so that {\color{blue}the user} can perform physics analysis {\color{blue}with} the newly-defined $\chi^2$.  
 
 
 Application Programming Interface (API) functions in \textbf{FaSE} are listed:
@@ -123,7 +126,7 @@ Application Programming Interface (API) functions in \textbf{FaSE} are listed:
 \item \texttt{FASE\_prior\_OSC},
 \item \texttt{FASE\_prior\_model}.
 \end{enumerate}
-The first one is to initialise \textbf{FaSE} with the number of input parameters $N_{para}$. The next three functions need to be included to replace the default \textbf{GLoBES} probability engine by the one that can read the output from \textbf{model-input.c}, as follows.
+The first one is to initialise \textbf{FaSE} with the number of input parameters $N_{para}$. The next three functions need to be included to replace the default \textbf{GLoBES} probability engine.{\color{blue}In the main code, the user needs to include the script as follows.}\vspace{0.2cm}\\
 % \vspace{0.2cm}\\
 % \texttt{    glbRegisterProbabilityEngine(6,\\
 %                                  \&FASE\_glb\_probability\_matrix,\\
