@@ -74,18 +74,21 @@
 
 \section{Overview FASE-GloBES}
 
-\textbf{F}l\textbf{a}vor \textbf{S}ymmetry \textbf{E}mbedded (\textbf{FaSE}) is a supplemental tool for \textbf{G}eneral \textbf{Lo}ng \textbf{B}aseline \textbf{E}xperiment \textbf{S}imulator (\textbf{GLoBES})~\cite{Huber:2004ka,Huber:2007ji} in order to analyse how a leptonic flavor symmetry model can be tested in neutrino oscillation experiments. \textbf{FaSE} is written in the \texttt{c/c++} language, and consist with two codes \textbf{FASE\_GLoBES.c} and \textbf{model-input.c}. The user defines the model in to \textbf{model-input.c}, while \textbf{FASE\_GLoBES.c} does not need to be touched. 
+\textbf{F}l\textbf{a}vor \textbf{S}ymmetry \textbf{E}mbedded (\textbf{FaSE}) is a supplemental tool for \textbf{G}eneral \textbf{Lo}ng \textbf{B}aseline \textbf{E}xperiment \textbf{S}imulator (\textbf{GLoBES})~\cite{Huber:2004ka,Huber:2007ji} in order to analyse how a leptonic flavor symmetry model can be tested in neutrino oscillation experiments. \textbf{FaSE} is written in \texttt{c/c++}, and consist with two codes \textbf{FASE\_GLoBES.c} and \textbf{model-input.c}. The user defines the model in to \textbf{model-input.c}, while \textbf{FASE\_GLoBES.c} does not need to be touched. 
 
 \begin{figure}[!h]%
 \centering
-\includegraphics[width=7in]{Figs/FASE-chart_1_2.pdf}
-\caption{A scheme to correlate the model parameters with standard neutrino oscillation parameters. The error propagation is implemented in the simulation code up to the spectra analysis.}%
+\includegraphics[width=5in]{Figs/FASE-chart_1_2.pdf}
+\caption{%A scheme to correlate the model parameters with standard neutrino oscillation parameters. The error propagation is implemented in the simulation code up to the spectra analysis.
+%{\color{blue}A sketch for the concept of \textbf{FaSE-GLoBES}. Upper of this sketch presents the translation from model $\vec{\theta}^{hyp}_{Model}$ to oscillation parameters $\vec{\theta}_{OSC}$ in \textbf{model-input.c}. In the middle, \textbf{FASE\_GLoBES.c} passes the oscillation parameters to simulate the spectra and compute the prior value. Then, the rest of work is be done in \textbf{GLoBES} to out put $\Delta\chi^2$ value for the hypothesis $\vec{\theta}^{hyp}_{Model}$.} 
+{\color{blue}A sketch for the concept of \textbf{FaSE-GLoBES}. From top to down, this sketch shows three parts: 1.~\textbf{the parameter translation} (\textbf{model-input.c}), 2.~\textbf{giving oscillation-parameter values} (\textbf{FASE\_GLoBES.c}), and 3.~\textbf{the $\chi^2$-value calculation} (\textbf{GLoBES}).}
+}%
 \label{fig:FASE}
 \end{figure}
 
 {\color{blue}Combining \textbf{GLoBES} with \textbf{Fase} (we call it `\textbf{FaSE-GLoBES}'),  the user can analyse flavor symmetry models with the simulated experimental configuration.} The concept of \textbf{FaSE-GLoBES} is shown in Fig.~\ref{fig:FASE}, in which three parts are shown: 1.~\textbf{the parameter translation}, 2.~\textbf{giving oscillation-parameter values}, and 3.~\textbf{the $\chi^2$-value calculation}. 
 %
-The idea behind this flow chart in Fig.~\ref{fig:FASE} is that given a set of model parameters $\vec{\theta}_{Model}$, the corresponding values in standard oscillation parameters $\vec{\theta}_{OSC}$ are obtained by a translation function, which is assigned by the user in \textbf{model-input.c}. And then, through \textbf{FASE\_GLoBES.c} these oscillation-parameter values are passed into \textbf{GLoBES} library to simulate the event spectra so that we can perform physics analysis in the newly-defined $\chi^2$. 
+The idea behind this flow chart in Fig.~\ref{fig:FASE} is that given a set of model parameters {\color{blue}$\vec{\theta}^{hyp}_{Model}$ as a hypothese}, the corresponding values in standard oscillation parameters $\vec{\theta}_{OSC}$ are obtained by a translation function, which is assigned by the user in \textbf{model-input.c}. And then, through \textbf{FASE\_GLoBES.c} these oscillation-parameter values are passed into \textbf{GLoBES} library to simulate the event spectra so that {\color{blue}the user} can perform physics analysis {\color{blue}with} the newly-defined $\chi^2$. 
 
 API functions in \textbf{FaSE} are listed:
 \begin{enumerate}
@@ -96,7 +99,7 @@ API functions in \textbf{FaSE} are listed:
 \item \texttt{FASE\_prior\_OSC},
 \item \texttt{FASE\_prior\_model}.
 \end{enumerate}
-The first one is to initialise \textbf{FaSE} with the number of input parameters $N_{para}$. The next three functions need to be included to replace the default \textbf{GLoBES} probability engine by the one that can read the output from \textbf{model-input.c}, as follows.\vspace{0.2cm}\\
+The first one is to initialise \textbf{FaSE} with the number of input parameters $N_{para}$. The next three functions need to be included to replace the default \textbf{GLoBES} probability engine. {\color{blue}In the main code, the user needs to include the script as follows.}\vspace{0.2cm}\\
 \texttt{    glbRegisterProbabilityEngine(6,\\
                                  \&FASE\_glb\_probability\_matrix,\\
                                  \&FASE\_glb\_set\_oscillation\_parameters,\\
@@ -109,7 +112,7 @@ or\\
 We note that except for setting the probability engine and the prior function, the other parts in the main code should follow with the GLoBES manual. 
 %
 %
-{\color{blue}Many simulation packages are provided on internet. Some of them are also available in \textbf{GLoBES} website~\cite{GLoBES}, while the working group in the DUNE experiment also releases their neutrino flux information and detector descriptions in a AEDL file, provided in~\cite{Alion:2016uaj}. We summarise AEDL files for some of most-discussed experiments in Table.~\ref{tab:exp}, including their source and reference.}
+{\color{blue}Many simulation packages are provided on internet. Some of them are also available on \textbf{GLoBES} website~\cite{GLoBES}, while the working group in the DUNE experiment also releases their neutrino flux information and detector descriptions in a AEDL file, provided in~\cite{Alion:2016uaj}. We summarise AEDL files for some experiments in Table.~\ref{tab:exp}, including their sources and references.}
 
 \begin{table}[h!]
 \caption{\label{tab:exp}Summary of available AEDL files for some of most-discussed experiments.}
@@ -129,13 +132,13 @@ In the following, we give more details about using \textbf{FASE-GLoBES}. In Sec.
 \subsection{Download, compile and run}\label{sec:compile}
 {\color{blue}
 
-The user can download \textbf{FaSE} simply from \url{https://github.com/tcwphy/FASE_GLoBES.git} directly. Or, the user can also download it with 
+The user can download \textbf{FaSE} simply from \url{https://github.com/tcwphy/FASE_GLoBES.git} directly. Or, the user can also download it: 
 \begin{verbatim}
 git clone https://github.com/tcwphy/FASE_GLoBES.git
 \end{verbatim}
 }
 
-As \textbf{FaSE} works based on \textbf{GLoBES}, the user should use the \textbf{GLoBES} \texttt{Makefile}, but include the binary file of \textbf{FaSE}. To do so, we include the script in the \texttt{Makefile},\vspace{0.2cm}\\
+As \textbf{FaSE} works based on \textbf{GLoBES}, the user should use the \textbf{GLoBES} \texttt{Makefile}, but include two binary files of \textbf{FaSE}. To do so, we include the script in the \texttt{Makefile},\vspace{0.2cm}\\
 \texttt{\{makefile\_execution\}: my\_program.o  FASE\_GLoBES.o model-input.o\\
 	gcc my\_program.o  FASE\_GLoBES.o model-input.o -o my\_executable  \$(LDFLAGS) \$(local\_LDFLAGS)}\vspace{0.2cm}\\	
 where \texttt{\{compile\_execusion\}} is the makefile commend for the program \texttt{my\_program.o} and the execution \texttt{my\_executable} is the output. After giving this script in the \textbf{GLoBES} \texttt{Makefile}, the user needs to makefile the program \texttt{my\_program} on the terminal.\vspace{0.2cm}\\
@@ -144,7 +147,7 @@ And, the user can execute the program by typing the following commend on the ter
 \texttt{./my\_executable}%\vspace{0.2cm}\\
 
 The user can also compile the program without the \textbf{GLoBES} \texttt{Makefile} with the following script.\vspace{0.2cm}\\
-\texttt{gcc my\_program.o FASE\_GLoBES.o model-input.o -lglobes -LGLB\_DIR/lib/ -o my\_executable}\vspace{0.2cm}\\
+\texttt{gcc my\_program.o FASE\_GLoBES.o model-input.o -lglobes -LGLB\_DIR/lib/ -o my\_executable}\footnote{We note that only the \texttt{gcc} compiler has been tested. Users can also try other compilers.}\vspace{0.2cm}\\
 And, the execution is also in the same way: \texttt{./my\_executable}.\\
 
 Finally we need to initialize \textbf{FaSE} by giving $N_{para}$ which is the number of model parameters. To do so, we need to include the following script in the main code.\\
@@ -153,7 +156,7 @@ We note that $N_{para}$ should not be larger than the number of standard oscilla
 
 \subsection{Model setting}\label{sec:model_set}
 
-The function \texttt{MtoS} can do the translator from model parameters $\vec{\theta}_{Model}$ to oscillation parameters $\vec{\theta}_{OSC}$. After the user gives the array $\vec{\theta}_{Model}$ to the function \texttt{MtoS}, the output is the corresponding oscillation parameter $\vec{\theta}_{OSC}$, of which components are $\theta_{12}$, $\theta_{13}$, $\theta_{23}$, $\delta$, $\Delta m_{21}^2$, and $\Delta m_{31}^2$. For the first four components, values are given in the unit of \textbf{rad}, while the other two are in \textbf{eV$^2$}. These values will be passed in to \textbf{FaSE\_GLoBES} to simulate 
+The function \texttt{MtoS} can do the {\color{blue}translation} from model parameters $\vec{\theta}_{Model}$ to oscillation parameters $\vec{\theta}_{OSC}$. After the user gives the array $\vec{\theta}_{Model}$ to the function \texttt{MtoS}, the output is the corresponding oscillation parameter $\vec{\theta}_{OSC}$, of which components are $\theta_{12}$, $\theta_{13}$, $\theta_{23}$, $\delta$, $\Delta m_{21}^2$, and $\Delta m_{31}^2$. For the first four components, values are given in the unit of \textbf{rad}, while the other two are in \textbf{eV$^2$}. These values will be passed in to \textbf{FaSE\_GLoBES} to simulate 
 the experimental spectra and compute the prior value.
 
 
