@@ -163,7 +163,7 @@ The function \texttt{MtoS} can do the translation from model parameters $\vec{\t
 \jt{
 \begin{enumerate}
  \item {Assign the correlation between the standard oscillation and model parameter sets. In the way of directly giving the relation between oscillation and model parameter sets, the user needs to provide
- \begin{equation}
+ \begin{equation}\label{eq:modelofOSC}
 \vec{\theta}_{Model}=\vec{f}(\vec{\theta}_{OSC}), 
 \end{equation}
 in the function \texttt{MtoS}.
@@ -188,13 +188,15 @@ where $\mathcal{M}$ ($\mathbf{M}$) is the neutrino mass matrix in the flavour (m
 More details about how to assign a model will be introduced in Sec.~\ref{sec:ex_set_model}.
 
 \subsection{Prior setting}\label{sec:prior}
-Given a set of values for model parameters, \textbf{FASE\_GLoBES.c} will obtain the corresponding oscillation-parameter values from \textbf{model-input.c}, and will pass these values to simulate event spectra and to compute the prior value. Two gaussian prior functions are provided in \textbf{FaSE}: \texttt{FASE\_prior\_OSC} and \texttt{FASE\_prior\_model}. These two functions are for different purposes. If the user give the prior in oscillation (model) parameters, the user should register \texttt{FASE\_prior\_OSC} (\texttt{FASE\_prior\_model}) with the \textbf{GLoBES} function \texttt{glbRegisterPriorFunction}, as we introduced in the beginning of this section. The user also needs to assign the parameter \texttt{PARA=STAN} (\texttt{PARA=Model}), when the user prefers to give the prior in oscillation (model) parameters. The Gaussian prior is 
+Given a set of values for model parameters, \textbf{FASE\_GLoBES.c} will obtain the corresponding oscillation-parameter values from \textbf{model-input.c}, and will pass these values to simulate event spectra and to compute the prior value. Two gaussian prior functions are provided in \textbf{FaSE}: \texttt{FASE\_prior\_OSC} and \texttt{FASE\_prior\_model}. These two functions are for different purposes. If the user give{\color{blue}s} the prior in oscillation (model) parameters, the user should register \texttt{FASE\_prior\_OSC} (\texttt{FASE\_prior\_model}) with the \textbf{GLoBES} function \texttt{glbRegisterPriorFunction}, as we introduced in the beginning of this section. The user also needs to assign the parameter \texttt{PARA=STAN} (\texttt{PARA=Model}), when the user prefers to give the prior in oscillation (model) parameters. The Gaussian prior is 
 \begin{equation}\label{eq:prior}
 \chi^2_{prior}=\sum_{i} \frac{(\theta_i-\theta^c_i)^2}{\sigma_i^2},
 \end{equation}
- where $\theta_i$ is one of parameters constrained by prior, $\theta^c_i$ ($\sigma_i$) is the central value (Gaussian width) of the prior for $\theta_i$. We note that $\theta_i$ can be either model ($\vec{\theta}_{Model}$) or oscillation parameters ($\vec{\theta}_{OSC}$).
+ where $\theta_i$ is {\color{blue}one parameter of the hypothesis $\vec{\theta}^{hyp}$}, $\theta^c_i$ ($\sigma_i$) is the central value (Gaussian width) of the prior for $\theta_i$. We note that {\color{blue}$\vec{\theta}^{hyp}$} can be either model ($\vec{\theta}_{Model}$) or oscillation parameters ($\vec{\theta}_{OSC}$).
 %
-The values of $\theta^c_i$ and $\sigma_i$ need to be given by the user through three arrays: \texttt{Central\_prior}, \texttt{UPPER\_prior}, and \texttt{LOWER\_prior}, in which there are six components. To treat asymmetry of width for upper ($\theta_i>\theta_i^c$) and lower ($\theta_i<\theta_i^c$) Gaussian widths, we give values in two arrays \texttt{UPPER\_prior}, and \texttt{LOWER\_prior}, respectively. If the user gives the prior in model parameters, the order of each component follows with the setup of input for the probability engine. If the user gives the prior in oscillation parameters, the six components in order are $\theta_{12}$, $\theta_{13}$, $\theta_{23}$, $\delta$, $\Delta m_{21}^2$, and  $\Delta m_{31}^2$. The first four parameter are in \textbf{rad}, and the final two are in \textbf{eV$^2$}.
+The values of $\theta^c_i$ and $\sigma_i$ need to be given by the user through three arrays: \texttt{Central\_prior}, \texttt{UPPER\_prior}, and \texttt{LOWER\_prior}, in which there are six components. To treat asymmetry of width for upper ($\theta_i>\theta_i^c$) and lower ($\theta_i<\theta_i^c$) Gaussian widths, we give values in two arrays \texttt{UPPER\_prior} and \texttt{LOWER\_prior}, respectively. {\color{blue}Once the user does not want to include any priors, two arrays \texttt{UPPER\_prior} and \texttt{LOWER\_prior} need to be $0$.}
+%
+If the user gives the prior in model parameters, the order of each component follows with the setup of input for the probability engine. If the user gives the prior in oscillation parameters, the six components in order are $\theta_{12}$, $\theta_{13}$, $\theta_{23}$, $\delta$, $\Delta m_{21}^2$, and  $\Delta m_{31}^2$. The first four parameter are in \textbf{rad}, and the final two are in \textbf{eV$^2$}.
 
 Finally, some restrictions are imposed by the studied flavor symmetry model. We set up these restrictions in the function \texttt{model\_restriction} in \texttt{model-input.c}. In the function \texttt{model\_restriction}, the user needs to \textit{return $1$} once the restriction is broken. For example, if the normal ordering is imposed, we give ``\texttt{ if (DMS31<0) \{ return 1;\} } '' in \texttt{model\_restriction}, where \texttt{DMS31} is the variable for $\Delta m_{31}^2$. If there is no any restrictions, we simply \textit{return $0$} in \texttt{model\_restriction} as follows.\vspace{0.2cm}\\
 \texttt{double model\_restriction(double model [])\{ return 0;\} }\vspace{0.2cm}\\
@@ -205,7 +207,7 @@ Finally, some restrictions are imposed by the studied flavor symmetry model. We 
 
 
 The user can use \textbf{FaSE-GLoBES} to constrain model parameters. 
-Suppose we have the measurement $\vec{x}$ and the likelihood function $L(\vec{\theta})=P(\vec{x}|\vec{\theta})$ for a set of parameters $\vec{\theta}=(\theta_1,...,\theta_N)$, where $P(\vec{x}|\vec{\theta})$ is the probability function for data $\vec{x}$ in favour of the hypothesis $\vec{\theta}$. The constraint of model parameters can be obtained with the statistis parameter $\chi^2\equiv \ln L(\vec{\theta})$.
+Suppose we have the measurement $\vec{x}$ and the likelihood function $L(\vec{\theta}^{hyp})=P(\vec{x}|\vec{\theta}^{hyp})$ for a set of parameters $\vec{\theta}^{hyp}=(\theta_1,...,\theta_N)$, where $P(\vec{x}|\vec{\theta}^{hyp})$ is the probability function for data $\vec{x}$ in favour of the hypothesis $\vec{\theta}^{hyp}$. The constraint of model parameters can be obtained with the statistis parameter $\chi^2\equiv \ln L(\vec{\theta}^{hyp})$.
 The expression $\chi^2$ is used as the default \textbf{GLoBES} setting. In more detail, the $\chi^2$ function, following the Poisson distribution, is constructed based on a log-likelihood ratio,
 %\begin{equation}\label{eq:chi-squared}
 \begin{align}\label{eq:chi-squared}
@@ -213,7 +215,7 @@ The expression $\chi^2$ is used as the default \textbf{GLoBES} setting. In more 
 &+p(\xi_s,\sigma_s)+p(\xi_b,\sigma_b)+\chi^2_{prior},
 \end{align}
 %\end{equation}
-where $i$ runs over the number of bins, $\eta_i(\vec{\theta},\xi_s,\xi_b)$ is the assumed event rate in the $i$th bin and $E_i$ is the central value in this energy bin. The vector $\vec{\theta}$ consists of model or oscillation parameters. The parameters $\xi_s$ and $\xi_b$ are introduced to account for the systematic uncertainties in the normalisation for the signal (subscript $_s$) and background (subscript $_b$) components of the event rate, and are allowed to vary in the fit as nuisance parameters. For a given set of parameters $\vec{\theta}$, the event rate in the $i$th energy bin is calculated as\\
+where $i$ runs over the number of bins, $\eta_i(\vec{\theta},\xi_s,\xi_b)$ is the assumed event rate in the $i$th bin and $E_i$ is the central value in this energy bin. The vector $\vec{\theta}$ consists of model or oscillation parameters. The parameters $\xi_s$ and $\xi_b$ are introduced to account for the systematic uncertainties in the normalisation for the signal (subscript $_s$) and background (subscript $_b$) components of the event rate, and are allowed to vary in the fit as nuisance parameters. For a given set of parameters $\vec{\theta}^{hyp}$, the event rate in the $i$th energy bin is calculated as\\
 \begin{equation}
 \eta_i(\vec{\theta}^{hyp},\xi_s,\xi_b)=(1+\xi_s)\times s_i+(1+\xi_b)\times b_i,
 \end{equation}
@@ -308,7 +310,7 @@ m_\nu=&(\mu_1\hat{c}_R^2+\mu_2\hat{s}_R^{*2})\left(
 where $\hat{c}_R$ and $\hat{s}_R$ are $\cos\theta_R\times \mathrm{e}^{i\alpha_2}$ and $\sin\theta_R\times \mathrm{e}^{i\alpha_3}$, respectively. As $\omega$ is fixed at $-\frac{1}{2}+i\frac{\sqrt{3}}{2}$, this model has 5 model parameters: $\mu_1,~\mu_2,~\theta_R,~\alpha_2,~\alpha_3$.
 }
 
-{\color{blue}In the following, all examples are mainly presented for TDLS, except for Sec.~\ref{sec:ex_MT}. However, we remind the user that though we use TDLS as an example, \textbf{FaSE-GLoBES} should not be limited in any flavor model. We therefore in the \textbf{FaSE} distribution, show the warped flavor symmetry (WSF)~\cite{Chen:2015jta}, trimaximal mixing sum rule (TM1)~\cite{Albright:2008rp} as examples, which will not be further introduced in this manual. We summarise our examples for \textbf{FaSE-GLoBES} and references for those theoretical models in Tabl~\ref{tab:examples}. And in the rest of this section, we demonstrate the \textbf{example 1} and \textbf{example 4}. 
+{\color{blue}In the following, all examples are mainly presented for TDLS, except for Sec.~\ref{sec:ex_MT}. However, we remind the user that though we use these two models as examples, \textbf{FaSE-GLoBES} should not be limited in any flavor model. We therefore in the \textbf{FaSE} distribution, show the warped flavor symmetry (WSF)~\cite{Chen:2015jta}, trimaximal mixing sum rule (TM1)~\cite{Albright:2008rp} as examples, which will not be further introduced in this manual. We summarise our examples for \textbf{FaSE-GLoBES} and references for models themselves in Tabl~\ref{tab:examples}. And, in the rest of this section, we demonstrate the \textbf{example 1} and \textbf{example 4}. 
 }
 
 
@@ -385,7 +387,7 @@ The restrictions $m_a>0$ and $r>0$ need to be setup in \texttt{model\_restrictio
 \}\vspace{0.2cm}\\
 
 \subsection{Initialise the code}
-In the beginning of main code, we need to initialise \textbf{GLoBES} and \textbf{FaSE}, and to include the AEDL file for MOMENTas follows.\vspace{0.2cm}\\ 
+In the beginning of main code, we need to initialise \textbf{GLoBES} and \textbf{FaSE}, and to include the AEDL file for MOMENT as follows.\vspace{0.2cm}\\ 
 \texttt{glbInit(argv[0]);}\\
 \texttt{glbInitExperiment("exp/MOMENT\_FIX\_FLUX\_150KM\_addATM\_NC.glb",\&glb\_experiment\_list[0],}\\
 \texttt{\&glb\_num\_of\_exps);}\\
@@ -472,8 +474,8 @@ We show an example for how the model parameter can be constrained by MOMENT expe
     glbSetProjection(free);\\
     float res0=glbChiNP(true\_values,NULL,GLB\_ALL);\\ } \vspace{0.2cm}\\
 %
-The \textbf{GLoBES} projector \texttt{free} allows all model parameters to vary, in order to find the value of \texttt{res0}, which is for $\chi^2_{min}$.
-Then, we set two loops varying different values of $x$ and $\eta$ in $\vec{\theta}^{hyp}_{Model}$ to get $\Delta \chi^2$ values for different hypotheses. We note here there is degenerate solutions where $x\sim-8$, $\eta\sim1.8\pi$, $r\sim 0.1$, and $m_a\sim3.8$~meV. To find this degenerate solutions we set the entry with $r=0$.\vspace{0.2cm}\\
+The \textbf{GLoBES} projector \texttt{free} allows all model parameters to vary, in order to find the value of \texttt{res0}, which is $\chi^2_{min}$.
+Then, we set two loops varying different values of $x$ and $\eta$ in $\vec{\theta}^{hyp}_{Model}$ to get $\Delta \chi^2$ values for different hypotheses. We note here there is degenerate solutions where $x\sim-8$, $\eta\sim1.8\pi$, $r\sim 0.1$, and $m_a\sim3.8$~meV. To find this degenerate solutions we set the other entry with $r=0$.\vspace{0.2cm}\\
 %
 \texttt{     float x,eta,r,ma,dx,deta;\\
      float lower\_x,upper\_x,lower\_eta,upper\_eta;\\
@@ -493,7 +495,7 @@ Then, we set two loops varying different values of $x$ and $\eta$ in $\vec{\thet
                      \} fprintf(File,"$\backslash$n");\}\\
 }
 
-The \textbf{GLoBES} projector \texttt{projection} fixes values of $x$ and $\eta$, but allows the other parameters to vary. The output (\texttt{data/contraint\_x\_eta.dat}) is a set of $\Delta \chi^2(\vec{\theta}^{hyp})$ (the third column) values with the changed $x$ (the first column), $\eta$ (the second column). We use these data, and obtain the predicted $1\sigma$, $2\sigma$, and $3\sigma$ constraints of $x$ and $\eta$ by MOMENT shown in Fig.~\ref{fig:constraint}. The code for this example is provided as \textbf{x\_eta.c} in {\color{blue}\textbf{example1}} of the \textbf{FaSE} distribution.
+The \textbf{GLoBES} projector \texttt{projection} fixes values of $x$ and $\eta$, but allows the other parameters to vary. The output (\texttt{data/contraint\_x\_eta.dat}) is a set of $\Delta \chi^2(\vec{\theta}^{hyp})$ (the third column) values with the changed $x$ (the first column), $\eta$ (the second column). We use these data, and obtain the predicted $1\sigma$, $2\sigma$, and $3\sigma$ constraints of $x$ and $\eta$ by MOMENT shown in Fig.~\ref{fig:constraint}. {\color{blue}To get the result for DUNE, the user adopt the same way, but use different simulation package.} The code for this example is provided as \textbf{x\_eta.c} in {\color{blue}\textbf{example1}} of the \textbf{FaSE} distribution.
  
 %\begin{figure}[!h]
 % \flushleft
@@ -593,7 +595,7 @@ if(res>res2) res=res2; glbCopyParams(out2,out);
 % \caption{\label{fig:SR_2D}The 2-D exclusion contour for tri-direct littlest seesaw model on the plane of any two true standard parameters, from $1\sigma$ to $5\sigma$. The range for each parameter is taken according to the $3\sigma$ uncertainty in NuFit4.0 results. The black dot denotes the best fit of NuFit4.0 results ($(\theta_{12},~\theta_{13},~\theta_{23},~\delta,~\Delta m_{21}^2,~\Delta m_{31}^2)=(33.82^\circ,~8.61^\circ,~49.6^\circ,~215^\circ,~7.39\times10^{-5}~\text{eV}^2,~2.525\times10^{-3}~\text{eV}^2)$), while the star is the prediction by the tri-direct littlest seesaw model with NuFit4.0 results ($(\theta_{12},~\theta_{13},~\theta_{23},~\delta,~\Delta m_{21}^2,~\Delta m_{31}^2)\sim(36.25^\circ,~8.63^\circ,~47^\circ,~279^\circ,~7.39\times10^{-5}~\text{eV}^2,~2.525\times10^{-3}~\text{eV}^2)$).}
 %\end{figure}
 {\color{blue}We note that hoops for variables \texttt{alpha2\_text}, \texttt{alpha1\_test}, and switch the entry value of $\theta_R$ between $20^\circ$ and $40^\circ$ is for finding the degenerate solutions, according to Ref.~\cite{deMedeirosVarzielas:2019cyj}. }
-The output \texttt{data/S4Modular\_th23\_dCP\_test.dat} contains true values of $\theta_{23}$ (the first column) and $\delta$ (the second column) with $\chi^2_{min}$ for TDLS (the third column). With these data, we then have the results shown in Fig.~\ref{fig:th23_delta}.
+The output \texttt{data/S4Modular\_th23\_dCP\_test.dat} contains true values of $\theta_{23}$ (the first column) and $\delta$ (the second column) with $\chi^2_{min}$ for this $S_4$ modular model (the third column). With these data, we then have the results shown in Fig.~\ref{fig:th23_delta}. {\color{blue}To get the result for DUNE, the user adopt the same way, but use different simulation package.}
 
 %\section{Summary and conclusions }
 %{\color{red}[updating]} 
