@@ -1,3 +1,23 @@
+/*--------------------------------------------------------------------
+ This example is using TM1 sum rule as an example.
+ More details can be checked in arXiv:0812.0436[hep-ph]
+ The user using this model, should cite the reference:
+ 
+ @article{Albright:2008rp,
+ author = "Albright, Carl H. and Rodejohann, Werner",
+ title = "{Comparing Trimaximal Mixing and Its Variants with Deviations from Tri-bimaximal Mixing}",
+ eprint = "0812.0436",
+ archivePrefix = "arXiv",
+ primaryClass = "hep-ph",
+ reportNumber = "FERMILAB-PUB-08-535-T",
+ doi = "10.1140/epjc/s10052-009-1074-3",
+ journal = "Eur. Phys. J. C",
+ volume = "62",
+ pages = "599--608",
+ year = "2009"
+ }
+ -----------------------------------------------------------------------*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>

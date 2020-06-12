@@ -1,3 +1,23 @@
+/*--------------------------------------------------------------------
+This example is using a S4 modular flavour symmetry model
+as an example. More details can be checked in arXiv:1906.02208[hep-ph]
+The user using this model, should cite the reference:
+
+ @article{deMedeirosVarzielas:2019cyj,
+ author = "de Medeiros Varzielas, Ivo and King, Stephen F. and Zhou, Ye-Ling",
+ title = "{Multiple modular symmetries as the origin of flavor}",
+ eprint = "1906.02208",
+ archivePrefix = "arXiv",
+ primaryClass = "hep-ph",
+ doi = "10.1103/PhysRevD.101.055033",
+ journal = "Phys. Rev. D",
+ volume = "101",
+ number = "5",
+ pages = "055033",
+ year
+ }
+-----------------------------------------------------------------------*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>

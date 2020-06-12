@@ -1,3 +1,22 @@
+/*--------------------------------------------------------------------
+ This example is using the warped flavor symmetry model
+ as an example. More details can be checked in arXiv:1906.02208[hep-ph]
+ The user using this model, should cite the reference:
+ 
+ @article{Chen:2015jta,
+ author = "Chen, Peng and Ding, Gui-Jun and Rojas, Alma. D. and Vaquera-Araujo, C.A. and Valle, J.W.F.",
+ title = "{Warped flavor symmetry predictions for neutrino physics}",
+ eprint = "1509.06683",
+ archivePrefix = "arXiv",
+ primaryClass = "hep-ph",
+ reportNumber = "IFIC-15-XX",
+ doi = "10.1007/JHEP01(2016)007",
+ journal = "JHEP",
+ volume = "01",
+ pages = "007",
+ year = "2016"
+ }
+ -----------------------------------------------------------------------*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>

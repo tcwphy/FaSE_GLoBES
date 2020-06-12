@@ -1,3 +1,49 @@
+/*--------------------------------------------------------------------
+ This example is using littlest seesaw model for tri-direct approach
+ as an example. More details can be checked in arXiv:1304.6264[hep-ph],
+ arXiv:1512.07531[hep-ph] and arXiv:1607.05276[hep-ph].
+ The user using this model, should cite the references:
+ 
+ @article{King:2016yvg,
+ author = "King, Stephen F. and Luhn, Christoph",
+ title = "{Littlest Seesaw model from S$_{4} \times$ U(1)}",
+ eprint = "1607.05276",
+ archivePrefix = "arXiv",
+ primaryClass = "hep-ph",
+ reportNumber = "QFET-2016-12, SI-HEP-2016-20",
+ doi = "10.1007/JHEP09(2016)023",
+ journal = "JHEP",
+ volume = "09",
+ pages = "023",
+ year = "2016"
+ }
+ 
+ @article{King:2015dvf,
+ author = "King, Stephen F.",
+ title = "{Littlest Seesaw}",
+ eprint = "1512.07531",
+ archivePrefix = "arXiv",
+ primaryClass = "hep-ph",
+ doi = "10.1007/JHEP02(2016)085",
+ journal = "JHEP",
+ volume = "02",
+ pages = "085",
+ year = "2016"
+ }
+ 
+ @article{King:2013iva,
+ author = "King, Stephen F.",
+ title = "{Minimal predictive see-saw model with normal neutrino mass hierarchy}",
+ eprint = "1304.6264",
+ archivePrefix = "arXiv",
+ primaryClass = "hep-ph",
+ doi = "10.1007/JHEP07(2013)137",
+ journal = "JHEP",
+ volume = "07",
+ pages = "137",
+ year = "2013"
+ }
+ -----------------------------------------------------------------------*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
