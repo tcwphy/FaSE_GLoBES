@@ -1,7 +1,7 @@
 #!/usr/bin/gnuplot
 reset
 set terminal context color standalone size 12cm,9cm font ",17"
-set output 'MM_th23_dCP.tex'
+set output 'S4_th23_dCP.tex'
 set colorsequence classic
 
 set contour base             # Draw contours on the base plane

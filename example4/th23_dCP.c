@@ -83,7 +83,6 @@ int main(int argc, char *argv[])
     for (i=0;i<6;i++) {UPPER_prior[i]=fabs(UPPER_prior[i]-Central_prior[i])/3;
         LOWER_prior[i]=fabs(LOWER_prior[i]-Central_prior[i])/3;}
     
-//    for (i=0;i<6;i++) {UPPER_prior[i]=0; LOWER_prior[i]=0;}
     /* centers and input_errors will not be used, but need to be given in for central values
     and prior width. Otherwise, GLoBES will complain. */
     for (i=0; i<6; i++) glbSetOscParams(centers,0.1,i); glbSetDensityParams(centers,1.0,GLB_ALL); glbCopyParams(centers,input_errors);
@@ -93,11 +92,8 @@ int main(int argc, char *argv[])
     /*two loops for chi^2(x,eta)*/
     
     float th23,dCP,dth23,ddCP,lower_th23,upper_th23,lower_dCP,upper_dCP;
-FILE* File=fopen("data/MM_th23_dCP(DUNE)_v3.dat", "w");
-//    FILE* File=fopen("data/MM_th23_dCP(MOMENT)_no_prior_2.dat", "w");
+    FILE* File=fopen("data/S4_th23_dCP(MOMENT).dat", "w");
     lower_th23=40; upper_th23=52.5; lower_dCP=125; upper_dCP=395;
-//    dth23=(upper_th23-lower_th23)/50; ddCP=(upper_dCP-lower_dCP)/50;
-//    lower_th23=40; upper_th23=53; lower_dCP=220; upper_dCP=340;
     dth23=.5; ddCP=5.;
 
     int dof=1;
@@ -129,10 +125,6 @@ FILE* File=fopen("data/MM_th23_dCP(DUNE)_v3.dat", "w");
         if(res>res2) res=res2; glbCopyParams(out2,out);
        }}
  
- 
-//                float res=glbChiNP(test_values,out,GLB_ALL);
-//        printf("%f %f %f %f\n",th23,dCP,gsl_cdf_chisq_Qinv(gsl_cdf_chisq_Q(fabs(res),dof),1),res);
-//        printf("%f %f %f %g %g %g %g %g \n",th23,dCP,gsl_cdf_chisq_Qinv(gsl_cdf_chisq_Q(fabs(res),dof),1),glbGetOscParams(out,0),glbGetOscParams(out,1),glbGetOscParams(out,2)/degree,glbGetOscParams(out,3)/degree,glbGetOscParams(out,4)/degree);
         fprintf(File,"%f %f %f\n",th23,dCP,gsl_cdf_chisq_Qinv(gsl_cdf_chisq_Q(fabs(res),dof),1));
          } fprintf(File,"\n");
     }

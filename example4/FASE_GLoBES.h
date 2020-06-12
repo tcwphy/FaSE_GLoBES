@@ -49,10 +49,10 @@ int N_in;
 static double mq[3];
 int    PARA,PARA_in,ran,ran_in,n_ram,FIT,PRIOR;
 double x_in,eta_in,r_in,ma_in;
-double UPPER_prior[6],LOWER_prior[6],Central_prior[6];
 
+double UPPER_prior[6],LOWER_prior[6],Central_prior[6];
 int STAN_OSC(double complex M[], double output[6]);
-int ModelTO( double OSC_PARAMS[6],double M_para[]);
+int STAN_OSC_U(double complex U[], double out[6]);
 inline double square(double x);
 int sinsq(double complex U[], double * a);
 int glb_free_probability_engine();
