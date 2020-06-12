@@ -13,7 +13,6 @@
 #include <gsl/gsl_vector.h>
 #include "model-input.h"
 
-/*#define GLB_NU_FLAVOURS 3*/
 #define GLB_SIGMA_E 6        /* Index of non-standard parameter sigma_E */
 #define GLB_ETA 0
 #define GLB_MA 1
@@ -50,10 +49,10 @@ int N_in;
 static double mq[3];
 int    PARA,PARA_in,ran,ran_in,n_ram,FIT,PRIOR;
 double x_in,eta_in,r_in,ma_in;
-
 double UPPER_prior[6],LOWER_prior[6],Central_prior[6];
+
 int STAN_OSC(double complex M[], double output[6]);
-int STAN_OSC_U(double complex U[], double out[6]);
+int ModelTO( double OSC_PARAMS[6],double M_para[]);
 inline double square(double x);
 int sinsq(double complex U[], double * a);
 int glb_free_probability_engine();

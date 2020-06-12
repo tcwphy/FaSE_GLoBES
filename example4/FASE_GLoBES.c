@@ -49,8 +49,6 @@ struct glb_projection_type {
     glb_density_proj_type *density;
 };
 
-//typedef struct OSC_PARAMS { double theta12; double theta13; double theta23; double delta; double alpha21; double alpha31; double Dm21; double Dm31; double m3; double m2; double m1; } OSC_PARAMS;
-
 /* Interface for non-standard implementations of the probability engine */
 int glb_oscp;
 glb_probability_matrix_function glb_hook_probability_matrix;
@@ -84,14 +82,15 @@ int STAN_OSC(double complex M[], double out[6])
     cblas_zgemm (CblasRowMajor, CblasConjTrans, CblasNoTrans, 3, 3, 3, &alpha, M, 3, M, 3, &beta, MMsquare, 3); //eq 4.5 page 107 Giunti
     
     
+    
+    
     gsl_matrix_complex *MM = gsl_matrix_complex_alloc(3, 3);
     int i,j;
     for(i=0;i<3;i++)
     {
         for(j=0;j<3;j++)
         {
-            //            gsl_matrix_complex_set(MM, i, j, gsl_complex_rect(creal(M[i*3+j]),cimag(M[i*3+j])));
-            gsl_matrix_complex_set(MM, i, j, gsl_complex_rect(creal(MMsquare[i*3+j]),cimag(MMsquare[i*3+j])));
+           gsl_matrix_complex_set(MM, i, j, gsl_complex_rect(creal(MMsquare[i*3+j]),cimag(MMsquare[i*3+j])));
         }
     }
     
@@ -133,33 +132,13 @@ int STAN_OSC(double complex M[], double out[6])
     double m2=   sqrt(gsl_vector_get(eval,1));
     double m3=   sqrt(gsl_vector_get(eval,2));
     
-    
     out[0]=the12; out[1]=the13; out[2]=the23;
     out[3]=dCP;   out[4]=gsl_vector_get(eval,1)-gsl_vector_get(eval,0);
-    out[5]=gsl_vector_get(eval,1)-gsl_vector_get(eval,0);
+    out[5]=gsl_vector_get(eval,2)-gsl_vector_get(eval,0);
     
     return 0;
 }
 
-
-int STAN_OSC_U(double complex U[], double out[4])
-{
-    
-    double s13 = cabs(U[2]);       double the13=asin(s13);
-    double t12 = cabs(U[1])/cabs(U[0]);           double the12=atan(t12);
-    double t23 = cabs(U[5])/cabs(U[8]);           double the23=atan(t23);
-    
-    double s12=sin(the12);
-    double c12=cos(the12);
-    double s23=sin(the23);
-    double c13=cos(the13);
-    double dCP=carg(U[1]*conj(U[2])*conj(U[4])*U[5]+s12*s12*s13*s13*c13*c13*s23*s23);
-    
-    out[0]=the12; out[1]=the13; out[2]=the23;
-    out[3]=dCP;
-    
-    return 0;
-}
 
 
 
@@ -919,11 +898,14 @@ double FASE_prior_OSC(const glb_params in, void* user_data) /*the prior is alway
         MtoS(osc_para, M_para);
 //         printf("in OSC %g %g %g %g %g %g\n",osc_para[0],osc_para[1],osc_para[2],osc_para[3],osc_para[4],osc_para[5]);
 //        printf("")
-            if (model_restriction(M_para)==1) return 1e8;
-        
+//        printf("in prior OSC %g %g %g %g %g %g\n",osc_para[0],osc_para[1],osc_para[2],osc_para[3],osc_para[4],osc_para[5]);
+
+//        if (model_restriction(M_para)==1) {printf("in\n"); return 1e8;}
+          if (model_restriction(M_para)==1) {return 1e8;}
        }
     else{for(i=0;i<6;i++) osc_para[i] = glbGetOscParams(in,i);}
 
+    
     for(i=0;i<6;i++){
         fitvalue=osc_para[i]; centralvalue=Central_prior[i];
         if(i==3){
@@ -983,3 +965,4 @@ double FASE_prior_model(const glb_params in, void* user_data)
     glbFreeParams(input_errors);
     return pv;
 }
+

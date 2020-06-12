@@ -1,7 +1,7 @@
 #!/usr/bin/gnuplot
 reset
 set terminal context color standalone size 12cm,9cm font ",17"
-set output 'MM_th23_dCP.tex'
+set output 'TM1_th23_dCP.tex'
 set colorsequence classic
 
 set contour base             # Draw contours on the base plane
@@ -14,8 +14,6 @@ set xtics offset 0,0.8
 set ytics offset -29.5
 set xlabel "True $\\theta_{23}$ [$^\\circ$]" offset 0,.6
 set label "True $\\delta$ [$^\\circ$]" at graph -0.26, 0.25 rotate by 90
-unset ztics
-
 
 set label at 49.6,215 " " point pointtype 3 lc 0 pointsize 2.
 set label "G.F. " at 50,215 left
@@ -26,9 +24,11 @@ set label "MOMENT" at 45.5,198 right
 #set label "DUNE" at 45.5,170 right
 set label "$99\\%$ C.L." at 41,145 left
 
-set label "$S_4$ Modular" at 41,360 left
+set label "TM1" at 41,360 left
+
+unset ztics
 
 
+splot [40.3:53][125:392] "TM1_th23_dCP(MOMENT).dat" u 1:2:3 w l lt 6 lw 2 notitle
 
 
-splot [40.:53][125:392] "MM_th23_dCP(MOMENT).dat" u 1:2:3 w l lt 6 lw 2 notitle
