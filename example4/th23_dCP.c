@@ -17,8 +17,7 @@ int main(int argc, char *argv[])
 {
     /* Initialize libglobes */
     glbInit(argv[0]);
-    glbInitExperiment("exp/DUNE_GLoBES.glb",&glb_experiment_list[0],&glb_num_of_exps);
-//    glbInitExperiment("exp/MOMENT_FIX_FLUX_150KM_addATM_NC.glb",&glb_experiment_list[0],&glb_num_of_exps);
+    glbInitExperiment("exp/MOMENT_FIX_FLUX_150KM_addATM_NC.glb",&glb_experiment_list[0],&glb_num_of_exps);
     /*Initialize FASE*/
     MODEL_init(5);
     

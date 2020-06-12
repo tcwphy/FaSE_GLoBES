@@ -45,15 +45,15 @@ local_CFLAGS = -g -O4
 INCFLAGS:=$(shell $(globesconf) --include)
 local_LDFLAGS:=$(shell $(globesconf) --libs)
 local_LTLDFLAGS:=$(shell $(globesconf) --ltlibs)
-
+FaSE = FASE_GLoBES.o model-input.o
 
 BIN = x_eta.o 
 OBJ = x_eta.o FASE_GLoBES.o model-input.o
 
 all: $(BIN)
 
-x_eta: x_eta_NT.o  $(FaSE)
-	gcc x_eta_NT.o  $(FaSE) -o x_eta  $(LDFLAGS) $(local_LDFLAGS)
+x_eta: x_eta.o  $(FaSE)
+	gcc x_eta.o  $(FaSE) -o x_eta  $(LDFLAGS) $(local_LDFLAGS)
 
 
 %.o : %.c
