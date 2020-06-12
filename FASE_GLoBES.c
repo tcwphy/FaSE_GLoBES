@@ -1,3 +1,10 @@
+/*Probability engine for a given flavour symmetry,
+which needs to be given in model-input.c. This code
+using output oscillation parameter values from
+model-input.c, compute the probability spectra and
+the prior value. This code is based on the default
+GLoBES probability engine.
+---------------------------------------------- */
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
