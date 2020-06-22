@@ -36,7 +36,7 @@ The user using this model, should cite the reference:
 #include <gsl/gsl_cblas.h>
 #include <gsl/gsl_eigen.h>
 #include <gsl/gsl_vector.h>
-#include "FASE_GLoBES.h"
+#include "FaSE_GLoBES.h"
 int N_M;
 
 double MODEL_init(int N) /*initialise the model-input*/

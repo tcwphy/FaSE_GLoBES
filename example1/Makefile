@@ -48,7 +48,7 @@ local_LTLDFLAGS:=$(shell $(globesconf) --ltlibs)
 FaSE = FASE_GLoBES.o model-input.o
 
 BIN = x_eta.o 
-OBJ = x_eta.o FASE_GLoBES.o model-input.o
+OBJ = x_eta.o FaSE_GLoBES.o model-input.o
 
 all: $(BIN)
 

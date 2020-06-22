@@ -20,7 +20,7 @@
 #include <gsl/gsl_eigen.h>
 #include <gsl/gsl_vector.h>
 #include <globes/globes.h>   /* GLoBES library */
-#include"FASE_GLoBES.h"
+#include"FaSE_GLoBES.h"
 #include"model-input.h"
 
 extern char **glb_param_names;

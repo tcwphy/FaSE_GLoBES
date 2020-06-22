@@ -6,7 +6,7 @@
 #include <float.h>
 #include <gsl/gsl_cdf.h>
 #include <globes/globes.h>   /* GLoBES library */
-#include "FASE_GLoBES.h"
+#include "FaSE_GLoBES.h"
 #include "model-input.h"
 
 /***************************************************************************

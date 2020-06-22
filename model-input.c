@@ -15,7 +15,7 @@
 #include <gsl/gsl_cblas.h>
 #include <gsl/gsl_eigen.h>
 #include <gsl/gsl_vector.h>
-#include "FASE_GLoBES.h"
+#include "FaSE_GLoBES.h"
 /* Macros */
 int N_M;
 

@@ -5,7 +5,7 @@
 #include <complex.h>
 #include <float.h>
 #include <globes/globes.h>   /* GLoBES library */
-#include "FASE_GLoBES.h"
+#include "FaSE_GLoBES.h"
 #include "model-input.h"
 
 /***************************************************************************

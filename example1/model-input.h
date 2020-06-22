@@ -8,13 +8,9 @@
 #include <gsl/gsl_complex_math.h>
 #include <gsl/gsl_matrix.h>
 #include <gsl/gsl_blas.h>
-//#include <gsl/gsl_statistics.h>
-//#include <gsl/gsl_rng.h>
-//#include <gsl/gsl_randist.h>
 #include <gsl/gsl_cblas.h>
 #include <gsl/gsl_eigen.h>
 #include <gsl/gsl_vector.h>
-//#include "FASE_GLoBES.h"
 
 int N_M;
 /******************************************the user-defined relation*/

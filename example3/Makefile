@@ -46,7 +46,7 @@ local_CFLAGS = -g -O4
 INCFLAGS:=$(shell $(globesconf) --include)
 local_LDFLAGS:=$(shell $(globesconf) --libs)
 local_LTLDFLAGS:=$(shell $(globesconf) --ltlibs)
-FaSE = FASE_GLoBES.o model-input.o
+FaSE = FaSE_GLoBES.o model-input.o
 
 
 BIN = th23_dCP
