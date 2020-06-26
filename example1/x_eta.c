@@ -1,3 +1,4 @@
+/* compile this code with "make x_eta" */
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>

@@ -1,3 +1,4 @@
+/* compile this code with "make th23_dCP" */
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>

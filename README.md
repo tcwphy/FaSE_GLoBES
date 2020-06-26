@@ -1,11 +1,11 @@
 # FaSE_GLoBES
 This package serves to provide a toolkit for GLoBES to check the general flavor-symmetry models.
 Two c-codes are included in this package: 'FaSE_GLoBES.c' and 'model-input.c'. The user just
-includes these two files to compile the code. The function of 'FaSE_GLoBES.c' is to simulate the
-probability profile and the prior value for those oscillation parameters, transilated from the model
+includes their binary files to compile the code. The function of 'FaSE_GLoBES.c' is to simulate the
+probability profile and the prior value for those oscillation parameters, translated from the model
 parameter given by the user. All the input from users, including model set up and any restrictions
-on model parameters, should be put in 'model-input.c'. More introductions can be see the user
+on model parameters, should be put in 'model-input.c'. More details can be see the user
 maunal in '/doc/FaSE_GLoBES.pdf'.
 
-If the user have any comments or meet any problems, please contact us:
+If the user have any problems, suggestions, or comments, please contact us:
 Jian Tang 'tangjian5@mail.sysu.edu.cn'  &    TseChun Wang 'tcwphy@gmail.com'

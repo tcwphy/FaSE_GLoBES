@@ -1,4 +1,7 @@
-#!/usr/bin/gnuplot
+###############################################################
+#use this gnuplot script with commend "gnuplot theta_phi.gnuplot"
+#then context the output tex file by "context theta_phi.tex"
+###############################################################
 reset
 set terminal context color standalone size 12cm,9cm font ",17"
 set output 'theta_phi.tex'

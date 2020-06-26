@@ -1,3 +1,4 @@
+/* compile this code with "make theta_phi" */
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
