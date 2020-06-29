@@ -7,5 +7,8 @@ parameter given by the user. All the input from users, including model set up an
 on model parameters, should be put in 'model-input.c'. More details can be see the user
 maunal in '/doc/FaSE_GLoBES.pdf'.
 
+For users who are usingg GLoBES for the first time, please visit GLoBES website:
+'https://www.mpi-hd.mpg.de/personalhomes/globes/'
+
 If the user have any problems, suggestions, or comments, please contact us:
 Jian Tang 'tangjian5@mail.sysu.edu.cn'  &    TseChun Wang 'tcwphy@gmail.com'
