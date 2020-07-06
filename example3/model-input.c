@@ -16,6 +16,19 @@
  pages = "599--608",
  year = "2009"
  }
+ 
+ @article{Xing:2006ms,
+ author = "Xing, Zhi-zhong and Zhou, Shun",
+ title = "{Tri-bimaximal Neutrino Mixing and Flavor-dependent Resonant Leptogenesis}",
+ eprint = "hep-ph/0607302",
+ archivePrefix = "arXiv",
+ doi = "10.1016/j.physletb.2007.08.009",
+ journal = "Phys. Lett. B",
+ volume = "653",
+ pages = "278--287",
+ year = "2007"
+ }
+ 
  -----------------------------------------------------------------------*/
 
 #include <stdio.h>
