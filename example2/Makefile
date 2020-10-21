@@ -52,7 +52,7 @@ local_LTLDFLAGS:=$(shell $(globesconf) --ltlibs)
 
 BIN = theta_phi
 
-OBJ = theta_phi.o FASE_GLoBES.o model-input.o
+OBJ = theta_phi.o FaSE_GLoBES.o model-input.o
 
 FaSE = FaSE_GLoBES.o model-input.o
 
