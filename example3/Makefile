@@ -50,7 +50,7 @@ FaSE = FaSE_GLoBES.o model-input.o
 
 
 BIN = th23_dCP
-OBJ = th23_dCP.o FASE_GLoBES.o model-input.o
+OBJ = th23_dCP.o FaSE_GLoBES.o model-input.o
 
 all: $(BIN)
 
