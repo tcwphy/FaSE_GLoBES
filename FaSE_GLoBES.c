@@ -143,7 +143,7 @@ int STAN_OSC(double complex M[], double out[6])
     
     out[0]=the12; out[1]=the13; out[2]=the23;
     out[3]=dCP;   out[4]=gsl_vector_get(eval,1)-gsl_vector_get(eval,0);
-    out[5]=gsl_vector_get(eval,1)-gsl_vector_get(eval,0);
+    out[5]=gsl_vector_get(eval,2)-gsl_vector_get(eval,0);
     
     return 0;
 }
