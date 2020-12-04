@@ -145,6 +145,11 @@ int STAN_OSC(double complex M[], double out[6])
     out[3]=dCP;   out[4]=gsl_vector_get(eval,1)-gsl_vector_get(eval,0);
     out[5]=gsl_vector_get(eval,2)-gsl_vector_get(eval,0);
     
+    gsl_vector_free (eval);
+    gsl_matrix_complex_free (evec);
+    gsl_matrix_complex_free (MM);
+    gsl_eigen_hermv_free(w);
+    
     return 0;
 }
 
